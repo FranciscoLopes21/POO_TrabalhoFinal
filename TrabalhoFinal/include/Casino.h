@@ -11,12 +11,20 @@ class Casino
 {
     string nome;
     list<Maquina *> LM;
+    list<Maquina *> LM_Avariadas;
+    list<int> Lt;
+
 
     public:
-        Casino();
+        Casino(string _nome = "Casino Solverde");
         virtual ~Casino();
+        string getNome();
         void Run();
         void Menu();
+        void maquinaAvariada();
+        void maquinaGanhos();
+        void reparar();
+        void registarMaquina();
 
     protected:
 

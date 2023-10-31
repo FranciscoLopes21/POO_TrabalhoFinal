@@ -6,8 +6,9 @@ using namespace std;
 int main()
 {
     Casino CS;
+    string nomeCasino = CS.getNome();
+    cout << "Bem-Vindo ao " << nomeCasino << "!!!" << endl;
 
     CS.Run();
-    cout << "Hello world!" << endl;
     return 0;
 }
