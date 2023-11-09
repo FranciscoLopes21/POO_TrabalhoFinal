@@ -5,8 +5,10 @@
 using namespace std;
 #include <string>
 #include <list>
+#include "pugixml.hpp"
 
 /*TODO
+    Casino::Casino (string nome) *
     Fazer função de reparar máquina
     Listar Maquinas avariadas
     Listar maquina com mais ganhos
@@ -30,6 +32,24 @@ Casino::~Casino()
            delete (*it);
 }
 
+void Casino::CarregarDados(int _maxJogadores, int _probabilidadeUser, int _horaAbertura, int _horaFecho)
+{
+
+    maxJogadores = _maxJogadores;
+    probabilidadeUser = _probabilidadeUser;
+    horaAbertura = _horaAbertura;
+    horaFecho = _horaFecho;
+
+}
+
+void Casino::dadosCasino() {
+    cout << "Nome do Casino: " << nome << endl;
+    cout << "Máximo de Jogadores: " << maxJogadores << endl;
+    cout << "Probabilidade de Usuários: " << probabilidadeUser << endl;
+    cout << "Hora de Abertura: " << horaAbertura << endl;
+    cout << "Hora de Encerramento: " << horaFecho << endl;
+}
+
 //Funções
 
 void Casino::Run(){
@@ -51,6 +71,12 @@ void Casino::Run(){
 
 }
 
+bool Casino::Add(Maquina *m){
+
+    LM.push_back(m);
+    return true;
+}
+
 void Casino::Menu(){
 
     int op = 0;
@@ -58,28 +84,35 @@ void Casino::Menu(){
     do {
         // code block to be executed
         cout<< "Menu" <<endl;
-        cout<< "1- Maquinas Avariadas" <<endl;
-        cout<< "2- Maquina mais ganhos" <<endl;
-        cout<< "3- Reparar" <<endl;
-        cout<< "4- Registar Maquina" <<endl;
+        cout<< "1- Dados Casino" <<endl;
+        cout<< "2- Adicionar Máquina" <<endl;
+        cout<< "3- Maquinas Avariadas" <<endl;
+        cout<< "4- Maquina mais ganhos" <<endl;
+        cout<< "5- Reparar" <<endl;
 
         cin >> op;
 
         switch(op){
 
         case 1:
-            cout<< "Maquinas Avariadas" <<endl;
+            cout<< "Dados Casino" <<endl;
+            dadosCasino();
+            //Add();
             //maquinaAvariada();
             break;
         case 2:
+            cout<< "Maquinas Avariadas" <<endl;
+            //maquinaAvariada();
+            break;
+        case 3:
             cout<< "Maquina mais ganhos" <<endl;
             //maquinaGanhos();
             break;
-        case 3:
+        case 4:
             cout<< "Reparar" <<endl;
             //reparar();
             break;
-        case 4:
+        case 5:
             cout<< "Registar Maquina" <<endl;
             //registarMaquina();
             break;
@@ -88,7 +121,7 @@ void Casino::Menu(){
 
         }
     }
-    while (op != 0);
+    while (op != 9);
 
 }
 

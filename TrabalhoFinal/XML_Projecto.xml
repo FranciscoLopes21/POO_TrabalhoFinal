@@ -1,0 +1,35 @@
+<DADOS>
+	<DEFINICOES>
+		<NOME>Casino Figueira </NOME>
+		<MAX_JOG>50</MAX_JOG>
+		<PROB_USER>5</PROB_USER>
+		<HORA_INICIO>22</HORA_INICIO>
+		<HORA_FIM>26</HORA_FIM>
+	</DEFINICOES>
+	<LISTA_MAQ>
+		<MAQUINA>
+			<NOME>Flippers</NOME>
+			<PROB_G>10</PROB_G>
+			<PREMIO>50</PREMIO>
+			<X>10</X>
+			<Y>20</Y>
+			<TEMP_AVISO>70</TEMP_AVISO>			
+		</MAQUINA>
+		<MAQUINA>
+			<NOME>Maq. Rafa</NOME>
+			<PROB_G>1</PROB_G>
+			<PREMIO>60</PREMIO>
+			<X>50</X>
+			<Y>20</Y>	
+			<TEMP_AVISO>50</TEMP_AVISO>			
+		</MAQUINA>
+		<MAQUINA>
+			<NOME>Maq?</NOME>
+			<PROB_G>1</PROB_G>
+			<PREMIO>60</PREMIO>
+			<X>50</X>
+			<Y>30</Y>
+			<TEMP_AVISO>80</TEMP_AVISO>						
+		</MAQUINA>	
+	</LISTA_MAQ>
+</DADOS>

@@ -1,9 +1,12 @@
 #include "Maquina.h"
 
-Maquina::Maquina()
+Maquina::Maquina(int _nM, int _prob, string _nome)
 {
     //ctor
     temperaturaSensor = 0;
+    nMaquina = _nM;
+    prob = _prob;
+    nome = _nome;
 }
 
 Maquina::~Maquina()
@@ -22,6 +25,8 @@ void Maquina::Run(){
     }
 
 }
+
+
 
 bool Maquina::verificaEstado()
 {

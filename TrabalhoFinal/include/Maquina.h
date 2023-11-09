@@ -7,13 +7,16 @@ using namespace std;
 
 class Casino;
 
+enum estadoMaquina{ON, OFF, AVARIADA};
+
 class Maquina
 {
+    int nMaquina;
     string nome;
-    string tipo;
     string x;
     string y;
     int ganhos;
+    int prob;
 
     bool estado;
     int temperaturaSensor;
@@ -23,7 +26,7 @@ class Maquina
     bool verificaEstado();
     void Run();
     public:
-        Maquina();
+        Maquina(int _nM, int _prob, string _nome);
         virtual ~Maquina();
 
     protected:

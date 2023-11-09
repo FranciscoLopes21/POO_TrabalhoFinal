@@ -35,10 +35,20 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="include/Casino.h" />
+		<Unit filename="include/MBlackJack.h" />
+		<Unit filename="include/MPoker.h" />
+		<Unit filename="include/MRoleta.h" />
+		<Unit filename="include/MSlot.h" />
 		<Unit filename="include/Maquina.h" />
+		<Unit filename="include/User.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Casino.cpp" />
+		<Unit filename="src/MBlackJack.cpp" />
+		<Unit filename="src/MPoker.cpp" />
+		<Unit filename="src/MRoleta.cpp" />
+		<Unit filename="src/MSlot.cpp" />
 		<Unit filename="src/Maquina.cpp" />
+		<Unit filename="src/User.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
