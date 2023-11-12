@@ -32,8 +32,14 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add option="-std=gnu++11" />
+			<Add option="-std=c++11" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Linker>
+			<Add library="C:/Users/franc/Downloads/pugixml-1.14/pugixml-1.14/src/pugixml.cpp" />
+			<Add library="C:/Users/franc/Downloads/pugixml-1.14/pugixml-1.14/src/pugixml.hpp" />
+		</Linker>
 		<Unit filename="include/Casino.h" />
 		<Unit filename="include/MBlackJack.h" />
 		<Unit filename="include/MPoker.h" />
@@ -41,6 +47,7 @@
 		<Unit filename="include/MSlot.h" />
 		<Unit filename="include/Maquina.h" />
 		<Unit filename="include/User.h" />
+		<Unit filename="include/XMLReader.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Casino.cpp" />
 		<Unit filename="src/MBlackJack.cpp" />
@@ -49,6 +56,7 @@
 		<Unit filename="src/MSlot.cpp" />
 		<Unit filename="src/Maquina.cpp" />
 		<Unit filename="src/User.cpp" />
+		<Unit filename="src/XMLReader.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

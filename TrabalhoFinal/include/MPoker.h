@@ -3,12 +3,12 @@
 
 #include <Maquina.h>
 
+
 class MPoker : public Maquina
 {
-    int nMaquina;
-    int prob;
+
     public:
-        MPoker(int _nM, int _prob);
+        MPoker(int _id, const std::string& _nome, int _x, int _y, int _premio, int _prob, const std::string& _tipo);
         virtual ~MPoker();
 
     protected:

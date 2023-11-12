@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "pugixml.hpp"
+#include "Casino.h"
 
 using namespace std;
 
@@ -34,3 +35,4 @@ bool XMLReader::LoadCasinoData(const string& filename, string& nome, int& maxJog
 
     return true;
 }
+

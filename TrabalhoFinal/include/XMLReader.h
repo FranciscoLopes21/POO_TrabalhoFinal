@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 #include "pugixml.hpp"
+#include "Casino.h"
 
 using namespace std;
 
@@ -12,7 +13,6 @@ class XMLReader
         XMLReader();
         virtual ~XMLReader();
         static bool LoadCasinoData(const string& filename, string& nome, int& maxJogadores, int& probabilidadeUser, int& horaAbertura, int& horaFecho);
-
     protected:
 
     private:

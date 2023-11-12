@@ -25,6 +25,8 @@ class Casino
         Casino(string _nome);
         void CarregarDados(int _maxJogadores, int _probabilidadeUser,int _horaAbertura, int _horaFecho);
         void dadosCasino();
+        bool LoadMachinesFromXML(const string& xmlFile);
+        void ListMachines() const;
         virtual ~Casino();
         string getNome();
         void Run();
@@ -34,6 +36,9 @@ class Casino
         void maquinaGanhos();
         void reparar();
         void registarMaquina();
+        void Desligar(int id_maq);
+        estadoMaquina Get_Estado(int id_maq);
+        string estadoString(estadoMaquina estadoma);
 
     protected:
 

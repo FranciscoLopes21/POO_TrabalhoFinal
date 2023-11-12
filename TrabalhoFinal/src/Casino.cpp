@@ -6,6 +6,11 @@ using namespace std;
 #include <string>
 #include <list>
 #include "pugixml.hpp"
+#include "XMLReader.h"
+#include "MBlackJack.h"
+#include "MPoker.h"
+#include "MRoleta.h"
+#include "MSlot.h"
 
 /*TODO
     Casino::Casino (string nome) *
@@ -50,6 +55,46 @@ void Casino::dadosCasino() {
     cout << "Hora de Encerramento: " << horaFecho << endl;
 }
 
+
+bool Casino::LoadMachinesFromXML(const string& filename) {
+
+    pugi::xml_document doc;
+    pugi::xml_parse_result result = doc.load_file(filename.c_str());
+
+    if (!result) {
+        cerr << "Erro ao carregar o arquivo XML: " << result.description() << endl;
+        return false;
+    }
+
+
+    pugi::xml_node listaMaq = doc.child("DADOS").child("LISTA_MAQ");
+
+    for (pugi::xml_node maquina = listaMaq.child("MAQUINA"); maquina; maquina = maquina.next_sibling("MAQUINA")) {
+        int id = maquina.child("ID").text().as_int();
+        string nome = maquina.child("NOME").text().get();
+        int x = maquina.child("X").text().as_int();
+        int y = maquina.child("Y").text().as_int();
+        int premio = maquina.child("PREMIO").text().as_int();
+        int probG = maquina.child("PROB_G").text().as_int();
+        string tipo = maquina.child("TIPO").text().get();
+
+        Maquina* m = nullptr;
+
+        if (tipo == "slot") {
+            m = new MSlot(id, nome, x, y, premio, probG, tipo);
+        } else if (tipo == "poker") {
+            m = new MPoker(id, nome, x, y, premio, probG, tipo);
+        }
+
+        // Adiciona a máquina ao vetor do Casino
+        Add(m);
+
+    }
+
+    return true; // Indica que a leitura foi bem-sucedida
+}
+
+
 //Funções
 
 void Casino::Run(){
@@ -57,12 +102,10 @@ void Casino::Run(){
     int ciclo =1;
     char key;
     while(true){
-
-        if(_kbhit){
+        cout<< "Menu" <<endl;
+        if (_kbhit()) { // Correção: Chame _kbhit como uma função
             key = _getch();
-            if(key =='m' || key == 'M'){
-
-                //openmenu();
+            if (key == 'm' || key == 'M') {
                 Menu();
             }
         }
@@ -77,6 +120,31 @@ bool Casino::Add(Maquina *m){
     return true;
 }
 
+void Casino::Desligar(int id_maq) {
+
+   for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
+        if((*it)->getID() == id_maq){
+            (*it)->Desligar();
+            cout << "Máquina desligada." << endl;
+            return;
+        }
+
+    }
+    cout << "Máquina não encontrada." << endl;
+}
+
+estadoMaquina Casino::Get_Estado(int id_maq) {
+
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
+        if((*it)->getID() == id_maq){
+            return (*it)->getEstado();
+        }
+
+    }
+    cout << "Máquina não encontrada." << endl;
+    return estadoMaquina::OFF;
+}
+
 void Casino::Menu(){
 
     int op = 0;
@@ -89,6 +157,8 @@ void Casino::Menu(){
         cout<< "3- Maquinas Avariadas" <<endl;
         cout<< "4- Maquina mais ganhos" <<endl;
         cout<< "5- Reparar" <<endl;
+        cout<< "7- Desligar máquina" <<endl;
+        cout<< "8- Estado Máquina" <<endl;
 
         cin >> op;
 
@@ -102,6 +172,7 @@ void Casino::Menu(){
             break;
         case 2:
             cout<< "Maquinas Avariadas" <<endl;
+            ListMachines();
             //maquinaAvariada();
             break;
         case 3:
@@ -116,6 +187,18 @@ void Casino::Menu(){
             cout<< "Registar Maquina" <<endl;
             //registarMaquina();
             break;
+        case 7:
+            cout<< "Desligar Máquina" <<endl;
+            int nMaquina;
+            cin >> nMaquina;
+            Desligar(nMaquina);
+            break;
+        case 8:
+            cout << "Pesquisar máquina" << endl;
+            int idMaquina;
+            cin >> idMaquina;
+            estadoString(Get_Estado(idMaquina));
+            break; // Este break é necessário para corrigir o erro
         case 0:
             break;
 
@@ -124,6 +207,27 @@ void Casino::Menu(){
     while (op != 9);
 
 }
+
+string Casino::estadoString(estadoMaquina estadoma){
+    string estadoString;
+    switch (estadoma) {
+        case ON:
+            estadoString = "ON";
+            break;
+        case OFF:
+            estadoString = "OFF";
+            break;
+        case AVARIADA:
+            estadoString = "AVARIADA";
+            break;
+        default:
+            estadoString = "Unknown";
+            break;
+    }
+
+    std::cout  << " | Estado: " << estadoString << std::endl;
+}
+
 
 void Casino::maquinaAvariada(){
 
@@ -140,6 +244,12 @@ void Casino::reparar(){
 void Casino::registarMaquina(){
 
 
+}
+
+void Casino::ListMachines() const {
+    for (const auto& maquina : LM) {
+        maquina->DisplayInfo();
+    }
 }
 
 

@@ -3,12 +3,12 @@
 
 #include <Maquina.h>
 
+
 class MSlot : public Maquina
 {
-    int nMaquina;
-    int prob;
+
     public:
-        MSlot(int _nM, int _prob);
+        MSlot(int _id, const std::string& _nome, int _x, int _y, int _premio, int _prob, const std::string& _tipo);
         virtual ~MSlot();
 
         void setNMaquina(int nM);

@@ -3,12 +3,12 @@
 
 #include <Maquina.h>
 
+
 class MBlackJack : public Maquina
 {
-    int nMaquina;
-    int prob;
+
     public:
-        MBlackJack(int _nM, int _prob);
+        MBlackJack(int _nM, const std::string& _nome, const std::string& _x, const std::string& _y, int _premio, int _prob, const std::string& _tipo);
         virtual ~MBlackJack();
 
     protected:
