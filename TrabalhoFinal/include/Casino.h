@@ -39,6 +39,7 @@ class Casino
         void Desligar(int id_maq);
         estadoMaquina Get_Estado(int id_maq);
         string estadoString(estadoMaquina estadoma);
+        void Listar(float X, ostream &f = std::cout);
 
     protected:
 

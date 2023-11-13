@@ -2,6 +2,8 @@
 #include <conio.h>
 
 #include <iostream>
+#include <fstream>
+
 using namespace std;
 #include <string>
 #include <list>
@@ -145,6 +147,10 @@ estadoMaquina Casino::Get_Estado(int id_maq) {
     return estadoMaquina::OFF;
 }
 
+void Casino::Listar(float X, ostream &f = cout) {
+
+}
+
 void Casino::Menu(){
 
     int op = 0;
@@ -198,6 +204,13 @@ void Casino::Menu(){
             int idMaquina;
             cin >> idMaquina;
             estadoString(Get_Estado(idMaquina));
+            break; // Este break é necessário para corrigir o erro
+        case 9:
+            cout << "Listar máquinas com probabilidade de maior que x" << endl;
+            float xProbabilidade;
+            cin >> xProbabilidade;
+            ofstream F("ListaProbX.txt");
+            Listar(xProbabilidade, F));
             break; // Este break é necessário para corrigir o erro
         case 0:
             break;
