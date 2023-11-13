@@ -1,6 +1,9 @@
 #ifndef CASINO_H
 #define CASINO_H
 #include <iostream>
+#include <fstream>
+
+
 using namespace std;
 #include <string>
 #include <list>
@@ -34,6 +37,12 @@ class Casino
         void maquinaGanhos();
         void reparar();
         void registarMaquina();
+<<<<<<< Updated upstream
+=======
+        void Desligar(int id_maq);
+        estadoMaquina Get_Estado(int id_maq);
+        string estadoString(estadoMaquina estadoma);
+>>>>>>> Stashed changes
 
     protected:
 

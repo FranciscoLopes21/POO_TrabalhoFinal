@@ -12,16 +12,26 @@
 	<string>
 	<list>
 
+<<<<<<< Updated upstream
 1699490950 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\casino.cpp
+=======
+1699879242 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\casino.cpp
+>>>>>>> Stashed changes
 	"Casino.h"
 	<conio.h>
 	<iostream>
+	<fstream>
 	<string>
 	<list>
 	"pugixml.hpp"
 
+<<<<<<< Updated upstream
 1699491929 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\casino.h
+=======
+1699878715 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\casino.h
+>>>>>>> Stashed changes
 	<iostream>
+	<fstream>
 	<string>
 	<list>
 	"Maquina.h"
@@ -66,16 +76,27 @@
 
 1699484508 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\pugiconfig.hpp
 
+<<<<<<< Updated upstream
 1699491404 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\xmlreader.cpp
+=======
+1699878890 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\xmlreader.cpp
+>>>>>>> Stashed changes
 	"XMLReader.h"
 	<iostream>
 	<string>
 	"pugixml.hpp"
 
+<<<<<<< Updated upstream
 1699490683 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\xmlreader.h
 	<iostream>
 	<string>
 	"pugixml.hpp"
+=======
+1699879196 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\xmlreader.h
+	<iostream>
+	<string>
+	"Casino.h"
+>>>>>>> Stashed changes
 
 1699484508 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\pugixml.hpp
 	"pugiconfig.hpp"

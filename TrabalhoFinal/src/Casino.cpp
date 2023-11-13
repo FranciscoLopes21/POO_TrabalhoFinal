@@ -77,6 +77,35 @@ bool Casino::Add(Maquina *m){
     return true;
 }
 
+<<<<<<< Updated upstream
+=======
+void Casino::Desligar(int id_maq) {
+
+   for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
+        if((*it)->getID() == id_maq){
+            (*it)->Desligar();
+            cout << "Máquina desligada." << endl;
+            return;
+        }
+
+    }
+    cout << "Máquina não encontrada." << endl;
+}
+
+estadoMaquina Casino::Get_Estado(int id_maq) {
+
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
+        if((*it)->getID() == id_maq){
+            return (*it)->getEstado();
+        }
+
+    }
+    cout << "Máquina não encontrada." << endl;
+    return estadoMaquina::OFF;
+}
+
+
+>>>>>>> Stashed changes
 void Casino::Menu(){
 
     int op = 0;
@@ -116,6 +145,23 @@ void Casino::Menu(){
             cout<< "Registar Maquina" <<endl;
             //registarMaquina();
             break;
+<<<<<<< Updated upstream
+=======
+        case 7:
+            cout<< "Desligar Máquina" <<endl;
+            int nMaquina;
+            cin >> nMaquina;
+            Desligar(nMaquina);
+            break;
+        case 8:
+            cout << "Pesquisar máquina" << endl;
+            int idMaquina;
+            cin >> idMaquina;
+            estadoString(Get_Estado(idMaquina));
+            break; // Este break é necessário para corrigir o erro
+        case 9:
+            break; // Este break é necessário para corrigir o erro
+>>>>>>> Stashed changes
         case 0:
             break;
 
@@ -125,6 +171,30 @@ void Casino::Menu(){
 
 }
 
+<<<<<<< Updated upstream
+=======
+string Casino::estadoString(estadoMaquina estadoma){
+    string estadoString;
+    switch (estadoma) {
+        case ON:
+            estadoString = "ON";
+            break;
+        case OFF:
+            estadoString = "OFF";
+            break;
+        case AVARIADA:
+            estadoString = "AVARIADA";
+            break;
+        default:
+            estadoString = "Unknown";
+            break;
+    }
+
+    cout  << " | Estado: " << estadoString << endl;
+}
+
+
+>>>>>>> Stashed changes
 void Casino::maquinaAvariada(){
 
 

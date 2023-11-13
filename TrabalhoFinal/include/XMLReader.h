@@ -2,7 +2,11 @@
 #define XMLREADER_H
 #include <iostream>
 #include <string>
+<<<<<<< Updated upstream
 #include "pugixml.hpp"
+=======
+#include "Casino.h"
+>>>>>>> Stashed changes
 
 using namespace std;
 

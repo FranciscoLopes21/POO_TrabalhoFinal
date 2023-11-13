@@ -34,6 +34,13 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+<<<<<<< Updated upstream
+=======
+		<Linker>
+			<Add library="pugixml-1.14/pugixml-1.14/src/pugixml.hpp" />
+			<Add library="pugixml-1.14/pugixml-1.14/src/pugixml.cpp" />
+		</Linker>
+>>>>>>> Stashed changes
 		<Unit filename="include/Casino.h" />
 		<Unit filename="include/MBlackJack.h" />
 		<Unit filename="include/MPoker.h" />
