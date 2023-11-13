@@ -13,6 +13,7 @@ int main()
 
         Casino CS(nomeCasino);
         CS.CarregarDados(maxJogadores,probabilidadeUser,horaAbertura,horaFecho);
+        CS.LoadMachinesFromXML("XML_Projecto.xml");
 
         cout << "Bem-Vindo ao " << nomeCasino << "!!!" << endl;
 

@@ -3,12 +3,12 @@
 
 #include <Maquina.h>
 
+
 class MRoleta : public Maquina
 {
-    int nMaquina;
-    int prob;
+
     public:
-        MRoleta(int _nM, int _prob);
+        MRoleta(int _nM, const std::string& _nome, const std::string& _x, const std::string& _y, int _premio, int _prob, const std::string& _tipo);
         virtual ~MRoleta();
 
     protected:

@@ -1,69 +1,66 @@
 # depslib dependency file v1.0
-1699491787 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\main.cpp
+1699600888 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\main.cpp
 	<iostream>
 	"Casino.h"
 	"XMLReader.h"
 
-1699274560 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\maquina.cpp
+1699749202 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\maquina.cpp
 	"Maquina.h"
 
-1699274635 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\maquina.h
+1699755018 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\maquina.h
 	<iostream>
 	<string>
 	<list>
 
-<<<<<<< Updated upstream
-1699490950 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\casino.cpp
-=======
-1699879242 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\casino.cpp
->>>>>>> Stashed changes
+1699758222 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\casino.cpp
 	"Casino.h"
 	<conio.h>
 	<iostream>
-	<fstream>
 	<string>
 	<list>
 	"pugixml.hpp"
+	"XMLReader.h"
+	"MBlackJack.h"
+	"MPoker.h"
+	"MRoleta.h"
+	"MSlot.h"
 
-<<<<<<< Updated upstream
-1699491929 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\casino.h
-=======
-1699878715 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\casino.h
->>>>>>> Stashed changes
+1699874114 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\casino.h
 	<iostream>
-	<fstream>
 	<string>
 	<list>
 	"Maquina.h"
 	"User.h"
 
-1699272292 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\user.h
+1699580835 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\user.h
+	<iostream>
+	<string>
 
 1699270049 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\user.cpp
 	"User.h"
 
-1699274546 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\mblackjack.cpp
+1699610175 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\mblackjack.cpp
 	"MBlackJack.h"
 
-1699272843 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\mblackjack.h
+1699610737 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\mblackjack.h
 	<Maquina.h>
 
-1699274546 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\mpoker.cpp
+1699611562 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\mpoker.cpp
 	"MPoker.h"
 
-1699272858 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\mpoker.h
+1699611046 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\mpoker.h
 	<Maquina.h>
 
-1699274546 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\mroleta.cpp
+1699610175 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\mroleta.cpp
 	"MRoleta.h"
 
-1699272822 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\mroleta.h
+1699610737 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\mroleta.h
 	<Maquina.h>
 
-1699274546 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\mslot.cpp
+1699611562 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\mslot.cpp
 	"MSlot.h"
 
-1699274546 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\mslot.h
+1699611310 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\mslot.h
 	<Maquina.h>
 
 1699484508 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\pugixml.hpp
@@ -76,27 +73,18 @@
 
 1699484508 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\pugiconfig.hpp
 
-<<<<<<< Updated upstream
-1699491404 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\xmlreader.cpp
-=======
-1699878890 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\xmlreader.cpp
->>>>>>> Stashed changes
+1699598535 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\xmlreader.cpp
 	"XMLReader.h"
 	<iostream>
 	<string>
 	"pugixml.hpp"
+	"Casino.h"
 
-<<<<<<< Updated upstream
-1699490683 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\xmlreader.h
+1699598535 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\xmlreader.h
 	<iostream>
 	<string>
 	"pugixml.hpp"
-=======
-1699879196 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\xmlreader.h
-	<iostream>
-	<string>
 	"Casino.h"
->>>>>>> Stashed changes
 
 1699484508 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\pugixml.hpp
 	"pugiconfig.hpp"
@@ -107,4 +95,92 @@
 	<string>
 
 1699484508 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\pugiconfig.hpp
+
+1699906280 source:c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\main.cpp
+	<iostream>
+	"Casino.h"
+	"XMLReader.h"
+
+1699906280 c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\include\casino.h
+	<iostream>
+	<string>
+	<list>
+	"Maquina.h"
+	"User.h"
+
+1699906280 c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\include\maquina.h
+	<iostream>
+	<string>
+	<list>
+
+1699906280 c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\include\user.h
+	<iostream>
+	<string>
+
+1699906280 c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\include\xmlreader.h
+	<iostream>
+	<string>
+	"pugixml.hpp"
+	"Casino.h"
+
+1699906280 c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\include\pugixml.hpp
+	"pugiconfig.hpp"
+	<stddef.h>
+	<exception>
+	<iterator>
+	<iosfwd>
+	<string>
+
+1699906280 c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\include\pugiconfig.hpp
+
+1699906280 source:c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\src\casino.cpp
+	"Casino.h"
+	<conio.h>
+	<iostream>
+	<fstream>
+	<string>
+	<list>
+	"pugixml.hpp"
+	"XMLReader.h"
+	"MBlackJack.h"
+	"MPoker.h"
+	"MRoleta.h"
+	"MSlot.h"
+
+1699906280 c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\include\mblackjack.h
+	<Maquina.h>
+
+1699906280 c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\include\mpoker.h
+	<Maquina.h>
+
+1699906280 c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\include\mroleta.h
+	<Maquina.h>
+
+1699906280 c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\include\mslot.h
+	<Maquina.h>
+
+1699906280 source:c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\src\mblackjack.cpp
+	"MBlackJack.h"
+
+1699906281 source:c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\src\maquina.cpp
+	"Maquina.h"
+
+1699906281 source:c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\src\mpoker.cpp
+	"MPoker.h"
+
+1699906281 source:c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\src\mroleta.cpp
+	"MRoleta.h"
+
+1699906281 source:c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\src\mslot.cpp
+	"MSlot.h"
+
+1699906281 source:c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\src\user.cpp
+	"User.h"
+
+1699906281 source:c:\users\franc\downloads\poo_trabalhofinal-review\poo_trabalhofinal-review\trabalhofinal\src\xmlreader.cpp
+	"XMLReader.h"
+	<iostream>
+	<string>
+	"pugixml.hpp"
+	"Casino.h"
 

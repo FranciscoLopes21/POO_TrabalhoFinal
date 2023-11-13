@@ -15,19 +15,23 @@ class Maquina
     string nome;
     string x;
     string y;
-    int ganhos;
+    int premio;
     int prob;
-
-    bool estado;
+    estadoMaquina estado;
     int temperaturaSensor;
-
+    string tipo;
     Casino *Ptr_Casino;
 
     bool verificaEstado();
+
     void Run();
     public:
-        Maquina(int _nM, int _prob, string _nome);
+        Maquina(int _nM, string _nome, string _x, string _y, int _premio, int _prob, string _tipo);
         virtual ~Maquina();
+        virtual void DisplayInfo() const;
+        void Desligar();
+        int getID(){ return nMaquina;}
+        estadoMaquina getEstado(){return estado;}
 
     protected:
 
