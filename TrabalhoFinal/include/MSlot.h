@@ -8,7 +8,7 @@ class MSlot : public Maquina
 {
 
     public:
-        MSlot(int _id, const std::string& _nome, int _x, int _y, int _premio, int _prob, const std::string& _tipo);
+        MSlot(int _id, const std::string& _nome, int _x, int _y, int _premio, float _prob, const std::string& _tipo);
         virtual ~MSlot();
 
         void setNMaquina(int nM);

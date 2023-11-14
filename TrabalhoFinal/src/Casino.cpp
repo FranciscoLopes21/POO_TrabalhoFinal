@@ -147,9 +147,17 @@ estadoMaquina Casino::Get_Estado(int id_maq) {
     return estadoMaquina::OFF;
 }
 
-void Casino::Listar(float X, ostream &f = cout) {
+void Casino::Listar(float X, std::ostream &f) {
+
+    f << "Máquinas com probabilidade " << X << " maior que de ganhar:" << endl;
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
+        if ((*it)->getProb() > X) {
+            f << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl;
+        }
+    }
 
 }
+
 
 void Casino::Menu(){
 
@@ -206,19 +214,24 @@ void Casino::Menu(){
             estadoString(Get_Estado(idMaquina));
             break; // Este break é necessário para corrigir o erro
         case 9:
-            cout << "Listar máquinas com probabilidade de maior que x" << endl;
-            float xProbabilidade;
-            cin >> xProbabilidade;
-            ofstream F("ListaProbX.txt");
-            Listar(xProbabilidade, F));
+            ListarMaquinasProbabilidade();
             break; // Este break é necessário para corrigir o erro
         case 0:
             break;
 
+        default:
+            cout << "Opção inválida. Tente novamente." << endl;
         }
     }
-    while (op != 9);
+    while (op != 20);
 
+}
+void Casino::ListarMaquinasProbabilidade() {
+    cout << "Listar máquinas com probabilidade de maior que x" << endl;
+    float xProbabilidade;
+    cin >> xProbabilidade;
+    ofstream F("ListaProbX.txt");
+    Listar(xProbabilidade, F);
 }
 
 string Casino::estadoString(estadoMaquina estadoma){

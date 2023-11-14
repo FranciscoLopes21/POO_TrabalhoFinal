@@ -4,6 +4,7 @@
 using namespace std;
 #include <string>
 #include <list>
+#include "pugixml.hpp"
 
 #include "Maquina.h"
 #include "User.h"
@@ -39,7 +40,8 @@ class Casino
         void Desligar(int id_maq);
         estadoMaquina Get_Estado(int id_maq);
         string estadoString(estadoMaquina estadoma);
-        void Listar(float X, ostream &f = std::cout);
+        void Listar(float X, std::ostream &f = std::cout);
+        void ListarMaquinasProbabilidade();
 
     protected:
 

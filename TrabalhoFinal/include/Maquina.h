@@ -16,7 +16,7 @@ class Maquina
     string x;
     string y;
     int premio;
-    int prob;
+    float prob;
     estadoMaquina estado;
     int temperaturaSensor;
     string tipo;
@@ -26,11 +26,12 @@ class Maquina
 
     void Run();
     public:
-        Maquina(int _nM, string _nome, string _x, string _y, int _premio, int _prob, string _tipo);
+        Maquina(int _nM, string _nome, string _x, string _y, int _premio, float _prob, string _tipo);
         virtual ~Maquina();
         virtual void DisplayInfo() const;
         void Desligar();
         int getID(){ return nMaquina;}
+        int getProb(){ return prob;}
         estadoMaquina getEstado(){return estado;}
 
     protected:

@@ -1,0 +1,3 @@
+Máquinas com probabilidade 5 maior que de ganhar:
+ID: 1 | Probabilidade: 10
+ID: 2 | Probabilidade: 10

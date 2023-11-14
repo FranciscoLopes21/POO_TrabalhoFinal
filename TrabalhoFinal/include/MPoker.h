@@ -8,7 +8,7 @@ class MPoker : public Maquina
 {
 
     public:
-        MPoker(int _id, const std::string& _nome, int _x, int _y, int _premio, int _prob, const std::string& _tipo);
+        MPoker(int _id, const std::string& _nome, int _x, int _y, int _premio, float _prob, const std::string& _tipo);
         virtual ~MPoker();
 
     protected:
