@@ -1,6 +1,6 @@
 #include "Maquina.h"
 
-Maquina::Maquina(int _nM, string _nome, string _x, string _y, int _premio, float _prob, string _tipo)
+Maquina::Maquina(int _nM, string _nome, int _x, int _y, int _premio, float _prob, string _tipo)
     : nMaquina(_nM), nome(_nome), x(_x), y(_y), premio(_premio), prob(_prob), tipo(_tipo), estado(estadoMaquina::ON), temperaturaSensor(0), Ptr_Casino(nullptr) {
     // Outras inicializações e lógica do construtor, se necessário
 }

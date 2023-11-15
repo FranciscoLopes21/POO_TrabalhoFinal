@@ -161,8 +161,8 @@ void Casino::Listar(float X, std::ostream &f) {
 
 void Casino::Menu(){
 
+    system("cls");
     int op = 0;
-
     do {
         // code block to be executed
         cout<< "Menu" <<endl;
@@ -215,6 +215,10 @@ void Casino::Menu(){
             break; // Este break é necessário para corrigir o erro
         case 9:
             ListarMaquinasProbabilidade();
+            break; // Este break é necessário para corrigir o erro
+        case 10:
+            cout << "Crud maquina" << endl;
+            menuCrudMaquina();
             break; // Este break é necessário para corrigir o erro
         case 0:
             break;
@@ -285,3 +289,96 @@ void Casino::ListMachines() const {
 string Casino::getNome(){
     return nome;
 }
+
+//Menus
+//Menu Crud Maquinas
+void Casino::menuCrudMaquina(){
+
+
+    int op = 0;
+
+    do {
+            system("cls");
+        // code block to be executed
+        cout<< "Crud Maquina" <<endl;
+        cout<< "1- Adicionar Maquina" <<endl;
+        cout<< "2- Remover Maquina" <<endl;
+        cout<< "3- Editar Maquina" <<endl;
+        cout<< "0- Sair" <<endl;
+
+        cin >> op;
+
+        switch(op){
+
+        case 1:
+            cout<< "Adicionar Maquina" <<endl;
+            addMaquina();
+            break;
+        case 2:
+            int id_maq;
+            cout<< "Remover Maquina" <<endl;
+            cin >> id_maq;
+            removerMaquina(id_maq);
+            break;
+        case 3:
+            cout<< "Editar Maquina" <<endl;
+            break;
+        case 0:
+            break;
+
+        default:
+            cout << "Opção inválida. Tente novamente." << endl;
+        }
+    }
+    while (op != 0);
+}// Fim Menu Crud Maquinas
+
+// Crud Maquinas
+void Casino::addMaquina(){
+
+    int nMaquina, premio, x, y, temperaturaSensor;
+    string nome, tipo;
+    float prob;
+    Casino *Ptr_Casino;
+
+    cout << "Nome máquina" << endl;
+    cin >> nome;
+    cout << "X máquina" << endl;
+    cin >> x;
+    cout << "Y máquina" << endl;
+    cin >> y;
+    cout << "Premio máquina" << endl;
+    cin >> premio;
+    cout << "Probabilidade máquina" << endl;
+    cin >> prob;
+    cout << "Tipo máquina" << endl;
+    cin >> tipo;
+
+    Maquina* m = nullptr;
+
+    int id = LM.size()+1;
+
+    if (tipo == "slot" || tipo == "Slot") {
+        m = new MSlot(id, nome, x, y, premio, prob, tipo);
+    } else if (tipo == "poker" || tipo == "Poker") {
+        m = new MPoker(id, nome, x, y, premio, prob, tipo);
+    }
+
+    Add(m);
+}
+
+bool Casino::removerMaquina(int id_maq) {
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
+        if ((*it)->getID() == id_maq) {
+            delete *it;  // Libera a memória alocada pela máquina
+            LM.erase(it); // Remove a máquina da lista
+            cout << "Máquina removida." << endl;
+            return true;
+        }
+    }
+
+    cout << "Máquina não encontrada." << endl;
+    return false;
+}
+
+// Fim Crud Maquinas

@@ -32,7 +32,6 @@ class Casino
         string getNome();
         void Run();
         bool Add(Maquina *M);
-        void Menu();
         void maquinaAvariada();
         void maquinaGanhos();
         void reparar();
@@ -42,6 +41,14 @@ class Casino
         string estadoString(estadoMaquina estadoma);
         void Listar(float X, std::ostream &f = std::cout);
         void ListarMaquinasProbabilidade();
+
+        //Menus
+        void Menu();
+        void menuCrudMaquina();
+
+        //Crud Maquina
+        void addMaquina();
+        bool removerMaquina(int id_maq);
 
     protected:
 

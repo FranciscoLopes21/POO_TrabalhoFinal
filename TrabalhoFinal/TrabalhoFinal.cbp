@@ -37,8 +37,8 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Linker>
-			<Add library="C:/Users/franc/Downloads/pugixml-1.14/pugixml-1.14/src/pugixml.cpp" />
-			<Add library="C:/Users/franc/Downloads/pugixml-1.14/pugixml-1.14/src/pugixml.hpp" />
+			<Add library="pugixml-1.14/pugixml-1.14/src/pugixml.hpp" />
+			<Add library="pugixml-1.14/pugixml-1.14/src/pugixml.cpp" />
 		</Linker>
 		<Unit filename="include/Casino.h" />
 		<Unit filename="include/MBlackJack.h" />

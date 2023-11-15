@@ -13,8 +13,8 @@ class Maquina
 {
     int nMaquina;
     string nome;
-    string x;
-    string y;
+    int x;
+    int y;
     int premio;
     float prob;
     estadoMaquina estado;
@@ -26,7 +26,7 @@ class Maquina
 
     void Run();
     public:
-        Maquina(int _nM, string _nome, string _x, string _y, int _premio, float _prob, string _tipo);
+        Maquina(int _nM, string _nome, int _x, int _y, int _premio, float _prob, string _tipo);
         virtual ~Maquina();
         virtual void DisplayInfo() const;
         void Desligar();
