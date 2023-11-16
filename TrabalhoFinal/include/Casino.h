@@ -41,9 +41,12 @@ class Casino
         string estadoString(estadoMaquina estadoma);
         void Listar(float X, std::ostream &f = std::cout);
         void ListarMaquinasProbabilidade();
+        //list<Maquina *> Listar_Tipo(const string& Tipo, ostream &f = std::cout);
 
         //Menus
         void Menu();
+        void gestaoCasino();
+        void gestaoMaquinas();
         void menuCrudMaquina();
 
         //Crud Maquina

@@ -12,9 +12,11 @@
 	<string>
 	<list>
 
-1700049082 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\casino.cpp
+1700146236 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\casino.cpp
 	"Casino.h"
 	<conio.h>
+	<chrono>
+	<thread>
 	<iostream>
 	<fstream>
 	<string>
@@ -25,8 +27,12 @@
 	"MPoker.h"
 	"MRoleta.h"
 	"MSlot.h"
+	<iostream>
+	<ctime>
+	<cstdlib>
+	<iomanip>
 
-1700049773 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\casino.h
+1700147614 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\casino.h
 	<iostream>
 	<string>
 	<list>
