@@ -594,7 +594,10 @@ void Casino::menuCrudMaquina(){
             removerMaquina(id_maq);
             break;
         case 3:
-            cout<< "Editar Maquina" <<endl;
+            int id_maqq;
+            cout<< "Editar Maquina: Introduza id número maquina" <<endl;
+            cin >> id_maqq;
+            editarMaquina(id_maqq);
             break;
         case 0:
             break;
@@ -672,18 +675,73 @@ bool Casino::removerMaquina(int id_maq) {
 }
 
 bool Casino::editarMaquina(int id_maq){
-    /*cout << "Dados maquina" << id_maq << endl;
+    cout << " |Dados maquina|" << id_maq << endl;
+    int op;
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
         if ((*it)->getID() == id_maq) {
-            cout << "|Nome Maquina: " << (*it)->getNome() <<"| " << end;
-            cout << " |X: " << (*it)->getX() <<"| " << end;
-            cout << "Probabilidade de Usuários: " << probabilidadeUser << endl;
-            cout << "Hora de Abertura: " << horaAbertura << endl;
-            cout << "Hora de Encerramento: " << horaFecho << endl;
+            do {
+                cout << " |Nome Maquina: " << (*it)->getNome() <<"| " << endl;
+                cout << " |X: " << (*it)->getX() <<"| " << endl;
+                cout << " |Y: " << (*it)->getY() <<"| " << endl;
+                cout << " |Probabilidade: " << (*it)->getProb() <<"| " << endl;
+                cout << " |Premio: " << (*it)->getPremio() <<"| " << endl;
+
+
+                cout << "Selecione o dado a alterar:" <<endl;
+                cout << "1 - Nome" <<endl;
+                cout << "2 - X" <<endl;
+                cout << "3 - Y" <<endl;
+                cout << "4 - Probabilidade" <<endl;
+                cout << "5 - Premio" <<endl;
+                cout << "0 - Sair" <<endl;
+
+                string nome;
+                int x,y, premio;
+                float prob;
+                cin >> op;
+                switch(op){
+
+                    case 1:
+                        cout << "Introduza o novo nome: " << endl;
+                        cin >> nome;
+                        (*it)->setNome(nome);
+                        break;
+                    case 2:
+                        cout << "Introduza o novo X: " << endl;
+                        cin >> x;
+                        (*it)->setX(x);
+                        break;
+                    case 3:
+                        cout << "Introduza o novo Y: " << endl;
+                        cin >> y;
+                        (*it)->setY(y);
+                        break;
+                    case 4:
+                        cout << "Introduza o nova probabilidade: " << endl;
+                        cin >> prob;
+                        (*it)->setProb(prob);
+                        break;
+                    case 5:
+                        cout << "Introduza o novo premio: " << endl;
+                        cin >> premio;
+                        (*it)->setPremio(premio);
+                        break;
+                    case 0:
+                        break;
+
+                    default:
+                        cout << "Opção inválida. Tente novamente." << endl;
+                }
+                system("cls");
+            }
+
+        while (op != 0);
         }
+
     }
 
-    cout << "Máquina não encontrada." << endl;*/
+
+    cout << "Máquina não encontrada." << endl;
     return false;
 }
 
