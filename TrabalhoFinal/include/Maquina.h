@@ -24,14 +24,20 @@ class Maquina
 
     bool verificaEstado();
 
-    void Run();
+
     public:
         Maquina(int _nM, string _nome, int _x, int _y, int _premio, float _prob, string _tipo);
         virtual ~Maquina();
+        void Run();
         virtual void DisplayInfo() const;
         void Desligar();
+        void Ligar();
         int getID(){ return nMaquina;}
-        int getProb(){ return prob;}
+        float getProb(){ return prob;}
+        string getTipo(){ return tipo;}
+        string getNome(){ return nome;}
+        int getY(){ return y;}
+        int getX(){ return x;}
         estadoMaquina getEstado(){return estado;}
 
     protected:

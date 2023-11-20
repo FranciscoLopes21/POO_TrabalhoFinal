@@ -253,6 +253,7 @@ void Casino::gestaoMaquinas(){
             break;
         case 5:
             cout << "Listar maquinas do tipo" << endl;
+            listarTipoMaquina();
             break;
         case 6:
             cout << "Ranking mais fracos" << endl;
@@ -345,6 +346,7 @@ system("cls");
 
 void Casino::Run(){
     char key;
+    bool maquinasJaLigadas = false;
     while(true){
         cout<< "Menu" <<endl;
         time_t now = time(nullptr);
@@ -354,14 +356,18 @@ void Casino::Run(){
 
             if (currentHour >= horaAbertura && currentHour < horaFecho) {
                 cout << "O casino está aberto!" << endl;
-                // Coloque o código do seu loop principal aqui
-
-                // Dorme por 1 minuto antes de verificar novamente
-
+                if (!maquinasJaLigadas) {
+                    ligarTodasMaquinas();
+                    maquinasJaLigadas = true;
+                }
+                for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it)
+                    (*it)->Run();
             } else {
                 cout << "O casino está fechado. Aguardando o horário de abertura." << endl;
-                // Dorme por 1 hora antes de verificar novamente
-
+                if (maquinasJaLigadas) {
+                    desligarTodasMaquinas();
+                    maquinasJaLigadas = false;
+                }
             }
         if (_kbhit()) {
             key = _getch();
@@ -373,6 +379,25 @@ void Casino::Run(){
     }
 
 }
+
+
+//Desligar todas as maquinas
+void Casino::desligarTodasMaquinas() {
+
+   for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
+        (*it)->Desligar();
+    }
+}
+
+//Ligar todas as maquinas
+void Casino::ligarTodasMaquinas() {
+
+   for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
+        (*it)->Ligar();
+    }
+}
+
+/**/
 
 void Casino::dadosCasino() {
     cout << "Nome do Casino: " << nome << endl;
@@ -489,21 +514,47 @@ void Casino::ListMachines() const {
     }
 }
 
+/*
+// Listar máquinas com probabilidade de maior que x
+        float xProbabilidade;
+        cout << "Probabilidade: ";
+        cin >> xProbabilidade;
+
+        // Tentar abrir o arquivo
+        ofstream F("ListaProbX.txt");
+        Listar(xProbabilidade, F);
+
+        // Fechar o arquivo após o uso
+        F.close();
+        */
 
 //Outras Funções
-/*list<Maquina *> Casino::Listar_Tipo(const string Tipo, ostream &f) {
+
+void Casino::listarTipoMaquina(){
+    string Tipo = "";
+    cin >> Tipo;
+
+    // Tentar abrir o arquivo
+    ofstream F("MaquinasTipo.txt");
+    Listar_Tipo(Tipo, F);
+
+    // Fechar o arquivo após o uso
+    F.close();
+}
+
+list<Maquina *> Casino::Listar_Tipo(string Tipo, std::ostream &f) {
     list<Maquina *> maquinasDoTipo;
 
     for (auto maquina : LM) {
         if (maquina->getTipo() == Tipo) {
             maquinasDoTipo.push_back(maquina);
             f << "ID: " << maquina->getID() << " | Nome: " << maquina->getNome() << " | Tipo: " << maquina->getTipo() << endl;
-            // Adicione mais informações, se necessário
         }
     }
 
     return maquinasDoTipo;
-}*/
+
+}
 
 
 
@@ -559,16 +610,33 @@ void Casino::menuCrudMaquina(){
 void Casino::addMaquina(){
 
     int nMaquina, premio, x, y, temperaturaSensor;
+    int xMaquina, yMaquina;
     string nome, tipo;
     float prob;
+    bool existe = false;
     Casino *Ptr_Casino;
 
+    /*int getY(){ return y;}
+        int getX()*/
     cout << "Nome máquina" << endl;
     cin >> nome;
-    cout << "X máquina" << endl;
-    cin >> x;
-    cout << "Y máquina" << endl;
-    cin >> y;
+    do {
+        cout << "X máquina" << endl;
+        cin >> x;
+        for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
+            if ((*it)->getX() == x) {
+                cout << "Y máquina" << endl;
+                cin >> y;
+                if ((*it)->getY() == y) {
+                    existe = true;
+                }else{
+                    existe = false;
+                }
+            }
+        }
+    }
+    while (existe == true);
+
     cout << "Premio máquina" << endl;
     cin >> premio;
     cout << "Probabilidade máquina" << endl;
@@ -600,6 +668,22 @@ bool Casino::removerMaquina(int id_maq) {
     }
 
     cout << "Máquina não encontrada." << endl;
+    return false;
+}
+
+bool Casino::editarMaquina(int id_maq){
+    /*cout << "Dados maquina" << id_maq << endl;
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
+        if ((*it)->getID() == id_maq) {
+            cout << "|Nome Maquina: " << (*it)->getNome() <<"| " << end;
+            cout << " |X: " << (*it)->getX() <<"| " << end;
+            cout << "Probabilidade de Usuários: " << probabilidadeUser << endl;
+            cout << "Hora de Abertura: " << horaAbertura << endl;
+            cout << "Hora de Encerramento: " << horaFecho << endl;
+        }
+    }
+
+    cout << "Máquina não encontrada." << endl;*/
     return false;
 }
 

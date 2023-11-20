@@ -1,1 +1,3 @@
-Máquinas com probabilidade 12 maior que de ganhar:
+Máquinas com probabilidade 1 maior que de ganhar:
+ID: 1 | Probabilidade: 10
+ID: 2 | Probabilidade: 10

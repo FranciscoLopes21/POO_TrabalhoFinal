@@ -41,7 +41,9 @@ class Casino
         string estadoString(estadoMaquina estadoma);
         void Listar(float X, std::ostream &f = std::cout);
         void ListarMaquinasProbabilidade();
-        //list<Maquina *> Listar_Tipo(const string& Tipo, ostream &f = std::cout);
+
+        void listarTipoMaquina();
+        list<Maquina *> Listar_Tipo(string Tipo, std::ostream &f = std::cout);
 
         //Menus
         void Menu();
@@ -49,9 +51,14 @@ class Casino
         void gestaoMaquinas();
         void menuCrudMaquina();
 
+        //Quando Run Casino
+        void desligarTodasMaquinas();
+        void ligarTodasMaquinas();
+
         //Crud Maquina
         void addMaquina();
         bool removerMaquina(int id_maq);
+        bool editarMaquina(int id_maq);
 
     protected:
 

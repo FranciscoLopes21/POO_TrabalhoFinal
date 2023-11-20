@@ -1,7 +1,7 @@
 #include "Maquina.h"
 
 Maquina::Maquina(int _nM, string _nome, int _x, int _y, int _premio, float _prob, string _tipo)
-    : nMaquina(_nM), nome(_nome), x(_x), y(_y), premio(_premio), prob(_prob), tipo(_tipo), estado(estadoMaquina::ON), temperaturaSensor(0), Ptr_Casino(nullptr) {
+    : nMaquina(_nM), nome(_nome), x(_x), y(_y), premio(_premio), prob(_prob), tipo(_tipo), estado(estadoMaquina::OFF), temperaturaSensor(0), Ptr_Casino(nullptr) {
     // Outras inicializações e lógica do construtor, se necessário
 }
 
@@ -31,7 +31,7 @@ void Maquina::DisplayInfo() const {
 }
 
 void Maquina::Run(){
-    cout << "Eu Máquina: " << 1 << " Estou ligada" << endl;
+    cout << "Eu Máquina: " << nMaquina << " Estou ligada" << endl;
     //a temperatura aumenta quando liga e vai aumentado se estiver a ser utilizada
     temperaturaSensor += 1;
     if (verificaEstado())
@@ -52,7 +52,10 @@ bool Maquina::verificaEstado()
 }
 
 void Maquina::Desligar() {
-    cout << "CHEGOU" << endl;
     estado = OFF; // Altera o estado da máquina para OFF
+}
+
+void Maquina::Ligar() {
+    estado = ON; // Altera o estado da máquina para ON
 }
 
