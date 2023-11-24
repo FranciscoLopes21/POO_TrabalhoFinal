@@ -16,11 +16,22 @@ using namespace std;
 #include "MRoleta.h"
 #include "MSlot.h"
 
+#include <cstdlib>
+#include <iostream>
+
 #include <iostream>
 #include <ctime>
 #include <cstdlib>  // Para a função sleep
 #include <iomanip>
 
+#include <random>
+#include <ctime>
+
+// sleep function
+#include <iostream>
+
+// Library effective with Windows
+#include <windows.h>
 /*TODO
     Casino::Casino (string nome) *
     Fazer função de reparar máquina
@@ -53,6 +64,8 @@ Casino::Casino(string _nome)
 {
     //ctor
     nome = _nome;
+    std::random_device rd;
+        std::mt19937 rng(rd());
 }
 
 Casino::~Casino()
@@ -116,7 +129,7 @@ bool Casino::LoadMachinesFromXML(const string& filename) {
 //Menu
 void Casino::Menu(){
 
-    system("cls");
+    //system("cls");
     int op = 0;
     do {
         // code block to be executed
@@ -360,8 +373,12 @@ void Casino::Run(){
                     ligarTodasMaquinas();
                     maquinasJaLigadas = true;
                 }
-                for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it)
+
+                for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){
+                    avariar((*it)->getID());
                     (*it)->Run();
+                }
+
             } else {
                 cout << "O casino está fechado. Aguardando o horário de abertura." << endl;
                 if (maquinasJaLigadas) {
@@ -376,6 +393,34 @@ void Casino::Run(){
             }
         }
             //corre o resto do programa
+    }
+
+}
+
+void Casino::avariar(int nMaq){
+
+    /* initialize random seed: */
+    srand (time(NULL));
+
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){
+        Sleep(500);
+        std::uniform_int_distribution<int> dist(1, 100);
+        if((*it)->getID()==nMaq){
+
+            if((*it)->getEstado()==ON){
+                int nRandom1 = rand() % 100 + 1;
+                int nRandom2 = rand() % 100 + 1;
+
+                std::cout << "nRandom1: " << nRandom1 << std::endl;
+                std::cout << "nRandom2: " << nRandom2 << std::endl;
+
+                if(nRandom1 == nRandom2){
+                    (*it)->avariaMaquina();
+                }
+
+            }
+        }
+
     }
 
 }

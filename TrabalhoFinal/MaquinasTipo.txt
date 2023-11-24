@@ -1,1 +1,2 @@
-ID: 3 | Nome: Slot400 | Tipo: poker
+ID: 1 | Nome: Slot200 | Tipo: slot
+ID: 2 | Nome: Slot300 | Tipo: slot

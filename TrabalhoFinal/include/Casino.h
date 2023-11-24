@@ -8,6 +8,7 @@ using namespace std;
 
 #include "Maquina.h"
 #include "User.h"
+#include <random>  // Adicione esta linha para incluir a biblioteca <random>
 
 class Casino
 {
@@ -20,6 +21,8 @@ class Casino
     list<Maquina *> LM_Avariadas;
     list<User *> LU;
     list<int> Lt;
+
+    mt19937 rng; // Mersenne Twister 19937 gerador de números aleatórios
 
 
     public:
@@ -41,6 +44,8 @@ class Casino
         string estadoString(estadoMaquina estadoma);
         void Listar(float X, std::ostream &f = std::cout);
         void ListarMaquinasProbabilidade();
+
+        void avariar(int nMaq);
 
         void listarTipoMaquina();
         list<Maquina *> Listar_Tipo(string Tipo, std::ostream &f = std::cout);
