@@ -15,6 +15,7 @@ Maquina::Maquina(int _nM, string _nome, int _x, int _y, int _premio, float _prob
 
     estado = OFF;
     temperaturaSensor = 0;
+    nAvarias = 0;
     utilizacao = false;
 
 }
@@ -81,5 +82,6 @@ void Maquina::Ligar() {
 
 void Maquina::avariaMaquina(){
     estado = AVARIADA;
+    nAvarias ++;
 }
 

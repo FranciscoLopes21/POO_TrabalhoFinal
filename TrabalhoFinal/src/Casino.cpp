@@ -16,6 +16,11 @@ using namespace std;
 #include "MRoleta.h"
 #include "MSlot.h"
 
+#include <iostream>
+#include <list>
+#include <string>
+#include <cctype>
+
 #include <cstdlib>
 #include <iostream>
 
@@ -270,6 +275,7 @@ void Casino::gestaoMaquinas(){
             break;
         case 6:
             cout << "Ranking mais fracos" << endl;
+            showRankingAvarias();
             break;
         case 7:
             cout << "Ranking mais trabalhadores" << endl;
@@ -408,8 +414,8 @@ void Casino::avariar(int nMaq){
         if((*it)->getID()==nMaq){
 
             if((*it)->getEstado()==ON){
-                int nRandom1 = rand() % 100 + 1;
-                int nRandom2 = rand() % 100 + 1;
+                int nRandom1 = rand() % 10 + 1;
+                int nRandom2 = rand() % 10 + 1;
 
                 std::cout << "nRandom1: " << nRandom1 << std::endl;
                 std::cout << "nRandom2: " << nRandom2 << std::endl;
@@ -425,6 +431,51 @@ void Casino::avariar(int nMaq){
 
 }
 
+
+list<string> * Casino::Ranking_Dos_Fracos(){
+
+     // Lista para armazenar as informações das máquinas avariadas ordenadas por número de avarias
+    list<string>* rankingAvariadas = new list<string>;
+
+    // Criar uma cópia da lista principal
+    list<Maquina*> maquinasCopy(LM.begin(), LM.end());
+
+    // Ordenar a lista de máquinas por número de avarias (do maior para o menor)
+    maquinasCopy.sort([](Maquina* a, Maquina* b) {
+        return a->getnAvarias() > b->getnAvarias();
+    });
+
+    // Preencher a lista de strings com informações das máquinas ordenadas
+    for (auto maquina : maquinasCopy) {
+        string info = "ID: " + to_string(maquina->getID()) +
+                           " | Nome: " + maquina->getNome() +
+                           " | Avarias: " + to_string(maquina->getnAvarias());
+        rankingAvariadas->push_back(info);
+    }
+
+    return rankingAvariadas;
+
+}
+
+void Casino:: showRankingAvarias(){
+
+    // Chamar a função para obter o ranking das máquinas avariadas
+    list<std::string>* rankingAvariadas = Ranking_Dos_Fracos();
+
+    // Verificar se a lista não está vazia antes de tentar acessar os elementos
+    if (rankingAvariadas->empty()) {
+        cout << "Nenhuma máquina avariada encontrada." << endl;
+    } else {
+        // Percorrer e exibir as informações das máquinas no ranking
+        for (const auto& info : *rankingAvariadas) {
+            cout << info << endl;
+        }
+    }
+
+    // Não se esqueça de liberar a memória alocada para a lista
+    delete rankingAvariadas;
+
+}
 
 //Desligar todas as maquinas
 void Casino::desligarTodasMaquinas() {

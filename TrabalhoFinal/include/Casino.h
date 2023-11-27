@@ -22,8 +22,6 @@ class Casino
     list<User *> LU;
     list<int> Lt;
 
-    mt19937 rng; // Mersenne Twister 19937 gerador de números aleatórios
-
 
     public:
         Casino(string _nome);
@@ -46,6 +44,8 @@ class Casino
         void ListarMaquinasProbabilidade();
 
         void avariar(int nMaq);
+        list<string> * Ranking_Dos_Fracos();
+        void showRankingAvarias();
 
         void listarTipoMaquina();
         list<Maquina *> Listar_Tipo(string Tipo, std::ostream &f = std::cout);

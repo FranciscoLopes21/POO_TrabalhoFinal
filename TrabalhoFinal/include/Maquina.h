@@ -25,6 +25,8 @@ class Maquina
 
     bool verificaEstado();
 
+    int nAvarias;
+
 
     public:
         Maquina(int _nM, string _nome, int _x, int _y, int _premio, float _prob, string _tipo);
@@ -55,6 +57,9 @@ class Maquina
 
         int getX(){ return x;}
         int setX(int _x){ x = _x;}
+
+        int getnAvarias(){return nAvarias;}
+        int setnAvarias(int _nAvarias){nAvarias = _nAvarias;}
 
         estadoMaquina getEstado(){return estado;}
 
