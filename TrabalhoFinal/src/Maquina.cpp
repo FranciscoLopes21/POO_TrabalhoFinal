@@ -14,7 +14,7 @@ Maquina::Maquina(int _nM, string _nome, int _x, int _y, int _premio, float _prob
 
 
     estado = OFF;
-    temperaturaSensor = 0;
+    temperaturaSensor = 0.0;
     nAvarias = 0;
     utilizacao = false;
 

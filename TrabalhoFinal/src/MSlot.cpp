@@ -18,8 +18,8 @@ void MSlot::Run() {
     Maquina::Run();  // Chama o método Run da classe base se necessário
 
     if(getEstado() == ON){
-        std::cout << "MSlot - Temperatura aumentada: " << temperaturaSensor << "   " << getID() << std::endl;
-        temperaturaSensor += 15;
+        temperaturaSensor += 0.15;
+        cout << "MSlot - Temperatura aumentada: " << temperaturaSensor << "   " << getID() << endl;
     }
 
     //Maquina::Run();

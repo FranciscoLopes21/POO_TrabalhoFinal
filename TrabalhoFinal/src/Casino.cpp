@@ -267,7 +267,7 @@ void Casino::gestaoMaquinas(){
             cout<< "Estado maquina ID" <<endl;
             int idMaquina;
             cin >> idMaquina;
-            estadoString(Get_Estado(idMaquina));
+            cout  << " | Estado: " << estadoString(Get_Estado(idMaquina)) << endl;
             break;
         case 5:
             cout << "Listar maquinas do tipo" << endl;
@@ -410,15 +410,14 @@ void Casino::avariar(int nMaq){
 
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){
         Sleep(500);
-        std::uniform_int_distribution<int> dist(1, 100);
         if((*it)->getID()==nMaq){
 
             if((*it)->getEstado()==ON){
-                int nRandom1 = rand() % 10 + 1;
-                int nRandom2 = rand() % 10 + 1;
+                int nRandom1 = rand() % 100 + 1;
+                int nRandom2 = rand() % 100 + 1;
 
-                std::cout << "nRandom1: " << nRandom1 << std::endl;
-                std::cout << "nRandom2: " << nRandom2 << std::endl;
+                cout << "nRandom1: " << nRandom1 << endl;
+                cout << "nRandom2: " << nRandom2 << endl;
 
                 if(nRandom1 == nRandom2){
                     (*it)->avariaMaquina();
@@ -583,7 +582,7 @@ string Casino::estadoString(estadoMaquina estadoma){
             break;
     }
 
-    std::cout  << " | Estado: " << estadoString << std::endl;
+    return estadoString;
 }
 
 

@@ -65,7 +65,7 @@ class Maquina
 
 
     protected:
-        int temperaturaSensor;
+        float temperaturaSensor;
         bool utilizacao;
 
 

@@ -4,17 +4,17 @@
 	"Casino.h"
 	"XMLReader.h"
 
-1701106398 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\maquina.cpp
+1701136426 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\maquina.cpp
 	"Maquina.h"
 	<stdlib.h>
 	<time.h>
 
-1701106198 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\maquina.h
+1701136426 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\maquina.h
 	<iostream>
 	<string>
 	<list>
 
-1701106218 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\casino.cpp
+1701136134 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\casino.cpp
 	"Casino.h"
 	<conio.h>
 	<chrono>
@@ -78,7 +78,7 @@
 1700047943 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\mroleta.h
 	<Maquina.h>
 
-1700693004 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\mslot.cpp
+1701136485 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\mslot.cpp
 	"MSlot.h"
 	<stdlib.h>
 	<time.h>
