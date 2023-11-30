@@ -10,12 +10,15 @@ class User
     string nome;
     string morada;
     char idade;
-    int carteira;
+
+    float carteira;
     float ganhos;
 
     public:
-        User();
+        User(int _nUser, string _nome, string _morada, char _idade);
         virtual ~User();
+
+        void Run();
 
     protected:
 

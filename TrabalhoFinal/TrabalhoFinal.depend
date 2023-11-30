@@ -14,7 +14,7 @@
 	<string>
 	<list>
 
-1701136134 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\casino.cpp
+1701299473 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\casino.cpp
 	"Casino.h"
 	<conio.h>
 	<chrono>
@@ -34,17 +34,16 @@
 	<string>
 	<cctype>
 	<cstdlib>
-	<iostream>
-	<iostream>
 	<ctime>
 	<cstdlib>
 	<iomanip>
+	<sstream>
 	<random>
 	<ctime>
 	<iostream>
 	<windows.h>
 
-1701106067 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\casino.h
+1701282489 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\casino.h
 	<iostream>
 	<string>
 	<list>
@@ -53,12 +52,14 @@
 	"User.h"
 	<random>
 
-1699906280 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\user.h
+1701299473 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\user.h
 	<iostream>
 	<string>
 
-1699906281 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\user.cpp
+1701298173 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\user.cpp
 	"User.h"
+	<random>
+	<ctime>
 
 1700047943 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\mblackjack.cpp
 	"MBlackJack.h"

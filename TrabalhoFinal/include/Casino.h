@@ -14,6 +14,7 @@ class Casino
 {
     string nome;
     int maxJogadores;
+    int jogadoresNoCasino;
     int probabilidadeUser;
     int horaAbertura;
     int horaFecho;
@@ -25,14 +26,20 @@ class Casino
 
     public:
         Casino(string _nome);
+        virtual ~Casino();
+        void Run();
+        bool entrarUser();
+
         void CarregarDados(int _maxJogadores, int _probabilidadeUser,int _horaAbertura, int _horaFecho);
         void dadosCasino();
+        string getNome(){return nome;}
+
+
         bool LoadMachinesFromXML(const string& xmlFile);
-        void ListMachines() const;
-        virtual ~Casino();
-        string getNome();
-        void Run();
         bool Add(Maquina *M);
+        void ListMachines() const;
+
+
         void maquinaAvariada();
         void maquinaGanhos();
         void reparar();
@@ -49,6 +56,10 @@ class Casino
 
         void listarTipoMaquina();
         list<Maquina *> Listar_Tipo(string Tipo, std::ostream &f = std::cout);
+
+        bool LoadUserFromTXT(const string &nomeArquivo);
+        bool Add(User *ut);
+        int ContarLinhas(const string &nomeArquivo);
 
         //Menus
         void Menu();

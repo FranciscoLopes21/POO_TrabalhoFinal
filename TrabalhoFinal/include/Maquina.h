@@ -17,6 +17,7 @@ class Maquina
     int y;
     int premio;
     float prob;
+    int aposta;
     estadoMaquina estado;
 
     string tipo;

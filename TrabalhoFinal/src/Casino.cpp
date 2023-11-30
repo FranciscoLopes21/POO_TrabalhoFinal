@@ -22,12 +22,11 @@ using namespace std;
 #include <cctype>
 
 #include <cstdlib>
-#include <iostream>
-
-#include <iostream>
 #include <ctime>
 #include <cstdlib>  // Para a função sleep
 #include <iomanip>
+
+#include <sstream>  // Inclua este cabeçalho para std::stringstream
 
 #include <random>
 #include <ctime>
@@ -89,6 +88,7 @@ void Casino::CarregarDados(int _maxJogadores, int _probabilidadeUser, int _horaA
     horaAbertura = _horaAbertura;
     horaFecho = _horaFecho;
 
+    jogadoresNoCasino=0;
 }
 
 
@@ -164,6 +164,7 @@ void Casino::Menu(){
             break;
         case 4:
             cout<< "Gestão User" <<endl;
+            //ContarLinhas("pessoas.txt");
             break;
         case 5:
             system("cls");
@@ -385,6 +386,23 @@ void Casino::Run(){
                     (*it)->Run();
                 }
 
+                if(jogadoresNoCasino < maxJogadores){
+                        if(entrarUser()){
+                            jogadoresNoCasino ++;
+                            LoadUserFromTXT("pessoas.txt");
+                            cout << "entrou " << jogadoresNoCasino << endl;
+                        }
+                }
+
+                if (LU.size()>= 1){
+                    for (list<User *>::iterator it = LU.begin(); it != LU.end(); ++it){
+                        (*it)->Run();
+                    }
+                }
+
+
+
+
             } else {
                 cout << "O casino está fechado. Aguardando o horário de abertura." << endl;
                 if (maquinasJaLigadas) {
@@ -392,12 +410,12 @@ void Casino::Run(){
                     maquinasJaLigadas = false;
                 }
             }
-        if (_kbhit()) {
-            key = _getch();
-            if (key == 'm' || key == 'M') {
-                Menu();
+            if (_kbhit()) {
+                key = _getch();
+                if (key == 'm' || key == 'M') {
+                    Menu();
+                }
             }
-        }
             //corre o resto do programa
     }
 
@@ -653,10 +671,7 @@ list<Maquina *> Casino::Listar_Tipo(string Tipo, std::ostream &f) {
 
 
 
-//getNome
-string Casino::getNome(){
-    return nome;
-}
+
 
 //Menus
 //Menu Crud Maquinas
@@ -841,3 +856,113 @@ bool Casino::editarMaquina(int id_maq){
 }
 
 // Fim Crud Maquinas
+
+
+
+bool Casino::LoadUserFromTXT(const string &nomeArquivo){
+
+    int numeroLinhas = ContarLinhas(nomeArquivo);
+    if (numeroLinhas != -1) {
+        cout << "O arquivo tem " << numeroLinhas << " linhas." << endl;
+    }
+
+    // Gere um número aleatório dentro do intervalo de linhas do arquivo
+    int linhaAleatoria = rand() % numeroLinhas + 1;
+
+    // Abra o arquivo
+    ifstream arquivo(nomeArquivo);
+    if (!arquivo.is_open()) {
+        cerr << "Erro ao abrir o arquivo." << endl;
+        return false;
+    }
+
+    // Leitura das linhas até chegar à linha desejada
+    string linha;
+    for (int i = 0; i < linhaAleatoria; ++i) {
+        getline(arquivo, linha);
+    }
+
+    // Use um stringstream para processar a linha
+    stringstream ss(linha);
+
+
+    // Declare as variáveis para armazenar os dados do usuário
+    int id;
+    string nome, sobrenome, morada;
+    int idade;
+
+    // Leitura dos dados do usuário da linha
+    // Leitura dos dados do usuário da linha
+    ss >> id;
+    ss.ignore(); // Ignora o espaço em branco
+    getline(ss, nome, '\t');
+    getline(ss, morada, '\t');
+    ss >> idade;
+
+    cout << "Código: " << id << endl;
+    cout << "Nome: " << nome << endl;
+    cout << "Morada: " << morada << endl;
+    cout << "Idade: " << idade << endl;
+
+    // Feche o arquivo
+    arquivo.close();
+
+    // Crie um objeto User com base nos dados lidos
+    User* newUser = new User(id, nome, morada, idade);
+
+    // Adicione o usuário ao casino
+    return Add(newUser);
+}
+
+
+bool Casino::Add(User *ut){
+
+    if (ut == nullptr) {
+        cerr << "Erro: Tentativa de adicionar um usuário nulo." << endl;
+        return false;
+    }
+
+    LU.push_back(ut);
+
+    cout << "Usuário adicionado com sucesso!" << endl;
+
+    return true;
+
+}
+
+int Casino::ContarLinhas(const string& nomeArquivo) {
+    ifstream arquivo(nomeArquivo);
+    if (!arquivo.is_open()) {
+        cerr << "Erro ao abrir o arquivo." << endl;
+        return -1; // Indicativo de erro
+    }
+
+    int numeroLinhas = 0;
+    string linha;
+
+    while (getline(arquivo, linha)) {
+        numeroLinhas++;
+    }
+
+    cout << "numero de linahs    " << numeroLinhas << endl;
+    arquivo.close();
+    return numeroLinhas;
+}
+
+bool Casino::entrarUser(){
+
+    bool entrada = false;
+
+    srand (time(NULL));
+
+    int nRandom1 = rand() % 100 + 1;
+    cout << "nRandom1: " << nRandom1 << endl;
+
+    if(nRandom1 < 50){
+        entrada = true;
+    }
+
+    return entrada;
+
+}
+
