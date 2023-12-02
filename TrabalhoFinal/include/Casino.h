@@ -33,6 +33,7 @@ class Casino
         void CarregarDados(int _maxJogadores, int _probabilidadeUser,int _horaAbertura, int _horaFecho);
         void dadosCasino();
         string getNome(){return nome;}
+        void Listar(ostream &f);//compor função
 
 
         bool LoadMachinesFromXML(const string& xmlFile);
@@ -47,7 +48,7 @@ class Casino
         void Desligar(int id_maq);
         estadoMaquina Get_Estado(int id_maq);
         string estadoString(estadoMaquina estadoma);
-        void Listar(float X, std::ostream &f = std::cout);
+        void Listar(float X, ostream &f =  cout);
         void ListarMaquinasProbabilidade();
 
         void avariar(int nMaq);
@@ -55,7 +56,7 @@ class Casino
         void showRankingAvarias();
 
         void listarTipoMaquina();
-        list<Maquina *> Listar_Tipo(string Tipo, std::ostream &f = std::cout);
+        list<Maquina *> Listar_Tipo(string Tipo, ostream &f = cout);
 
         bool LoadUserFromTXT(const string &nomeArquivo);
         bool Add(User *ut);

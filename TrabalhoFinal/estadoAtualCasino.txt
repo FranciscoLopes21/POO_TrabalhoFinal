@@ -1,0 +1,4 @@
+Estado CasinoCasino Figueira 
+ID: 1 | Probabilidade: 10
+ID: 2 | Probabilidade: 10
+ID: 3 | Probabilidade: 1

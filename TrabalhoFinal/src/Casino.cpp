@@ -91,6 +91,20 @@ void Casino::CarregarDados(int _maxJogadores, int _probabilidadeUser, int _horaA
     jogadoresNoCasino=0;
 }
 
+void Casino::Listar(ostream &f){
+
+    f << "Estado Casino" << nome << endl;
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
+
+            f << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl;
+            cout << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl;
+
+    }
+
+}
+
+
+
 
 bool Casino::LoadMachinesFromXML(const string& filename) {
 
@@ -187,11 +201,12 @@ void Casino::gestaoCasino(){
 
 
     int op = 0;
+    ofstream F("estadoAtualCasino.txt");
 
     do {
         // code block to be executed
         cout<< "Gestão Casino" <<endl;
-        cout<< "1- Listar estado casino" <<endl;
+        cout<< "1- Listar estado atual casino" <<endl;
         cout<< "2- Relatorio" <<endl;
         cout<< "3- Subir probabilidade" <<endl;
         cout<< "4- Listar maquinas com probabilidade superiora X" <<endl;
@@ -202,7 +217,8 @@ void Casino::gestaoCasino(){
         switch(op){
 
         case 1:
-            cout<< "Listar estado casino" <<endl;
+            cout<< "Listar estado atual casino" <<endl;
+            Listar(F);
             break;
         case 2:
             int id_maq;
