@@ -18,7 +18,7 @@ class Maquina
     int premio;
     float prob;
     int aposta;
-    estadoMaquina estado;
+
 
     string tipo;
 
@@ -68,6 +68,7 @@ class Maquina
     protected:
         float temperaturaSensor;
         bool utilizacao;
+        estadoMaquina estado;
 
 
     private:

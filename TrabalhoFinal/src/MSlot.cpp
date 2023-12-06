@@ -19,6 +19,9 @@ void MSlot::Run() {
 
     if(getEstado() == ON){
         temperaturaSensor += 0.15;
+        /*if(temperaturaSensor >= 1.00){
+            estado = AVARIADA;
+        }*/ //Avidar que maquina que vai desligar, retirar user e desligar ate x grau e ligar denovo
         cout << "MSlot - Temperatura aumentada: " << temperaturaSensor << "   " << getID() << endl;
     }
 

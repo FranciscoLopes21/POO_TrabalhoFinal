@@ -73,11 +73,20 @@ bool Maquina::verificaEstado()
 }
 
 void Maquina::Desligar() {
-    estado = OFF; // Altera o estado da máquina para OFF
+    if(estado == AVARIADA){
+        estado = AVARIADA;
+    }else{
+        estado = OFF; // Altera o estado da máquina para OFF
+    }
 }
 
 void Maquina::Ligar() {
-    estado = ON; // Altera o estado da máquina para ON
+    if(estado == AVARIADA){
+        estado = AVARIADA;
+    }else{
+        estado = ON; // Altera o estado da máquina para ON
+    }
+
 }
 
 void Maquina::avariaMaquina(){

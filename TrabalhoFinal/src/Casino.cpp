@@ -416,7 +416,11 @@ void Casino::Run(){
                     }
                 }
 
-
+                //Jogadores vao jogar
+                /*for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){
+                    avariar((*it)->getID());
+                    (*it)->Run();
+                }*/
 
 
             } else {
