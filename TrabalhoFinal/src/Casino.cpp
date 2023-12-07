@@ -407,6 +407,11 @@ void Casino::Run(){
                             jogadoresNoCasino ++;
                             LoadUserFromTXT("pessoas.txt");
                             cout << "entrou " << jogadoresNoCasino << endl;
+
+                            int randomIndex = std::rand() % LM.size();
+                            auto it = std::next(LM.begin(), randomIndex);
+                            Maquina *maquina = *it;
+                            cout << "Maquinaaaaaaaaaaaaaaaaa " <<  maquina->getNome()  << endl;
                         }
                 }
 
@@ -415,6 +420,10 @@ void Casino::Run(){
                         (*it)->Run();
                     }
                 }
+
+                /*int randomIndex = std::rand() % LM.size();
+                auto it = std::next(LM.begin(), randomIndex);
+                Maquina *maquina = *it;*/
 
                 //Jogadores vao jogar
                 /*for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){

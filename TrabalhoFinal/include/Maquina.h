@@ -5,6 +5,8 @@ using namespace std;
 #include <string>
 #include <list>
 
+#include "User.h"
+
 class Casino;
 
 enum estadoMaquina{ON, OFF, AVARIADA};
@@ -19,6 +21,8 @@ class Maquina
     float prob;
     int aposta;
 
+    bool utilizacao;
+
 
     string tipo;
 
@@ -27,6 +31,8 @@ class Maquina
     bool verificaEstado();
 
     int nAvarias;
+
+    User *user;
 
 
     public:
@@ -67,7 +73,6 @@ class Maquina
 
     protected:
         float temperaturaSensor;
-        bool utilizacao;
         estadoMaquina estado;
 
 

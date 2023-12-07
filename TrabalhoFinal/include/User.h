@@ -20,6 +20,11 @@ class User
 
         void Run();
 
+        float getCarteira(){ return carteira;}
+        float setCarteira(float _carteira){ carteira = _carteira ;}
+
+
+
     protected:
 
     private:
