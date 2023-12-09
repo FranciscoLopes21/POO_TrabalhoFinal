@@ -28,6 +28,8 @@ class User
         void Run();
         void associarMaquina(Maquina* maquina);
         void entrarFilaEspera(Maquina* maquina);
+        void jogarNaMaquina();
+        void userSaiCasino();
 
         string getNome(){ return nome;}
         string setNome(string _nome){ nome = _nome ;}
@@ -37,6 +39,16 @@ class User
 
         int getJogadas(){return jogadas;}
         int setJogadas(int _jogadas){ jogadas = _jogadas ;}
+
+
+        float getGanhos(){return ganhos;}
+        float setGanhos(int _ganhos){ ganhos = _ganhos ;}
+
+        bool getAJogar(){return aJogar;}
+        bool setAJogar(bool _aJogar){aJogar = _aJogar;}
+
+        Maquina * getMaquinaAssociada(){return maquinaAssociada;}
+
 
 
 

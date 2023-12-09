@@ -2,7 +2,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
-Maquina::Maquina(int _nM, string _nome, int _x, int _y, int _premio, float _prob, string _tipo, int _aposta) {
+Maquina::Maquina(int _nM, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta) {
 
     nMaquina = _nM;
     nome = _nome;
@@ -106,10 +106,40 @@ void Maquina::entrarFilaEspera(User* user) {
 void Maquina::associarUser(User* user) {
     if (userAtual == nullptr) {
         userAtual = user;
+        setUtilizacao(true);
         int rodadas = user->getCarteira()/this->getAposta();
-        user->setJogadas(user->getCarteira()/this->getAposta());
+        user->setJogadas(3);
         cout << "User " << user->getNome() << " começou a jogar na máquina " << nome << endl;
         cout << "User " << user->getJogadas() << " jogadas para jogar" << nome << endl;
     }
+}
+
+void Maquina::rodadas(User* user){
+
+    // Gerar um índice aleatório usando a operação de módulo
+    float randomProb = std::rand() % 100;
+    if (randomProb <= getProb()) {
+        std::cout << "Usuário " << user->getNome() << " ganhou na máquina " << nome << "  premio   "<< premio << std::endl;
+        float ganhosUser = user->getGanhos() + premio;
+        user->setGanhos(ganhosUser);
+    } else {
+        std::cout << "Usuário " << user->getNome() << " perdeu na máquina " << nome << std::endl;
+    }
+
+    // Se houver usuários na fila de espera, inicie o próximo
+    /*if (!filaEspera.empty()) {
+        usuarioAtual = filaEspera.front();
+        filaEspera.pop();
+        std::cout << "Usuário " << usuarioAtual->getNome() << " começou a jogar na máquina " << nome << std::endl;
+        // Lógica de iniciar o jogo para o próximo usuário...
+    } else {
+        usuarioAtual = nullptr;
+    }*/
+
+}
+
+void Maquina::userSaiu() {
+    userAtual == nullptr;
+    setUtilizacao(false);
 }
 

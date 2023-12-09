@@ -426,20 +426,29 @@ void Casino::Run(){
                             cout << "Maquinaaaaaaaaaaaaaaaaa " <<  user->getCarteira()  << endl;
                             cout << "entrou " << jogadoresNoCasino << endl;
 
-
-
                         }
                 }
 
                 if (LU.size()>= 1){
                     for (list<User *>::iterator it = LU.begin(); it != LU.end(); ++it){
-                        (*it)->Run();
+                            (*it)->Run();
                     }
                 }
 
-                /*int randomIndex = std::rand() % LM.size();
-                auto it = std::next(LM.begin(), randomIndex);
-                Maquina *maquina = *it;*/
+                //Verifica se saiu algum user
+                for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){
+                    if(!(*it)->getUtilizacao()){
+                        if (!(*it)->getFilaEspera().empty()) {
+                            User *user = (*it)->getFilaEspera().front();
+                            (*it)->getFilaEspera().pop_front();
+
+                            if(!user->getAJogar()){
+                                user->associarMaquina(*it);
+                            }
+                        }
+                    }
+
+                }
 
                 //Jogadores vao jogar
                 /*for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){

@@ -17,7 +17,7 @@ class Maquina
     string nome;
     int x;
     int y;
-    int premio;
+    float premio;
     float prob;
     int aposta;
 
@@ -36,7 +36,7 @@ class Maquina
 
 
     public:
-        Maquina(int _nM, string _nome, int _x, int _y, int _premio, float _prob, string _tipo, int _aposta);
+        Maquina(int _nM, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta);
         virtual ~Maquina();
         virtual void Run();
         virtual void DisplayInfo() const;
@@ -45,6 +45,8 @@ class Maquina
         void avariaMaquina();
         void entrarFilaEspera(User* user);
         void associarUser(User *user);
+        void rodadas(User *user);
+        void userSaiu();
 
 
         int getID(){ return nMaquina;}
@@ -75,6 +77,8 @@ class Maquina
 
         int getAposta(){return aposta;}
         int setAposta(int _aposta){aposta = _aposta;}
+
+        list<User *> getFilaEspera(){return filaEspera;}
 
 
         estadoMaquina getEstado(){return estado;}
