@@ -1,7 +1,7 @@
 #include "MRoleta.h"
 
-MRoleta::MRoleta(int _nM, const std::string& _nome, int _x, int _y, int _premio, float _prob, const std::string& _tipo)
-    : Maquina(_nM, _nome, _x, _y, _premio, _prob, _tipo)
+MRoleta::MRoleta(int _id, string _nome, int _x, int _y, int _premio, float _prob, string _tipo, int _aposta)
+    : Maquina(_id, _nome, _x, _y, _premio, _prob, _tipo, _aposta)
 {
     //ctor
 }

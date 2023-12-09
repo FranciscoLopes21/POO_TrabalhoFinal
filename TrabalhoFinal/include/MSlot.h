@@ -8,7 +8,7 @@ class MSlot : public Maquina
 {
 
     public:
-        MSlot(int _id, string _nome, int _x, int _y, int _premio, float _prob, string _tipo);
+        MSlot(int _id, string _nome, int _x, int _y, int _premio, float _prob, string _tipo, int _aposta);
         virtual ~MSlot();
         void Run(); // Override do método Run da classe base
 

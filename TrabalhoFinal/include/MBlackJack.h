@@ -8,7 +8,7 @@ class MBlackJack : public Maquina
 {
 
     public:
-        MBlackJack(int _nM, const std::string& _nome, int _x, int _y, int _premio, float _prob, const std::string& _tipo);
+        MBlackJack(int _id, string _nome, int _x, int _y, int _premio, float _prob, string _tipo, int _aposta);
         virtual ~MBlackJack();
 
     protected:

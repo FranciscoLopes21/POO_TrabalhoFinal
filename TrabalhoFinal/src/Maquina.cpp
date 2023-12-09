@@ -2,7 +2,7 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
-Maquina::Maquina(int _nM, string _nome, int _x, int _y, int _premio, float _prob, string _tipo) {
+Maquina::Maquina(int _nM, string _nome, int _x, int _y, int _premio, float _prob, string _tipo, int _aposta) {
 
     nMaquina = _nM;
     nome = _nome;
@@ -11,12 +11,14 @@ Maquina::Maquina(int _nM, string _nome, int _x, int _y, int _premio, float _prob
     premio = _premio;
     prob = _prob;
     tipo = _tipo;
+    aposta = _aposta;
 
 
     estado = OFF;
     temperaturaSensor = 0.0;
     nAvarias = 0;
     utilizacao = false;
+    userAtual=nullptr;
 
 }
 
@@ -92,5 +94,22 @@ void Maquina::Ligar() {
 void Maquina::avariaMaquina(){
     estado = AVARIADA;
     nAvarias ++;
+}
+
+void Maquina::entrarFilaEspera(User* user) {
+    if (userAtual != nullptr) {
+        filaEspera.push_back(user);
+        cout << "User " << user->getNome() << " entrou na fila de espera para a máquina " << nome << endl;
+    }
+}
+
+void Maquina::associarUser(User* user) {
+    if (userAtual == nullptr) {
+        userAtual = user;
+        int rodadas = user->getCarteira()/this->getAposta();
+        user->setJogadas(user->getCarteira()/this->getAposta());
+        cout << "User " << user->getNome() << " começou a jogar na máquina " << nome << endl;
+        cout << "User " << user->getJogadas() << " jogadas para jogar" << nome << endl;
+    }
 }
 

@@ -131,9 +131,9 @@ bool Casino::LoadMachinesFromXML(const string& filename) {
         Maquina* m = nullptr;
 
         if (tipo == "slot") {
-            m = new MSlot(id, nome, x, y, premio, probG, tipo);
+            m = new MSlot(id, nome, x, y, premio, probG, tipo,10);
         } else if (tipo == "poker") {
-            m = new MPoker(id, nome, x, y, premio, probG, tipo);
+            m = new MPoker(id, nome, x, y, premio, probG, tipo,15);
         }
 
         // Adiciona a máquina ao vetor do Casino
@@ -404,14 +404,30 @@ void Casino::Run(){
 
                 if(jogadoresNoCasino < maxJogadores){
                         if(entrarUser()){
-                            jogadoresNoCasino ++;
-                            LoadUserFromTXT("pessoas.txt");
-                            cout << "entrou " << jogadoresNoCasino << endl;
 
                             int randomIndex = std::rand() % LM.size();
                             auto it = std::next(LM.begin(), randomIndex);
                             Maquina *maquina = *it;
                             cout << "Maquinaaaaaaaaaaaaaaaaa " <<  maquina->getNome()  << endl;
+
+                            jogadoresNoCasino ++;
+                            User *user = userEntraCasino("pessoas.txt");
+                            Add(user);
+
+                            if(maquina->getUtilizacao()){//Se estiver em utilização
+                                user->entrarFilaEspera(maquina);
+                            }
+                            else{
+                                user->associarMaquina(maquina);
+                            }
+
+
+
+                            cout << "Maquinaaaaaaaaaaaaaaaaa " <<  user->getCarteira()  << endl;
+                            cout << "entrou " << jogadoresNoCasino << endl;
+
+
+
                         }
                 }
 
@@ -696,8 +712,8 @@ list<Maquina *> Casino::Listar_Tipo(string Tipo, std::ostream &f) {
 
     return maquinasDoTipo;
 
-}
 
+}
 
 
 
@@ -791,9 +807,9 @@ void Casino::addMaquina(){
     int id = LM.size()+1;
 
     if (tipo == "slot" || tipo == "Slot") {
-        m = new MSlot(id, nome, x, y, premio, prob, tipo);
+        m = new MSlot(id, nome, x, y, premio, prob, tipo,10);
     } else if (tipo == "poker" || tipo == "Poker") {
-        m = new MPoker(id, nome, x, y, premio, prob, tipo);
+        m = new MPoker(id, nome, x, y, premio, prob, tipo,15);
     }
 
     Add(m);
@@ -888,7 +904,7 @@ bool Casino::editarMaquina(int id_maq){
 
 
 
-bool Casino::LoadUserFromTXT(const string &nomeArquivo){
+User* Casino::userEntraCasino(const string &nomeArquivo){
 
     int numeroLinhas = ContarLinhas(nomeArquivo);
     if (numeroLinhas != -1) {
@@ -902,7 +918,7 @@ bool Casino::LoadUserFromTXT(const string &nomeArquivo){
     ifstream arquivo(nomeArquivo);
     if (!arquivo.is_open()) {
         cerr << "Erro ao abrir o arquivo." << endl;
-        return false;
+        return nullptr;
     }
 
     // Leitura das linhas até chegar à linha desejada
@@ -940,7 +956,7 @@ bool Casino::LoadUserFromTXT(const string &nomeArquivo){
     User* newUser = new User(id, nome, morada, idade);
 
     // Adicione o usuário ao casino
-    return Add(newUser);
+    return newUser;
 }
 
 

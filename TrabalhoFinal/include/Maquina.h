@@ -22,6 +22,8 @@ class Maquina
     int aposta;
 
     bool utilizacao;
+    list<User *> filaEspera;
+    User *userAtual;
 
 
     string tipo;
@@ -32,17 +34,17 @@ class Maquina
 
     int nAvarias;
 
-    User *user;
-
 
     public:
-        Maquina(int _nM, string _nome, int _x, int _y, int _premio, float _prob, string _tipo);
+        Maquina(int _nM, string _nome, int _x, int _y, int _premio, float _prob, string _tipo, int _aposta);
         virtual ~Maquina();
         virtual void Run();
         virtual void DisplayInfo() const;
         void Desligar();
         void Ligar();
         void avariaMaquina();
+        void entrarFilaEspera(User* user);
+        void associarUser(User *user);
 
 
         int getID(){ return nMaquina;}
@@ -67,6 +69,13 @@ class Maquina
 
         int getnAvarias(){return nAvarias;}
         int setnAvarias(int _nAvarias){nAvarias = _nAvarias;}
+
+        bool getUtilizacao(){return utilizacao;}
+        bool setUtilizacao(bool _utilizacao){utilizacao = _utilizacao;}
+
+        int getAposta(){return aposta;}
+        int setAposta(int _aposta){aposta = _aposta;}
+
 
         estadoMaquina getEstado(){return estado;}
 

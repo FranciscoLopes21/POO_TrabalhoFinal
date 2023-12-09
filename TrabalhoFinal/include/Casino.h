@@ -58,7 +58,7 @@ class Casino
         void listarTipoMaquina();
         list<Maquina *> Listar_Tipo(string Tipo, ostream &f = cout);
 
-        bool LoadUserFromTXT(const string &nomeArquivo);
+        User* userEntraCasino(const string &nomeArquivo);
         bool Add(User *ut);
         int ContarLinhas(const string &nomeArquivo);
 
