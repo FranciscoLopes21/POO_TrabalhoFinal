@@ -48,6 +48,7 @@ class User
         bool setAJogar(bool _aJogar){aJogar = _aJogar;}
 
         Maquina * getMaquinaAssociada(){return maquinaAssociada;}
+        Maquina * setMaquinaAssociada(Maquina *maquina){maquinaAssociada=maquina;}
 
 
 

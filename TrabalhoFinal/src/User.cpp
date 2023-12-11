@@ -15,6 +15,7 @@ User::User(int _nUser, string _nome, string _morada, int _idade)
 
     carteira = rand() % 1000 + 1;
     ganhos = 0;
+    jogadas = 0;
     aJogar = false;
     maquinaAssociada = nullptr;
 }
@@ -41,8 +42,9 @@ void User::Run(){
             jogarNaMaquina();
         }else{
             //sair casino
+            getMaquinaAssociada()->userSaiu();
             userSaiCasino();
-            maquinaAssociada->userSaiu();
+
         }
     }
 
@@ -50,11 +52,17 @@ void User::Run(){
 }
 
 void User::associarMaquina(Maquina* maquina) {
-    maquinaAssociada = maquina;
+    /*maquinaAssociada = maquina;
     maquina->associarUser(this);
-    setAJogar(true);
+    setAJogar(true);*/
 
-    cout << "Maquina Associada " <<  maquinaAssociada->getNome()  << endl;
+    setMaquinaAssociada(maquina);
+    maquina->associarUser(this);
+
+    User * u = maquina->getUserAtual();
+    string nomeUser = u->getNome();
+
+    cout << "User " << nomeUser << " foi associado a Maquina: " <<  maquinaAssociada->getNome() << endl;
 }
 
 void User::entrarFilaEspera(Maquina* maquina) {
@@ -63,15 +71,16 @@ void User::entrarFilaEspera(Maquina* maquina) {
 
 void User::jogarNaMaquina(){
 
-    if(maquinaAssociada!=nullptr){
-        jogadas --;
+    //if(maquinaAssociada!=nullptr){
+        setJogadas(getJogadas()-1);
         maquinaAssociada->rodadas(this);
-    }
+    //}
 }
 
 void User::userSaiCasino(){
 
-    maquinaAssociada == nullptr;
-    setAJogar(false);
+    setMaquinaAssociada(nullptr);
+    //setAJogar(false);
+    std::cout << "User " << getNome() << " saiu da maquina" << std::endl;
 
 }

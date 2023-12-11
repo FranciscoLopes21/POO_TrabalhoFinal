@@ -104,14 +104,25 @@ void Maquina::entrarFilaEspera(User* user) {
 }
 
 void Maquina::associarUser(User* user) {
-    if (userAtual == nullptr) {
+
+    if(getUserAtual() ==nullptr){
+        setUserAtual(user);
+
+        int rodadas = user->getCarteira()/this->getAposta();
+        user->setJogadas(3);
+
+        cout << "User " << user->getNome() << " trocou carteira " << user->getCarteira() << " por " << user->getJogadas() << " fichas" << endl;
+        //cout << "User " << user->getJogadas() << " jogadas para jogar" << nome << endl;
+    }
+
+    /*if (userAtual == nullptr) {
         userAtual = user;
         setUtilizacao(true);
         int rodadas = user->getCarteira()/this->getAposta();
         user->setJogadas(3);
         cout << "User " << user->getNome() << " começou a jogar na máquina " << nome << endl;
         cout << "User " << user->getJogadas() << " jogadas para jogar" << nome << endl;
-    }
+    }*/
 }
 
 void Maquina::rodadas(User* user){
@@ -139,7 +150,9 @@ void Maquina::rodadas(User* user){
 }
 
 void Maquina::userSaiu() {
-    userAtual == nullptr;
-    setUtilizacao(false);
+
+    setUserAtual(nullptr);
+    std::cout << "Maquina " << getNome() << " ficou livre" << std::endl;
+    //setUtilizacao(false);
 }
 

@@ -79,9 +79,16 @@ class Maquina
         int setAposta(int _aposta){aposta = _aposta;}
 
         list<User *> getFilaEspera(){return filaEspera;}
+        void removerUsuarioFilaEspera(User* user) {
+            filaEspera.remove(user);
+        }
 
 
         estadoMaquina getEstado(){return estado;}
+
+        User * getUserAtual(){return userAtual;}
+        User * setUserAtual(User *user){userAtual = user;}
+
 
 
     protected:

@@ -414,12 +414,21 @@ void Casino::Run(){
                             User *user = userEntraCasino("pessoas.txt");
                             Add(user);
 
+
+                            if(maquina->getUserAtual()!=nullptr){
+                                user->entrarFilaEspera(maquina);
+                            }else{
+                                user->associarMaquina(maquina);
+                            }
+
+                            /*
                             if(maquina->getUtilizacao()){//Se estiver em utilização
                                 user->entrarFilaEspera(maquina);
                             }
                             else{
                                 user->associarMaquina(maquina);
                             }
+                            */
 
 
 
@@ -429,26 +438,48 @@ void Casino::Run(){
                         }
                 }
 
-                if (LU.size()>= 1){
+
+                if(LU.size()>=1){
                     for (list<User *>::iterator it = LU.begin(); it != LU.end(); ++it){
                             (*it)->Run();
                     }
                 }
 
-                //Verifica se saiu algum user
-                for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){
-                    if(!(*it)->getUtilizacao()){
-                        if (!(*it)->getFilaEspera().empty()) {
-                            User *user = (*it)->getFilaEspera().front();
-                            (*it)->getFilaEspera().pop_front();
+                /*if (LU.size()>= 1){
+                    for (list<User *>::iterator it = LU.begin(); it != LU.end(); ++it){
+                            (*it)->Run();
+                    }
+                }*/
 
-                            if(!user->getAJogar()){
-                                user->associarMaquina(*it);
-                            }
+                //Verifica se saiu algum user
+                // Verifica se saiu algum user
+                for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
+                    if ((*it)->getUserAtual()==nullptr) {
+                        if (!(*it)->getFilaEspera().empty()) {
+                            User *useruser = (*it)->getFilaEspera().front();
+                            useruser->associarMaquina(*it);
+                            (*it)->removerUsuarioFilaEspera(useruser);
+
+                            cout << "user da fila " <<  useruser->getNome()  << endl;
+
+
+
+                                // Antes de associar a máquina, certifique-se de que ela não está sendo usada
+
+
+                                    //(*it)->setUtilizacao(true); // Marca a máquina como em uso
+                                    //iniciarJogo(user); // Inicia o jogo para o usuário associado à máquina
+                                //else {
+                                    // Se a máquina estiver em uso, o usuário entra na fila de espera
+                                    //user->entrarFilaEspera(*it);
+                                //}
+
+                        }else{
+                            (*it)->setUserAtual(nullptr);
                         }
                     }
-
                 }
+
 
                 //Jogadores vao jogar
                 /*for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){

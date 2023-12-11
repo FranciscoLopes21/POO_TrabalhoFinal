@@ -17,7 +17,7 @@
 			<TEMP>0</TEMP>	
 			<TIPO>slot</TIPO>			
 		</MAQUINA>
-		<MAQUINA>
+			<MAQUINA>
 			<ID>2</ID>
 			<NOME>Slot300</NOME>
 			<X>50</X>
@@ -36,6 +36,6 @@
 			<PROB_G>1</PROB_G>
 			<TEMP>0</TEMP>	
 			<TIPO>poker</TIPO>					
-		</MAQUINA>	
+		</MAQUINA>
 	</LISTA_MAQ>
 </DADOS>
