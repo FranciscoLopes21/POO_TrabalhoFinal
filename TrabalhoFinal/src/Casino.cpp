@@ -296,6 +296,7 @@ void Casino::gestaoMaquinas(){
             break;
         case 7:
             cout << "Ranking mais trabalhadores" << endl;
+            Ranking_Das_Mais_Trabalhadores();
             break;
         case 0:
             break;
@@ -1049,5 +1050,32 @@ bool Casino::entrarUser(){
 
     return entrada;
 
+}
+
+
+list<Maquina *> *Casino::Ranking_Das_Mais_Trabalhadores() {
+    // Crie uma cópia da lista de máquinas
+    list<Maquina *> *copiaMaquinas = new list<Maquina *>(LM.begin(), LM.end());
+
+    copiaMaquinas->sort([](Maquina* a, Maquina* b) {
+        return a->getNJogos() > b->getNJogos();
+    });
+
+    // Ordene a lista usando a função de comparação
+    //copiaMaquinas->sort(compararNjogos);
+
+    for (auto maquina : *copiaMaquinas) {
+
+        cout << "ID: " << maquina->getID() << " | Nome: " << maquina->getNome() << " | Tipo: " << maquina->getNJogos() << endl;
+
+    }
+
+
+    return copiaMaquinas;
+}
+
+bool compararNjogos(Maquina *maquina1, Maquina *maquina2) {
+    // Compare o número de vezes que as máquinas foram utilizadas
+    return maquina1->getNJogos() > maquina2->getNJogos();
 }
 

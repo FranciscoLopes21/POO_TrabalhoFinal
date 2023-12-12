@@ -77,6 +77,11 @@ class Casino
         bool removerMaquina(int id_maq);
         bool editarMaquina(int id_maq);
 
+
+        list<Maquina *> * Ranking_Das_Mais_Trabalhadores();
+
+        bool compararNjogos(Maquina *maquina1, Maquina *maquina2);
+
     protected:
 
     private:

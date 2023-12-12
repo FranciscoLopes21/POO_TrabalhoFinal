@@ -17,7 +17,8 @@ Maquina::Maquina(int _nM, string _nome, int _x, int _y, float _premio, float _pr
     estado = OFF;
     temperaturaSensor = 0.0;
     nAvarias = 0;
-    utilizacao = false;
+    nJogos = 0;
+    //utilizacao = false;
     userAtual=nullptr;
 
 }
@@ -136,6 +137,9 @@ void Maquina::rodadas(User* user){
     } else {
         std::cout << "Usuário " << user->getNome() << " perdeu na máquina " << nome << std::endl;
     }
+
+
+    setNJogos(nJogos + 1);
 
     // Se houver usuários na fila de espera, inicie o próximo
     /*if (!filaEspera.empty()) {

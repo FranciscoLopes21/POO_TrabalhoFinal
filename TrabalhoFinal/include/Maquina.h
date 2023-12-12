@@ -21,7 +21,7 @@ class Maquina
     float prob;
     int aposta;
 
-    bool utilizacao;
+    //bool utilizacao;
     list<User *> filaEspera;
     User *userAtual;
 
@@ -33,6 +33,8 @@ class Maquina
     bool verificaEstado();
 
     int nAvarias;
+
+    int nJogos;
 
 
     public:
@@ -72,11 +74,14 @@ class Maquina
         int getnAvarias(){return nAvarias;}
         int setnAvarias(int _nAvarias){nAvarias = _nAvarias;}
 
-        bool getUtilizacao(){return utilizacao;}
-        bool setUtilizacao(bool _utilizacao){utilizacao = _utilizacao;}
+        //bool getUtilizacao(){return utilizacao;}
+        //bool setUtilizacao(bool _utilizacao){utilizacao = _utilizacao;}
 
         int getAposta(){return aposta;}
         int setAposta(int _aposta){aposta = _aposta;}
+
+        int getNJogos(){return nJogos;}
+        int setNJogos(int _nJogos){nJogos=_nJogos;}
 
         list<User *> getFilaEspera(){return filaEspera;}
         void removerUsuarioFilaEspera(User* user) {
