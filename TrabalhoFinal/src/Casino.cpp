@@ -68,8 +68,6 @@ Casino::Casino(string _nome)
 {
     //ctor
     nome = _nome;
-    std::random_device rd;
-        std::mt19937 rng(rd());
 }
 
 Casino::~Casino()
@@ -251,7 +249,7 @@ void Casino::gestaoMaquinas(){
 
     do {
         // code block to be executed
-        cout<< "Gestão Casino" <<endl;
+        cout<< "Gestão Maquinas" <<endl;
         cout<< "1- Listar maquinas" <<endl;
         cout<< "2- Crud maquina" <<endl;
         cout<< "3- Desligar maquina" <<endl;
@@ -278,6 +276,7 @@ void Casino::gestaoMaquinas(){
         case 3:
             cout<< "Desligar maquina" <<endl;
             int nMaquina;
+            cout<< "ID: ";
             cin >> nMaquina;
             Desligar(nMaquina);
             break;
@@ -620,7 +619,7 @@ void Casino::Desligar(int id_maq) {
    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
         if((*it)->getID() == id_maq){
             (*it)->Desligar();
-            cout << "Máquina desligada." << endl;
+            cout << "Máquina " << (*it)->getNome() << " desligada." << endl;
             return;
         }
 
