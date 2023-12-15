@@ -283,6 +283,7 @@ void Casino::gestaoMaquinas(){
         case 4:
             cout<< "Estado maquina ID" <<endl;
             int idMaquina;
+            cout<< "ID: ";
             cin >> idMaquina;
             cout  << " | Estado: " << estadoString(Get_Estado(idMaquina)) << endl;
             break;
