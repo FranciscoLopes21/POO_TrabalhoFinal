@@ -82,6 +82,8 @@ class Casino
 
         bool compararNjogos(Maquina *maquina1, Maquina *maquina2);
 
+        list<User *> * Jogadores_Mais_Ganhos ();
+
     protected:
 
     private:

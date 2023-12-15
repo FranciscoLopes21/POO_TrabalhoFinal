@@ -31,6 +31,9 @@ class User
         void jogarNaMaquina();
         void userSaiCasino();
 
+        int getNUser(){ return nUser;}
+        int setNUser(int _nUser){ nUser = _nUser ;}
+
         string getNome(){ return nome;}
         string setNome(string _nome){ nome = _nome ;}
 

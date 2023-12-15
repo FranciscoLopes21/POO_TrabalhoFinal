@@ -178,6 +178,7 @@ void Casino::Menu(){
             break;
         case 4:
             cout<< "Gestão User" <<endl;
+            Jogadores_Mais_Ganhos();
             //ContarLinhas("pessoas.txt");
             break;
         case 5:
@@ -381,6 +382,8 @@ system("cls");
 
 //Funções
 
+
+//Função Run Casino
 void Casino::Run(){
     char key;
     bool maquinasJaLigadas = false;
@@ -1077,5 +1080,32 @@ list<Maquina *> *Casino::Ranking_Das_Mais_Trabalhadores() {
 bool compararNjogos(Maquina *maquina1, Maquina *maquina2) {
     // Compare o número de vezes que as máquinas foram utilizadas
     return maquina1->getNJogos() > maquina2->getNJogos();
+}
+
+
+
+
+list<User *> * Casino::Jogadores_Mais_Ganhos () {
+
+    // Crie uma cópia da lista de máquinas
+    list<User *> *copiaUser = new list<User *>(LU.begin(), LU.end());
+
+    copiaUser->sort([](User* a, User* b) {
+        return a->getGanhos() > b->getGanhos();
+    });
+
+    // Ordene a lista usando a função de comparação
+    //copiaMaquinas->sort(compararNjogos);
+
+    for (auto user : *copiaUser) {
+
+        cout << "ID: " << user->getNUser() << " | Nome: " << user->getNome() << " | ganhos: " << user->getGanhos() << endl;
+
+    }
+
+
+    return copiaUser;
+
+
 }
 
