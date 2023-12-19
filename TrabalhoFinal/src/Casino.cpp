@@ -91,7 +91,16 @@ void Casino::CarregarDados(int _maxJogadores, int _probabilidadeUser, int _horaA
 
 void Casino::Listar(ostream &f){
 
-    f << "Estado Casino" << nome << endl;
+    //Compor listagem para listar o estado atual do casino
+
+    system("cls");
+
+    cout << endl;
+    cout << "Listar estado atual do Casino" << endl;
+    cout << endl;
+    cout << "| ID: Maquina | Nome | Probabilidade |" << endl;
+
+    f << "Estado Casino " << nome << endl;
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
 
             f << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl;
@@ -99,6 +108,7 @@ void Casino::Listar(ostream &f){
 
     }
 
+    cout << endl;
 }
 
 
@@ -150,12 +160,15 @@ void Casino::Menu(){
     int op = 0;
     do {
         // code block to be executed
-        cout<< "Menu" <<endl;
-        cout<< "1- Dados Casino" <<endl;
-        cout<< "2- Gestão Casino" <<endl;
-        cout<< "3- Gestão Maquinas" <<endl;
-        cout<< "4- Gestão User" <<endl;
-        cout<< "5- Memoria Total" <<endl;
+        cout<< "||||||||||||||||||||||" <<endl;
+        cout<< "|        Menu        |" <<endl;
+        cout<< "|   1- Dados Casino  |" <<endl;
+        cout<< "|  2- Gestão Casino  |" <<endl;
+        cout<< "| 3- Gestão Maquinas |" <<endl;
+        cout<< "|   4- Gestão User   |" <<endl;
+        cout<< "|  5- Memoria Total  |" <<endl;
+        cout<< "|       0- Sair      |" <<endl;
+        cout<< "||||||||||||||||||||||" <<endl;
 
         cin >> op;
 
@@ -167,14 +180,17 @@ void Casino::Menu(){
             dadosCasino();
             break;
         case 2:
+            system("cls");
             cout<< "Gestão Casino" <<endl;
             gestaoCasino();
             break;
         case 3:
+            system("cls");
             cout<< "Gestão Maquinas" <<endl;
             gestaoMaquinas();
             break;
         case 4:
+            system("cls");
             cout<< "Gestão User" <<endl;
             Jogadores_Mais_Ganhos();
             //ContarLinhas("pessoas.txt");
@@ -711,6 +727,9 @@ void Casino::registarMaquina(){
 }
 
 void Casino::ListMachines() const {
+    cout << "|ID: | Nome: | Posição: (x ,y ) | Prêmio | ProbG:  | Estado: " << endl;
+
+
     for (const auto& maquina : LM) {
         maquina->DisplayInfo();
     }
