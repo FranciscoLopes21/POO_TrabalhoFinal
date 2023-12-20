@@ -76,6 +76,7 @@ class Casino
         void addMaquina();
         bool removerMaquina(int id_maq);
         bool editarMaquina(int id_maq);
+        bool moverMaquina(int id_maq);
 
 
         list<Maquina *> * Ranking_Das_Mais_Trabalhadores();

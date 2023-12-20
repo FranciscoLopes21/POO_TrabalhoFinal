@@ -795,6 +795,7 @@ void Casino::menuCrudMaquina(){
         cout<< "1- Adicionar Maquina" <<endl;
         cout<< "2- Remover Maquina" <<endl;
         cout<< "3- Editar Maquina" <<endl;
+        cout<< "4- Mover Maquina" <<endl;
         cout<< "0- Sair" <<endl;
 
         cin >> op;
@@ -816,6 +817,12 @@ void Casino::menuCrudMaquina(){
             cout<< "Editar Maquina: Introduza id número maquina" <<endl;
             cin >> id_maqq;
             editarMaquina(id_maqq);
+            break;
+        case 4:
+            int id_maqqq;
+            cout <<"ID Maquina: ";
+            cin >> id_maqqq;
+            moverMaquina(id_maqqq);
             break;
         case 0:
             break;
@@ -961,6 +968,62 @@ bool Casino::editarMaquina(int id_maq){
 
     cout << "Máquina não encontrada." << endl;
     return false;
+}
+
+bool Casino::moverMaquina(int id_maq){
+
+    int x, y;
+    bool movido = false;
+
+    cout << "Mover Máquina de lugar" << endl;
+
+    // Procurar a máquina com o ID fornecido
+    list<Maquina *>::iterator itFirst = LM.begin();
+    while (itFirst != LM.end() && (*itFirst)->getID() != id_maq) {
+        ++itFirst;
+    }
+
+    if (itFirst != LM.end()) {
+        cout << " |Nome Maquina: " << (*itFirst)->getNome() << "| " << endl;
+        cout << " |X: " << (*itFirst)->getX() << "| " << endl;
+        cout << " |Y: " << (*itFirst)->getY() << "| " << endl;
+        cout << " |Probabilidade: " << (*itFirst)->getProb() << "| " << endl;
+        cout << " |Premio: " << (*itFirst)->getPremio() << "| " << endl;
+        cout << endl;
+
+        do {
+            // Obter a nova posição
+            cout << "Novo valor de X: ";
+            cin >> x;
+            cout << "Novo valor de Y: ";
+            cin >> y;
+
+            // Verificar se a nova posição já está ocupada
+            bool posicaoOcupada = false;
+            list<Maquina *>::iterator it = LM.begin();
+            while (it != LM.end()) {
+                if ((*it)->getX() == x && (*it)->getY() == y) {
+                    posicaoOcupada = true;
+                    cout << "Posição já ocupada. Escolha outra posição." << endl;
+                    break;
+                }
+                ++it;
+            }
+
+            if (!posicaoOcupada) {
+                // Atualizar a posição da máquina
+                (*itFirst)->setX(x);
+                (*itFirst)->setY(y);
+                movido = true;
+                cout << "Máquina movida para (" << x << ", " << y << ")" << endl;
+            }
+        } while (!movido);
+    } else {
+        cout << "Máquina com ID " << id_maq << " não encontrada." << endl;
+    }
+
+    return movido;
+
 }
 
 // Fim Crud Maquinas
