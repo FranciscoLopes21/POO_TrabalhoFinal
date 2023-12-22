@@ -238,6 +238,7 @@ void Casino::gestaoCasino(){
         case 2:
             int id_maq;
             cout<< "Relatorio" <<endl;
+            maquinaAvariada();
             break;
         case 3:
             cout<< "Subir probabilidade" <<endl;
@@ -711,13 +712,37 @@ string Casino::estadoString(estadoMaquina estadoma){
 
 void Casino::maquinaAvariada(){
 
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
+        if ((*it)->getEstado() ==  AVARIADA) {
+            cout << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl;
+        }
+    }
+
+    cout << "Deseja reparar alguma maquina (S/N): " << endl;
+    char repar;
+    cin >> repar;
+
+    if(repar == 'S' || repar == 's'){
+        int id_maq;
+        cout << "Numero Maquina: " ;
+        cin >> id_maq;
+        reparar(id_maq);
+    }
+
 
 }
 void Casino::maquinaGanhos(){
 
 
 }
-void Casino::reparar(){
+void Casino::reparar(int id_maq){
+
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
+        if ((*it)->getID() == id_maq) {
+            (*it)->repararMaquina();
+            cout << "ID: " << (*it)->getID() << " | Maquina Reparada" << endl;
+        }
+    }
 
 
 }

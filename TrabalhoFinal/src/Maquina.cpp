@@ -160,3 +160,17 @@ void Maquina::userSaiu() {
     //setUtilizacao(false);
 }
 
+bool Maquina::repararMaquina(){
+
+    bool reparado= false;
+
+
+    estado = ON;
+    reparado = true;
+
+
+    return reparado;
+
+
+}
+

@@ -83,6 +83,8 @@ class Maquina
         int getNJogos(){return nJogos;}
         int setNJogos(int _nJogos){nJogos=_nJogos;}
 
+        bool repararMaquina();
+
         list<User *> getFilaEspera(){return filaEspera;}
         void removerUsuarioFilaEspera(User* user) {
             filaEspera.remove(user);

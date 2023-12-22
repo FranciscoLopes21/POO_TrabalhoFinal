@@ -43,7 +43,7 @@ class Casino
 
         void maquinaAvariada();
         void maquinaGanhos();
-        void reparar();
+        void reparar(int id_maq);
         void registarMaquina();
         void Desligar(int id_maq);
         estadoMaquina Get_Estado(int id_maq);
