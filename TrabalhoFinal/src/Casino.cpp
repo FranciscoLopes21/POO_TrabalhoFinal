@@ -939,10 +939,8 @@ bool Casino::editarMaquina(int id_maq){
 
                 cout << "Selecione o dado a alterar:" <<endl;
                 cout << "1 - Nome" <<endl;
-                cout << "2 - X" <<endl;
-                cout << "3 - Y" <<endl;
-                cout << "4 - Probabilidade" <<endl;
-                cout << "5 - Premio" <<endl;
+                cout << "2 - Probabilidade" <<endl;
+                cout << "3 - Premio" <<endl;
                 cout << "0 - Sair" <<endl;
 
                 string nome;
@@ -957,21 +955,11 @@ bool Casino::editarMaquina(int id_maq){
                         (*it)->setNome(nome);
                         break;
                     case 2:
-                        cout << "Introduza o novo X: " << endl;
-                        cin >> x;
-                        (*it)->setX(x);
-                        break;
-                    case 3:
-                        cout << "Introduza o novo Y: " << endl;
-                        cin >> y;
-                        (*it)->setY(y);
-                        break;
-                    case 4:
                         cout << "Introduza o nova probabilidade: " << endl;
                         cin >> prob;
                         (*it)->setProb(prob);
                         break;
-                    case 5:
+                    case 3:
                         cout << "Introduza o novo premio: " << endl;
                         cin >> premio;
                         (*it)->setPremio(premio);
