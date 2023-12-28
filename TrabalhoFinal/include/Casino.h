@@ -22,6 +22,9 @@ class Casino
     list<Maquina *> LM_Avariadas;
     list<User *> LU;
     list<int> Lt;
+    int totalPremios;
+    int totalDinheiroDado;
+
 
 
     public:
@@ -84,6 +87,10 @@ class Casino
         bool compararNjogos(Maquina *maquina1, Maquina *maquina2);
 
         list<User *> * Jogadores_Mais_Ganhos ();
+
+        int getJogadoresNoCasino() const { return jogadoresNoCasino; }
+        void setJogadoresNoCasino(int jogadores) { jogadoresNoCasino = jogadores; }
+
 
     protected:
 

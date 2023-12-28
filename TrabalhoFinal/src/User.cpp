@@ -4,8 +4,9 @@
 #include <ctime>
 
 #include "Maquina.h"
+#include "Casino.h"
 
-User::User(int _nUser, string _nome, string _morada, int _idade)
+User::User(int _nUser, string _nome, string _morada, int _idade, Casino* _casino)
 {
     //ctor
     nUser = _nUser;
@@ -18,6 +19,9 @@ User::User(int _nUser, string _nome, string _morada, int _idade)
     jogadas = 0;
     aJogar = false;
     maquinaAssociada = nullptr;
+
+    // Define o ponteiro para o Casino
+    casino = _casino;
 }
 
 User::~User()
@@ -80,6 +84,12 @@ void User::jogarNaMaquina(){
 void User::userSaiCasino(){
 
     setMaquinaAssociada(nullptr);
+
+        int jogadores = casino->getJogadoresNoCasino();
+        casino->setJogadoresNoCasino(jogadores - 1);
+
+
+
     //setAJogar(false);
     std::cout << "User " << getNome() << " saiu da maquina" << std::endl;
 

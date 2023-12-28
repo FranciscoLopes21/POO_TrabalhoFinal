@@ -5,6 +5,7 @@ using namespace std;
 #include <string>
 
 class Maquina;
+class Casino;
 
 class User
 {
@@ -21,8 +22,10 @@ class User
 
     Maquina * maquinaAssociada;
 
+    Casino* casino;
+
     public:
-        User(int _nUser, string _nome, string _morada, int _idade);
+        User(int _nUser, string _nome, string _morada, int _idade, Casino* _casino);
         virtual ~User();
 
         void Run();

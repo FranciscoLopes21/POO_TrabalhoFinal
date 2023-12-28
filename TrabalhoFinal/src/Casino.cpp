@@ -87,6 +87,8 @@ void Casino::CarregarDados(int _maxJogadores, int _probabilidadeUser, int _horaA
     horaFecho = _horaFecho;
 
     jogadoresNoCasino=0;
+    totalPremios=0;
+    totalDinheiroDado=0;
 }
 
 void Casino::Listar(ostream &f){
@@ -98,15 +100,19 @@ void Casino::Listar(ostream &f){
     cout << endl;
     cout << "Listar estado atual do Casino" << endl;
     cout << endl;
-    cout << "| ID: Maquina | Nome | Probabilidade |" << endl;
+    cout << "| ID Maquina | Nome Maquina | Probabilidade | Estado | temperatura |" << endl;
 
     f << "Estado Casino " << nome << endl;
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
 
-            f << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl;
-            cout << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl;
+            f << "| ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() <<" | Probabilidade: " << (*it)->getProb() << " | Estado: " << estadoString((*it)->getEstado()) << " | Temperatura: " << (*it)->getTemperaturaSensor() << endl;
+            cout << "| ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() <<" | Probabilidade: " << (*it)->getProb() << " | Estado: " << estadoString((*it)->getEstado()) << " | Temperatura: " << (*it)->getTemperaturaSensor() << endl;
 
     }
+
+    cout << endl;
+    cout << "Jogadores no casino: " << jogadoresNoCasino << endl;
+    cout << "Numero total de jogadores: " << LU.size() << endl;
 
     cout << endl;
 }
@@ -482,6 +488,8 @@ void Casino::Run(){
                             (*it)->removerUsuarioFilaEspera(useruser);
 
                             cout << "user da fila " <<  useruser->getNome()  << endl;
+
+
 
 
 
@@ -1092,7 +1100,9 @@ User* Casino::userEntraCasino(const string &nomeArquivo){
     arquivo.close();
 
     // Crie um objeto User com base nos dados lidos
-    User* newUser = new User(id, nome, morada, idade);
+    User* newUser = new User(id, nome, morada, idade, this);
+
+    jogadoresNoCasino +1;
 
     // Adicione o usuário ao casino
     return newUser;

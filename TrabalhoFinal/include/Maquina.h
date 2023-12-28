@@ -19,6 +19,7 @@ class Maquina
     int y;
     float premio;
     float prob;
+    float temperaturaSensor;
     int aposta;
 
     //bool utilizacao;
@@ -83,6 +84,9 @@ class Maquina
         int getNJogos(){return nJogos;}
         int setNJogos(int _nJogos){nJogos=_nJogos;}
 
+        float getTemperaturaSensor(){return temperaturaSensor;}
+        float setTemperaturaSensor(float _temperaturaSensor){temperaturaSensor = _temperaturaSensor;}
+
         bool repararMaquina();
 
         list<User *> getFilaEspera(){return filaEspera;}
@@ -99,7 +103,7 @@ class Maquina
 
 
     protected:
-        float temperaturaSensor;
+
         estadoMaquina estado;
 
 
