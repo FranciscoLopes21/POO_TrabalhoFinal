@@ -15,7 +15,7 @@
 	<list>
 	"User.h"
 
-1703737193 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\casino.cpp
+1703820047 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\casino.cpp
 	"Casino.h"
 	<conio.h>
 	<chrono>
@@ -30,7 +30,6 @@
 	"MPoker.h"
 	"MRoleta.h"
 	"MSlot.h"
-	<iostream>
 	<list>
 	<string>
 	<cctype>

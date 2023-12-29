@@ -16,7 +16,6 @@ using namespace std;
 #include "MRoleta.h"
 #include "MSlot.h"
 
-#include <iostream>
 #include <list>
 #include <string>
 #include <cctype>
@@ -226,13 +225,15 @@ void Casino::gestaoCasino(){
 
     do {
         // code block to be executed
-        cout<< "Gestão Casino" <<endl;
-        cout<< "1- Listar estado atual casino" <<endl;
-        cout<< "2- Relatorio" <<endl;
-        cout<< "3- Subir probabilidade" <<endl;
-        cout<< "4- Listar maquinas com probabilidade superiora X" <<endl;
-        cout<< "0- Sair" <<endl;
+        cout << "Gestão Casino" << endl;
+        cout << "1- Listar estado atual casino" << endl;
+        cout << "2- Relatorio" << endl;
+        cout << "3- Subir probabilidade" << endl;
+        cout << "4- Listar maquinas com probabilidade superiora X" << endl;
+        cout << "0- Sair" << endl;
 
+        cout << endl;
+        cout << "Opção: ";
         cin >> op;
 
         switch(op){
@@ -272,16 +273,18 @@ void Casino::gestaoMaquinas(){
 
     do {
         // code block to be executed
-        cout<< "Gestão Maquinas" <<endl;
-        cout<< "1- Listar maquinas" <<endl;
-        cout<< "2- Crud maquina" <<endl;
-        cout<< "3- Desligar maquina" <<endl;
-        cout<< "4- Estado maquina ID" <<endl;
-        cout<< "5- Listar maquinas do tipo" <<endl;
-        cout<< "6- Ranking mais fracos" <<endl;
-        cout<< "7- Ranking mais trabalhadores" <<endl;
-        cout<< "0- Sair" <<endl;
+        cout << "Gestão Maquinas" << endl;
+        cout << "1- Listar maquinas" << endl;
+        cout << "2- Crud maquina" << endl;
+        cout << "3- Desligar maquina" << endl;
+        cout << "4- Estado maquina ID" << endl;
+        cout << "5- Listar maquinas do tipo" << endl;
+        cout << "6- Ranking mais fracos" << endl;
+        cout << "7- Ranking mais trabalhadores" << endl;
+        cout << "0- Sair" << endl;
 
+        cout << endl;
+        cout << "Opção: ";
         cin >> op;
 
         switch(op){
@@ -799,10 +802,12 @@ void Casino::listarTipoMaquina(){
 list<Maquina *> Casino::Listar_Tipo(string Tipo, std::ostream &f) {
     list<Maquina *> maquinasDoTipo;
 
-    for (auto maquina : LM) {
-        if (maquina->getTipo() == Tipo) {
-            maquinasDoTipo.push_back(maquina);
-            f << "ID: " << maquina->getID() << " | Nome: " << maquina->getNome() << " | Tipo: " << maquina->getTipo() << endl;
+
+
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
+        if ((*it)->getTipo() == Tipo) {
+            maquinasDoTipo.push_back((*it));
+            f << "ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() << " | Tipo: " << (*it)->getTipo() << endl;
         }
     }
 
