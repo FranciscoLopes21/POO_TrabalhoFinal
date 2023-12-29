@@ -451,16 +451,7 @@ void Casino::Run(){
                                 user->associarMaquina(maquina);
                             }
 
-                            /*
-                            if(maquina->getUtilizacao()){//Se estiver em utilização
-                                user->entrarFilaEspera(maquina);
-                            }
-                            else{
-                                user->associarMaquina(maquina);
-                            }
-                            */
-
-
+                            /*if(maquina->getUtilizacao()){//Se estiver em utilizaçãouser->entrarFilaEspera(maquina);}else{user->associarMaquina(maquina);}*/
 
                             cout << "Maquinaaaaaaaaaaaaaaaaa " <<  user->getCarteira()  << endl;
                             cout << "entrou " << jogadoresNoCasino << endl;
@@ -475,13 +466,8 @@ void Casino::Run(){
                     }
                 }
 
-                /*if (LU.size()>= 1){
-                    for (list<User *>::iterator it = LU.begin(); it != LU.end(); ++it){
-                            (*it)->Run();
-                    }
-                }*/
+                /*if (LU.size()>= 1){for (list<User *>::iterator it = LU.begin(); it != LU.end(); ++it){(*it)->Run();}}*/
 
-                //Verifica se saiu algum user
                 // Verifica se saiu algum user
                 for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
                     if ((*it)->getUserAtual()==nullptr) {
@@ -490,21 +476,9 @@ void Casino::Run(){
                             useruser->associarMaquina(*it);
                             (*it)->removerUsuarioFilaEspera(useruser);
 
-                            cout << "user da fila " <<  useruser->getNome()  << endl;
+                            cout << "User: " <<  useruser->getNome() << " saiu da fila de espera e sentou-se na maquina" << endl;
 
-
-
-
-
-                                // Antes de associar a máquina, certifique-se de que ela não está sendo usada
-
-
-                                    //(*it)->setUtilizacao(true); // Marca a máquina como em uso
-                                    //iniciarJogo(user); // Inicia o jogo para o usuário associado à máquina
-                                //else {
-                                    // Se a máquina estiver em uso, o usuário entra na fila de espera
-                                    //user->entrarFilaEspera(*it);
-                                //}
+                            // Antes de associar a máquina, certifique-se de que ela não está sendo usada//(*it)->setUtilizacao(true); // Marca a máquina como em uso//iniciarJogo(user); // Inicia o jogo para o usuário associado à máquina//else {// Se a máquina estiver em uso, o usuário entra na fila de espera//user->entrarFilaEspera(*it);//}
 
                         }else{
                             (*it)->setUserAtual(nullptr);
@@ -512,12 +486,7 @@ void Casino::Run(){
                     }
                 }
 
-
-                //Jogadores vao jogar
-                /*for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){
-                    avariar((*it)->getID());
-                    (*it)->Run();
-                }*/
+                //Jogadores vao jogar/*for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){avariar((*it)->getID());(*it)->Run();}*/
 
 
             } else {
@@ -629,6 +598,7 @@ void Casino::ligarTodasMaquinas() {
 
 /**/
 
+//Mostrar dados do casino
 void Casino::dadosCasino() {
     cout << "Nome do Casino: " << nome << endl;
     cout << "Máximo de Jogadores: " << maxJogadores << endl;
