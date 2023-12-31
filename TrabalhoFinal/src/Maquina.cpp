@@ -135,17 +135,22 @@ void Maquina::associarUser(User* user) {
 void Maquina::rodadas(User* user){
 
     // Gerar um índice aleatório usando a operação de módulo
-    float randomProb = std::rand() % 100;
+    float randomProb = rand() % 100;
+
+
     if (randomProb <= getProb()) {
-        std::cout << "Usuário " << user->getNome() << " ganhou na máquina " << nome << "  premio   "<< premio << std::endl;
+        cout << "Jogador " << user->getNome() << " ganhou na máquina " << nome << "  premio   "<< premio << endl;
         float ganhosUser = user->getGanhos() + premio;
         user->setGanhos(ganhosUser);
     } else {
-        std::cout << "Usuário " << user->getNome() << " perdeu na máquina " << nome << std::endl;
+        cout << "Jogador " << user->getNome() << " perdeu na máquina " << nome << endl;
     }
 
 
     setNJogos(nJogos + 1);
+
+
+
 
     // Se houver usuários na fila de espera, inicie o próximo
     /*if (!filaEspera.empty()) {
@@ -162,7 +167,7 @@ void Maquina::rodadas(User* user){
 void Maquina::userSaiu() {
 
     setUserAtual(nullptr);
-    std::cout << "Maquina " << getNome() << " ficou livre" << std::endl;
+    cout << "Maquina " << getNome() << " ficou livre" << endl;
     //setUtilizacao(false);
 }
 

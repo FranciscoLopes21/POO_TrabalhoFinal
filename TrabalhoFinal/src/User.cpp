@@ -42,14 +42,26 @@ void User::Run(){
     //Maquina * maquinaAssociada;
 
     if(maquinaAssociada!=nullptr){
-        if(jogadas>=1){
-            jogarNaMaquina();
-        }else{
-            //sair casino
-            getMaquinaAssociada()->userSaiu();
-            userSaiCasino();
 
-        }
+
+           if(jogadas>=1){
+
+                if(maquinaAssociada->getEstado()== ON){
+
+                    jogarNaMaquina();
+                }
+                else if (maquinaAssociada->getEstado()== AVARIADA){
+
+                    cout << "Os jogadores estão a espera que a maquina seja reparada" << endl;
+
+                }
+            }else{
+                //sair casino
+                getMaquinaAssociada()->userSaiu();
+                userSaiCasino();
+            }
+
+
     }
 
 
@@ -91,6 +103,6 @@ void User::userSaiCasino(){
 
 
     //setAJogar(false);
-    std::cout << "User " << getNome() << " saiu da maquina" << std::endl;
+    cout << "User " << getNome() << " saiu da maquina" << endl;
 
 }
