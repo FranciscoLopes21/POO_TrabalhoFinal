@@ -24,6 +24,8 @@ class Maquina
 
     //bool utilizacao;
     list<User *> filaEspera;
+    list<Maquina*> vizinhos;
+
     User *userAtual;
 
 
@@ -99,6 +101,8 @@ class Maquina
 
         User * getUserAtual(){return userAtual;}
         User * setUserAtual(User *user){userAtual = user;}
+
+        void adicionarVizinho(Maquina* vizinho);
 
 
 

@@ -91,6 +91,8 @@ class Casino
         int getJogadoresNoCasino() const { return jogadoresNoCasino; }
         void setJogadoresNoCasino(int jogadores) { jogadoresNoCasino = jogadores; }
 
+        void SubirProbabilidadeVizinhas(Maquina *M_ganhou, float R, list<Maquina *> &lmvizinhas);
+
 
     protected:
 

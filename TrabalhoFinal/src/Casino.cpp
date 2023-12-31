@@ -16,6 +16,8 @@ using namespace std;
 #include "MRoleta.h"
 #include "MSlot.h"
 
+#include <cmath>
+
 #include <list>
 #include <string>
 #include <cctype>
@@ -609,7 +611,27 @@ void Casino::dadosCasino() {
 
 bool Casino::Add(Maquina *m){
 
+    for (list<Maquina*>::iterator it = LM.begin(); it != LM.end(); ++it) {
+
+        if ((*it)->getX() == m->getX()) {
+
+            int distanciaY = std::abs((*it)->getY() - m->getY());
+
+            if(distanciaY <= 3){
+
+                // Adicionar novaMaquina à lista de vizinhos de maquina
+                (*it)->adicionarVizinho(m);
+
+                // Adicionar maquina à lista de vizinhos de novaMaquina
+                m->adicionarVizinho((*it));
+
+            }
+
+        }
+    }
+
     LM.push_back(m);
+
     return true;
 }
 
@@ -1185,6 +1207,14 @@ list<User *> * Casino::Jogadores_Mais_Ganhos () {
 
 
     return copiaUser;
+
+
+}
+
+
+
+void Casino::SubirProbabilidadeVizinhas(Maquina *M_ganhou, float R, list<Maquina *> &lmvizinhas) {
+
 
 
 }

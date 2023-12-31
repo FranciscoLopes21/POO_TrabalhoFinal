@@ -26,6 +26,10 @@ Maquina::Maquina(int _nM, string _nome, int _x, int _y, float _premio, float _pr
 Maquina::~Maquina()
 {
     //dtor
+
+    //destui Maquinas
+    for (list<Maquina *>::iterator it = vizinhos.begin(); it != vizinhos.end(); ++it)
+           delete (*it);
 }
 
 void Maquina::DisplayInfo() const {
@@ -52,6 +56,8 @@ void Maquina::Run(){
     cout << "Eu Máquina: " << nMaquina << " Estou ligada" << endl;
     //a temperatura aumenta quando liga e vai aumentado se estiver a ser utilizada
     //temperaturaSensor += 1;
+
+    cout << "Lista de vizinhos: " << vizinhos.size() << endl;
 
     verificaEstado();
 
@@ -172,5 +178,9 @@ bool Maquina::repararMaquina(){
     return reparado;
 
 
+}
+
+void Maquina::adicionarVizinho(Maquina* vizinho) {
+    vizinhos.push_back(vizinho);
 }
 
