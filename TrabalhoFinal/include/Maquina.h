@@ -22,6 +22,8 @@ class Maquina
     float temperaturaSensor;
     int aposta;
 
+    Casino* casino;
+
     //bool utilizacao;
     list<User *> filaEspera;
     list<Maquina*> vizinhos;
@@ -41,7 +43,7 @@ class Maquina
 
 
     public:
-        Maquina(int _nM, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta);
+        Maquina(int _nM, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta, Casino* _casino);
         virtual ~Maquina();
         virtual void Run();
         virtual void DisplayInfo() const;
@@ -103,6 +105,11 @@ class Maquina
         User * setUserAtual(User *user){userAtual = user;}
 
         void adicionarVizinho(Maquina* vizinho);
+
+        void subirProbabilidade();
+        list<Maquina*> getVizinhos(){return vizinhos;}
+
+        bool removerVizinho(int id_maq);
 
 
 

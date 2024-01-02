@@ -37,5 +37,65 @@
 			<TEMP>0</TEMP>	
 			<TIPO>poker</TIPO>					
 		</MAQUINA>
+		<MAQUINA>
+			<ID>4</ID>
+			<NOME>Slot500</NOME>
+			<X>50</X>
+			<Y>17</Y>
+			<PREMIO>100</PREMIO>
+			<PROB_G>1</PROB_G>
+			<TEMP>0</TEMP>	
+			<TIPO>poker</TIPO>					
+		</MAQUINA>
+		<MAQUINA>
+			<ID>5</ID>
+			<NOME>Slot500</NOME>
+			<X>50</X>
+			<Y>18</Y>
+			<PREMIO>100</PREMIO>
+			<PROB_G>1</PROB_G>
+			<TEMP>0</TEMP>	
+			<TIPO>poker</TIPO>					
+		</MAQUINA>
+		<MAQUINA>
+			<ID>6</ID>
+			<NOME>Slot700</NOME>
+			<X>50</X>
+			<Y>19</Y>
+			<PREMIO>100</PREMIO>
+			<PROB_G>1</PROB_G>
+			<TEMP>0</TEMP>	
+			<TIPO>poker</TIPO>					
+		</MAQUINA>
+		<MAQUINA>
+			<ID>7</ID>
+			<NOME>Slot800</NOME>
+			<X>50</X>
+			<Y>21</Y>
+			<PREMIO>100</PREMIO>
+			<PROB_G>1</PROB_G>
+			<TEMP>0</TEMP>	
+			<TIPO>poker</TIPO>					
+		</MAQUINA>
+		<MAQUINA>
+			<ID>8</ID>
+			<NOME>Slot900</NOME>
+			<X>50</X>
+			<Y>22</Y>
+			<PREMIO>100</PREMIO>
+			<PROB_G>1</PROB_G>
+			<TEMP>0</TEMP>	
+			<TIPO>poker</TIPO>					
+		</MAQUINA>
+		<MAQUINA>
+			<ID>9</ID>
+			<NOME>Slot1000</NOME>
+			<X>50</X>
+			<Y>23</Y>
+			<PREMIO>100</PREMIO>
+			<PROB_G>1</PROB_G>
+			<TEMP>0</TEMP>	
+			<TIPO>poker</TIPO>					
+		</MAQUINA>
 	</LISTA_MAQ>
 </DADOS>

@@ -146,9 +146,9 @@ bool Casino::LoadMachinesFromXML(const string& filename) {
         Maquina* m = nullptr;
 
         if (tipo == "slot") {
-            m = new MSlot(id, nome, x, y, premio, probG, tipo,10);
+            m = new MSlot(id, nome, x, y, premio, probG, tipo,10,this);
         } else if (tipo == "poker") {
-            m = new MPoker(id, nome, x, y, premio, probG, tipo,15);
+            m = new MPoker(id, nome, x, y, premio, probG, tipo,15,this);
         }
 
         // Adiciona a máquina ao vetor do Casino
@@ -907,18 +907,21 @@ void Casino::addMaquina(){
     int id = LM.size()+1;
 
     if (tipo == "slot" || tipo == "Slot") {
-        m = new MSlot(id, nome, x, y, premio, prob, tipo,10);
+        m = new MSlot(id, nome, x, y, premio, prob, tipo,10, this);
     } else if (tipo == "poker" || tipo == "Poker") {
-        m = new MPoker(id, nome, x, y, premio, prob, tipo,15);
+        m = new MPoker(id, nome, x, y, premio, prob, tipo,15, this);
     }
 
     Add(m);
 }
 
 bool Casino::removerMaquina(int id_maq) {
+
+    removerVizinho(id_maq);
+
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
         if ((*it)->getID() == id_maq) {
-            delete *it;  // Libera a memória alocada pela máquina
+            //delete *it;  // Libera a memória alocada pela máquina
             LM.erase(it); // Remove a máquina da lista
             cout << "Máquina removida." << endl;
             return true;
@@ -927,6 +930,19 @@ bool Casino::removerMaquina(int id_maq) {
 
     cout << "Máquina não encontrada." << endl;
     return false;
+}
+
+void Casino::removerVizinho(int id_maq) {
+
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
+
+        //eleminar vizinho das maquinas
+        (*it)->removerVizinho(id_maq);
+
+
+    }
+    cout << "Eleminei tudo." << endl;
+
 }
 
 bool Casino::editarMaquina(int id_maq){
@@ -1215,7 +1231,13 @@ list<User *> * Casino::Jogadores_Mais_Ganhos () {
 
 void Casino::SubirProbabilidadeVizinhas(Maquina *M_ganhou, float R, list<Maquina *> &lmvizinhas) {
 
-
+    for (list<Maquina *>::iterator it = lmvizinhas.begin(); it != lmvizinhas.end(); ++it) {
+        int distanciaY = abs((*it)->getY() - M_ganhou->getY());
+        if (distanciaY <= R) {
+            float probAt = (*it)->getProb();
+            (*it)->setProb(probAt + 1.0);
+        }
+    }
 
 }
 

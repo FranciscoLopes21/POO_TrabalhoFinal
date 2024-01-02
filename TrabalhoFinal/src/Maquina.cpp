@@ -1,8 +1,9 @@
 #include "Maquina.h"
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
+#include "Casino.h"
 
-Maquina::Maquina(int _nM, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta) {
+Maquina::Maquina(int _nM, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta, Casino* _casino) {
 
     nMaquina = _nM;
     nome = _nome;
@@ -14,12 +15,13 @@ Maquina::Maquina(int _nM, string _nome, int _x, int _y, float _premio, float _pr
     aposta = _aposta;
 
 
-    estado = OFF;
+    estado = ON;
     temperaturaSensor = 0.0;
     nAvarias = 0;
     nJogos = 0;
     //utilizacao = false;
     userAtual=nullptr;
+    casino = _casino;
 
 }
 
@@ -142,6 +144,12 @@ void Maquina::rodadas(User* user){
         cout << "Jogador " << user->getNome() << " ganhou na máquina " << nome << "  premio   "<< premio << endl;
         float ganhosUser = user->getGanhos() + premio;
         user->setGanhos(ganhosUser);
+
+
+        subirProbabilidade();
+
+
+
     } else {
         cout << "Jogador " << user->getNome() << " perdeu na máquina " << nome << endl;
     }
@@ -187,5 +195,28 @@ bool Maquina::repararMaquina(){
 
 void Maquina::adicionarVizinho(Maquina* vizinho) {
     vizinhos.push_back(vizinho);
+}
+
+
+void Maquina::subirProbabilidade(){
+
+    casino->SubirProbabilidadeVizinhas(this,2,vizinhos);
+
+
+}
+
+bool Maquina::removerVizinho(int id_maq){
+
+    for (list<Maquina *>::iterator it = vizinhos.begin(); it != vizinhos.end();it++) {
+        if ((*it)->getID() == id_maq) {
+            cout << "Máquina vizinha removida com ID: " << id_maq << endl;
+            vizinhos.erase(it); // Remove a máquina da lista
+            return true;
+            cout << "Máquina vizinha removida." << endl;
+        }
+    }
+
+    return false;
+
 }
 
