@@ -611,28 +611,34 @@ void Casino::dadosCasino() {
 
 bool Casino::Add(Maquina *m){
 
-    for (list<Maquina*>::iterator it = LM.begin(); it != LM.end(); ++it) {
+    adicionarVizinho(m);
+    LM.push_back(m);
 
-        if ((*it)->getX() == m->getX()) {
+    return true;
+}
 
+bool Casino::adicionarVizinho(Maquina *m) {
+
+    bool estado = false;
+    int distanciaMaxima = 3;  // Defina a distância máxima desejada
+
+    for (auto it = LM.begin(); it != LM.end(); ++it) {
+        if ((*it)->getID() != m->getID() && std::abs((*it)->getX() - m->getX()) <= distanciaMaxima) {
             int distanciaY = std::abs((*it)->getY() - m->getY());
 
-            if(distanciaY <= 3){
-
+            if (distanciaY <= distanciaMaxima) {
                 // Adicionar novaMaquina à lista de vizinhos de maquina
                 (*it)->adicionarVizinho(m);
 
                 // Adicionar maquina à lista de vizinhos de novaMaquina
-                m->adicionarVizinho((*it));
+                m->adicionarVizinho(*it);
 
+                estado = true;
             }
-
         }
     }
 
-    LM.push_back(m);
-
-    return true;
+    return estado;
 }
 
 void Casino::Desligar(int id_maq) {
@@ -819,7 +825,7 @@ void Casino::menuCrudMaquina(){
     int op = 0;
 
     do {
-            system("cls");
+            //system("cls");
         // code block to be executed
         cout<< "Crud Maquina" <<endl;
         cout<< "1- Adicionar Maquina" <<endl;
@@ -965,7 +971,7 @@ bool Casino::editarMaquina(int id_maq){
                 cout << "0 - Sair" <<endl;
 
                 string nome;
-                int x,y, premio;
+                int premio;
                 float prob;
                 cin >> op;
                 switch(op){
@@ -1006,7 +1012,7 @@ bool Casino::editarMaquina(int id_maq){
 
 bool Casino::moverMaquina(int id_maq){
 
-    int x, y;
+    int x, y, xAnt;
     bool movido = false;
 
     cout << "Mover Máquina de lugar" << endl;
@@ -1050,7 +1056,18 @@ bool Casino::moverMaquina(int id_maq){
                 (*itFirst)->setY(y);
                 movido = true;
                 cout << "Máquina movida para (" << x << ", " << y << ")" << endl;
+
+                //Atualizar vizinhos
+                ////Remover vizinho
+                (*itFirst)->removerVizinhoTodos();
+                removerVizinho((*itFirst)->getID());
+
+                ////Adicionar nvo vizinho
+                adicionarVizinho((*itFirst));
+
+
             }
+
         } while (!movido);
     } else {
         cout << "Máquina com ID " << id_maq << " não encontrada." << endl;

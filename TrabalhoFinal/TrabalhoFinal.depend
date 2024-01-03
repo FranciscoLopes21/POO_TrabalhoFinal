@@ -4,19 +4,19 @@
 	"Casino.h"
 	"XMLReader.h"
 
-1704230642 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\maquina.cpp
+1704263654 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\maquina.cpp
 	"Maquina.h"
 	<stdlib.h>
 	<time.h>
 	"Casino.h"
 
-1704230642 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\maquina.h
+1704254531 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\maquina.h
 	<iostream>
 	<string>
 	<list>
 	"User.h"
 
-1704234748 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\casino.cpp
+1704261660 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\casino.cpp
 	"Casino.h"
 	<conio.h>
 	<chrono>
@@ -45,7 +45,7 @@
 	<iostream>
 	<windows.h>
 
-1704235775 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\casino.h
+1704252493 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\casino.h
 	<iostream>
 	<string>
 	<list>

@@ -94,6 +94,7 @@ class Casino
         void SubirProbabilidadeVizinhas(Maquina *M_ganhou, float R, list<Maquina *> &lmvizinhas);
 
         void removerVizinho(int id_maq);
+        bool adicionarVizinho(Maquina *M);
 
 
     protected:

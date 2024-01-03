@@ -220,3 +220,32 @@ bool Maquina::removerVizinho(int id_maq){
 
 }
 
+bool Maquina::removerVizinhoTodos(){
+
+    cout << "Lista de vizinhos antes: " << vizinhos.size() << endl;
+
+
+    /*for (list<Maquina *>::iterator it = vizinhos.begin(); it != vizinhos.end();it++) {
+            cout << "Lista de vizinhos vazia: " << vizinhos.size() << endl;
+            vizinhos.erase(it); // Remove a máquina da lista
+            return true;
+            cout << "Máquina vizinha removida." << endl;
+    }
+
+    return false;*/
+
+
+    // Percorre a lista de vizinhos e apaga cada elemento
+    /*for (list<Maquina *>::iterator it = vizinhos.begin(); it != vizinhos.end(); ++it) {
+        delete *it;
+    }*/
+
+    // Limpa a lista de vizinhos
+    vizinhos.clear();
+
+    cout << "Lista de vizinhos depois: " << vizinhos.size() << endl;
+
+    return true;
+
+}
+

@@ -110,6 +110,7 @@ class Maquina
         list<Maquina*> getVizinhos(){return vizinhos;}
 
         bool removerVizinho(int id_maq);
+        bool removerVizinhoTodos();
 
 
 
