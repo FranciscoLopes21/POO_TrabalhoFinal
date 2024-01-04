@@ -79,13 +79,18 @@ Casino::~Casino()
            delete (*it);
 }
 
-void Casino::CarregarDados(int _maxJogadores, int _probabilidadeUser, int _horaAbertura, int _horaFecho)
+void Casino::CarregarDados(int _maxJogadores, int _probabilidadeUser, int _horaAbertura, int _minutosAbertura, int _segundosAbertura,
+                            int _horaFecho, int _minutosFecho, int _segundosFecho)
 {
 
     maxJogadores = _maxJogadores;
     probabilidadeUser = _probabilidadeUser;
     horaAbertura = _horaAbertura;
+    minutosAbertura = _minutosAbertura;
+    segundosAbertura = _segundosAbertura;
     horaFecho = _horaFecho;
+    minutosFecho = _minutosFecho;
+    segundosFecho = _segundosFecho;
 
     jogadoresNoCasino=0;
     totalPremios=0;
@@ -420,75 +425,90 @@ void Casino::Run(){
         time_t now = time(nullptr);
             tm* current_time = localtime(&now);
 
-            int currentHour = current_time->tm_hour;
-
-            if (currentHour >= horaAbertura && currentHour < horaFecho) {
-                cout << "O casino está aberto!" << endl;
-                if (!maquinasJaLigadas) {
-                    ligarTodasMaquinas();
-                    maquinasJaLigadas = true;
-                }
-
-                for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){
-                    avariar((*it)->getID());
-                    (*it)->Run();
-                }
-
-                if(jogadoresNoCasino < maxJogadores){
-                        if(entrarUser()){
-
-                            int randomIndex = std::rand() % LM.size();
-                            auto it = std::next(LM.begin(), randomIndex);
-                            Maquina *maquina = *it;
-                            cout << "Maquinaaaaaaaaaaaaaaaaa " <<  maquina->getNome()  << endl;
-
-                            jogadoresNoCasino ++;
-                            User *user = userEntraCasino("pessoas.txt");
-                            Add(user);
+        int currentHour = current_time->tm_hour;
+        int currentMinute = current_time->tm_min;
+        int currentSecond = current_time->tm_sec;
 
 
-                            if(maquina->getUserAtual()!=nullptr){
-                                user->entrarFilaEspera(maquina);
-                            }else{
-                                user->associarMaquina(maquina);
+        // Converte o horário de abertura para segundos
+        int openingTimeInSeconds = horaAbertura * 3600 + minutosAbertura * 60 + segundosAbertura;
+
+        // Converte o horário de fechamento para segundos
+        int closingTimeInSeconds = horaFecho * 3600 + minutosFecho * 60 + segundosFecho;
+
+        // Converte o horário atual para segundos
+        int currentTimeInSeconds = currentHour * 3600 + currentMinute * 60 + currentSecond;
+
+        if (currentTimeInSeconds >= openingTimeInSeconds && currentTimeInSeconds <= closingTimeInSeconds) {
+
+
+                    // O casino está aberto!
+                    cout << "O casino está aberto!" << endl;
+                    if (!maquinasJaLigadas) {
+                        ligarTodasMaquinas();
+                        maquinasJaLigadas = true;
+                    }
+
+                    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){
+                        avariar((*it)->getID());
+                        (*it)->Run();
+                    }
+
+                    if(jogadoresNoCasino < maxJogadores){
+                            if(entrarUser()){
+
+                                int randomIndex = std::rand() % LM.size();
+                                auto it = std::next(LM.begin(), randomIndex);
+                                Maquina *maquina = *it;
+                                cout << "Maquinaaaaaaaaaaaaaaaaa " <<  maquina->getNome()  << endl;
+
+                                jogadoresNoCasino ++;
+                                User *user = userEntraCasino("pessoas.txt");
+                                Add(user);
+
+
+                                if(maquina->getUserAtual()!=nullptr){
+                                    user->entrarFilaEspera(maquina);
+                                }else{
+                                    user->associarMaquina(maquina);
+                                }
+
+                                /*if(maquina->getUtilizacao()){//Se estiver em utilizaçãouser->entrarFilaEspera(maquina);}else{user->associarMaquina(maquina);}*/
+
+                                cout << "Maquinaaaaaaaaaaaaaaaaa " <<  user->getCarteira()  << endl;
+                                cout << "entrou " << jogadoresNoCasino << endl;
+
                             }
-
-                            /*if(maquina->getUtilizacao()){//Se estiver em utilizaçãouser->entrarFilaEspera(maquina);}else{user->associarMaquina(maquina);}*/
-
-                            cout << "Maquinaaaaaaaaaaaaaaaaa " <<  user->getCarteira()  << endl;
-                            cout << "entrou " << jogadoresNoCasino << endl;
-
-                        }
-                }
-
-
-                if(LU.size()>=1){
-                    for (list<User *>::iterator it = LU.begin(); it != LU.end(); ++it){
-                            (*it)->Run();
                     }
-                }
 
-                /*if (LU.size()>= 1){for (list<User *>::iterator it = LU.begin(); it != LU.end(); ++it){(*it)->Run();}}*/
 
-                // Verifica se saiu algum user
-                for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
-                    if ((*it)->getUserAtual()==nullptr) {
-                        if (!(*it)->getFilaEspera().empty()) {
-                            User *useruser = (*it)->getFilaEspera().front();
-                            useruser->associarMaquina(*it);
-                            (*it)->removerUsuarioFilaEspera(useruser);
-
-                            cout << "User: " <<  useruser->getNome() << " saiu da fila de espera e sentou-se na maquina" << endl;
-
-                            // Antes de associar a máquina, certifique-se de que ela não está sendo usada//(*it)->setUtilizacao(true); // Marca a máquina como em uso//iniciarJogo(user); // Inicia o jogo para o usuário associado à máquina//else {// Se a máquina estiver em uso, o usuário entra na fila de espera//user->entrarFilaEspera(*it);//}
-
-                        }else{
-                            (*it)->setUserAtual(nullptr);
+                    if(LU.size()>=1){
+                        for (list<User *>::iterator it = LU.begin(); it != LU.end(); ++it){
+                                (*it)->Run();
                         }
                     }
-                }
 
-                //Jogadores vao jogar/*for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){avariar((*it)->getID());(*it)->Run();}*/
+                    /*if (LU.size()>= 1){for (list<User *>::iterator it = LU.begin(); it != LU.end(); ++it){(*it)->Run();}}*/
+
+                    // Verifica se saiu algum user
+                    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
+                        if ((*it)->getUserAtual()==nullptr) {
+                            if (!(*it)->getFilaEspera().empty()) {
+                                User *useruser = (*it)->getFilaEspera().front();
+                                useruser->associarMaquina(*it);
+                                (*it)->removerUsuarioFilaEspera(useruser);
+
+                                cout << "User: " <<  useruser->getNome() << " saiu da fila de espera e sentou-se na maquina" << endl;
+
+                                // Antes de associar a máquina, certifique-se de que ela não está sendo usada//(*it)->setUtilizacao(true); // Marca a máquina como em uso//iniciarJogo(user); // Inicia o jogo para o usuário associado à máquina//else {// Se a máquina estiver em uso, o usuário entra na fila de espera//user->entrarFilaEspera(*it);//}
+
+                            }else{
+                                (*it)->setUserAtual(nullptr);
+                            }
+                        }
+                    }
+
+                    //Jogadores vao jogar/*for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){avariar((*it)->getID());(*it)->Run();}*/
 
 
             } else {
@@ -605,8 +625,8 @@ void Casino::dadosCasino() {
     cout << "Nome do Casino: " << nome << endl;
     cout << "Máximo de Jogadores: " << maxJogadores << endl;
     cout << "Probabilidade de Usuários: " << probabilidadeUser << endl;
-    cout << "Hora de Abertura: " << horaAbertura << endl;
-    cout << "Hora de Encerramento: " << horaFecho << endl;
+    cout << "Hora de Abertura: " << horaAbertura << ":" << minutosAbertura << ":" << segundosAbertura << endl;
+    cout << "Hora de Encerramento: " << horaFecho << ":" << minutosFecho << ":" << segundosFecho << endl;
 }
 
 bool Casino::Add(Maquina *m){

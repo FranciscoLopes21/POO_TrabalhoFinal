@@ -7,12 +7,12 @@ using namespace std;
 int main()
 {
     string nomeCasino;
-    int maxJogadores, probabilidadeUser, horaAbertura, horaFecho;
+    int maxJogadores, probabilidadeUser, horaAbertura, minutosAbertura, segundosAbertura, horaFecho, minutosFecho, segundosFecho;
 
-    if (XMLReader::LoadCasinoData("XML_Projecto.xml",  nomeCasino, maxJogadores, probabilidadeUser, horaAbertura, horaFecho)) {
+    if (XMLReader::LoadCasinoData("XML_Projecto.xml",  nomeCasino, maxJogadores, probabilidadeUser, horaAbertura,minutosAbertura, segundosAbertura, horaFecho, minutosFecho, segundosFecho)) {
 
         Casino CS(nomeCasino);
-        CS.CarregarDados(maxJogadores,probabilidadeUser,horaAbertura,horaFecho);
+        CS.CarregarDados(maxJogadores,probabilidadeUser,horaAbertura,minutosAbertura, segundosAbertura, horaFecho, minutosFecho, segundosFecho);
         CS.LoadMachinesFromXML("XML_Projecto.xml");
 
         cout << "Bem-Vindo ao " << nomeCasino << "!!!" << endl;

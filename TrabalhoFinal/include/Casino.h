@@ -17,7 +17,11 @@ class Casino
     int jogadoresNoCasino;
     int probabilidadeUser;
     int horaAbertura;
+    int minutosAbertura;
+    int segundosAbertura;
     int horaFecho;
+    int minutosFecho;
+    int segundosFecho;
     list<Maquina *> LM;
     list<Maquina *> LM_Avariadas;
     list<User *> LU;
@@ -33,7 +37,8 @@ class Casino
         void Run();
         bool entrarUser();
 
-        void CarregarDados(int _maxJogadores, int _probabilidadeUser,int _horaAbertura, int _horaFecho);
+        void CarregarDados(int _maxJogadores, int _probabilidadeUser,int _horaAbertura, int _minutosAbertura, int _segundosAbertura,
+                           int _horaFecho, int _minutosFecho, int _segundosFecho);
         void dadosCasino();
         string getNome(){return nome;}
         void Listar(ostream &f);//compor função
