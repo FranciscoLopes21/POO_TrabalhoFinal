@@ -93,6 +93,8 @@ class Casino
 
         list<User *> * Jogadores_Mais_Ganhos ();
 
+        list<User *> * Jogadores_Mais_Frequentes ();
+
         int getJogadoresNoCasino() const { return jogadoresNoCasino; }
         void setJogadoresNoCasino(int jogadores) { jogadoresNoCasino = jogadores; }
 

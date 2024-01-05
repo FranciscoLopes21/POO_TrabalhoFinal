@@ -210,6 +210,7 @@ void Casino::Menu(){
         case 5:
             system("cls");
             cout<< "Memoria Total" <<endl;
+            Jogadores_Mais_Frequentes();
             //Memoria();//Implementar total memoria
             break;
         case 0:
@@ -768,8 +769,13 @@ void Casino::reparar(int id_maq){
 
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
         if ((*it)->getID() == id_maq) {
-            (*it)->repararMaquina();
-            cout << "ID: " << (*it)->getID() << " | Maquina Reparada" << endl;
+            if ((*it)->getEstado() == AVARIADA){
+                (*it)->repararMaquina();
+                cout << "ID: " << (*it)->getID() << " | Maquina Reparada" << endl;
+            }
+            else if ((*it)->getEstado() == ON || (*it)->getEstado() == OFF){
+                cout << "ID: " << (*it)->getID() << " | Maquina sem avarias" << endl;
+            }
         }
     }
 
@@ -1202,7 +1208,7 @@ bool Casino::entrarUser(){
     int nRandom1 = rand() % 100 + 1;
     cout << "nRandom1: " << nRandom1 << endl;
 
-    if(nRandom1 < 50){
+    if(nRandom1 < 90){
         entrada = true;
     }
 
@@ -1255,6 +1261,31 @@ list<User *> * Casino::Jogadores_Mais_Ganhos () {
     for (auto user : *copiaUser) {
 
         cout << "ID: " << user->getNUser() << " | Nome: " << user->getNome() << " | ganhos: " << user->getGanhos() << endl;
+
+    }
+
+
+    return copiaUser;
+
+
+}
+
+list<User *> * Casino::Jogadores_Mais_Frequentes (){
+
+
+    // Crie uma cópia da lista de máquinas
+    list<User *> *copiaUser = new list<User *>(LU.begin(), LU.end());
+
+    copiaUser->sort([](User* a, User* b) {
+        return a->getTempoCasino() > b->getTempoCasino();
+    });
+
+    // Ordene a lista usando a função de comparação
+    //copiaMaquinas->sort(compararNjogos);
+
+    for (auto user : *copiaUser) {
+
+        cout << "ID: " << user->getNUser() << " | Nome: " << user->getNome() << " | tempo casino: " << user->getTempoCasino() << endl;
 
     }
 

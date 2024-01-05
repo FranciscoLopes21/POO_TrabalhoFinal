@@ -20,6 +20,10 @@ User::User(int _nUser, string _nome, string _morada, int _idade, Casino* _casino
     aJogar = false;
     maquinaAssociada = nullptr;
 
+    horaEntrada=0;
+    horaSaida=0;
+    tempoCasino=0;
+
     // Define o ponteiro para o Casino
     casino = _casino;
 }
@@ -78,6 +82,10 @@ void User::associarMaquina(Maquina* maquina) {
     User * u = maquina->getUserAtual();
     string nomeUser = u->getNome();
 
+    time_t currentTime;
+    horaEntrada = time(&currentTime);
+
+
     cout << "User " << nomeUser << " foi associado a Maquina: " <<  maquinaAssociada->getNome() << endl;
 }
 
@@ -97,8 +105,19 @@ void User::userSaiCasino(){
 
     setMaquinaAssociada(nullptr);
 
-        int jogadores = casino->getJogadoresNoCasino();
-        casino->setJogadoresNoCasino(jogadores - 1);
+    int jogadores = casino->getJogadoresNoCasino();
+    casino->setJogadoresNoCasino(jogadores - 1);
+
+    time_t currentTime;
+    horaSaida = time(&currentTime);
+
+    //tempo em segundos
+    tempoCasino = difftime(horaSaida, horaEntrada);
+
+
+    // Exibir a diferença em minutos
+    cout << "Diferença em minutos: " << tempoCasino * 0.0166667<< endl;
+
 
 
 

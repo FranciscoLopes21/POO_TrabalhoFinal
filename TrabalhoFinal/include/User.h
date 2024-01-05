@@ -3,6 +3,7 @@
 #include <iostream>
 using namespace std;
 #include <string>
+#include <ctime>
 
 class Maquina;
 class Casino;
@@ -17,6 +18,10 @@ class User
     float carteira;
     float ganhos;
     int jogadas;
+
+    time_t horaEntrada;
+    time_t horaSaida;
+    time_t tempoCasino;
 
     bool aJogar;
 
@@ -55,6 +60,8 @@ class User
 
         Maquina * getMaquinaAssociada(){return maquinaAssociada;}
         Maquina * setMaquinaAssociada(Maquina *maquina){maquinaAssociada=maquina;}
+
+        time_t getTempoCasino(){return tempoCasino;}
 
 
 
