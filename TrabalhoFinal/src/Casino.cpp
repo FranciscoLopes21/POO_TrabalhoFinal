@@ -1208,7 +1208,7 @@ bool Casino::entrarUser(){
     int nRandom1 = rand() % 100 + 1;
     cout << "nRandom1: " << nRandom1 << endl;
 
-    if(nRandom1 < 90){
+    if(nRandom1 < 50){
         entrada = true;
     }
 
