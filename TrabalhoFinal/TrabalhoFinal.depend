@@ -16,7 +16,7 @@
 	<list>
 	"User.h"
 
-1704403136 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\casino.cpp
+1704517150 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\casino.cpp
 	"Casino.h"
 	<conio.h>
 	<chrono>
@@ -35,6 +35,7 @@
 	<list>
 	<string>
 	<cctype>
+	"XMLWriter.h"
 	<cstdlib>
 	<ctime>
 	<cstdlib>
@@ -45,7 +46,7 @@
 	<iostream>
 	<windows.h>
 
-1704426448 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\casino.h
+1704481936 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\casino.h
 	<iostream>
 	<string>
 	<list>
@@ -217,4 +218,13 @@
 	<string>
 	"pugixml.hpp"
 	"Casino.h"
+
+1704514179 source:c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\src\xmlwriter.cpp
+	"XMLWriter.h"
+
+1704514195 c:\users\franc\desktop\uni\2023-2024\2º ano\poo\poo_trabalhofinal\trabalhofinal\include\xmlwriter.h
+	<iostream>
+	<string>
+	<list>
+	<fstream>
 

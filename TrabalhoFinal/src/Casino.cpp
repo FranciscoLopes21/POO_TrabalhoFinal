@@ -22,6 +22,9 @@ using namespace std;
 #include <string>
 #include <cctype>
 
+#include "XMLWriter.h"
+
+
 #include <cstdlib>
 #include <ctime>
 #include <cstdlib>  // Para a função sleep
@@ -229,6 +232,7 @@ void Casino::gestaoCasino(){
 
 
     int op = 0;
+    string nome;
     ofstream F("estadoAtualCasino.txt");
 
     do {
@@ -253,7 +257,10 @@ void Casino::gestaoCasino(){
         case 2:
             int id_maq;
             cout<< "Relatorio" <<endl;
-            maquinaAvariada();
+            nome = devolveData();
+
+            Relatorio(nome);
+            //maquinaAvariada(); //meter no sitio certo
             break;
         case 3:
             cout<< "Subir probabilidade" <<endl;
@@ -272,6 +279,21 @@ void Casino::gestaoCasino(){
     }
     while (op != 0);
 }// Fim Menu Gestão Casino
+
+string Casino::devolveData(){
+
+    time_t currentTime = time(nullptr);  // Obter o tempo atual
+    struct tm * ptm = localtime(&currentTime);
+    char buffer[32];
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d", ptm);
+    string currentDate(buffer);
+
+    // Criar o nome do arquivo XML com base na data
+    string dataHoje = "data_" + currentDate + ".xml";
+
+    return dataHoje;
+
+}
 
 //Menu Gestão Maquinas
 void Casino::gestaoMaquinas(){
@@ -1293,6 +1315,26 @@ list<User *> * Casino::Jogadores_Mais_Frequentes (){
     return copiaUser;
 
 
+}
+
+void Casino::Relatorio(string fich_xml) {
+
+    cout<< "Nome ficheiro: " << fich_xml <<endl;
+
+    XMLWriter XX;
+    XX.WriteStartDocument(fich_xml);
+    XX.WriteStartElement("RELATORIO");
+
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
+
+        XX.WriteStartElement("Maquina"); // Abre o Elemento “Maquina”
+            XX.WriteElementString("ID",to_string((*it)->getID()));
+            XX.WriteElementString("ESTADO",estadoString((*it)->getEstado()));
+        XX.WriteEndElement(); // Fecha o Elemento “Maquina”
+
+    }
+
+    XX.WriteEndElement(); // Fecha o Elemento “RELATORIO”
 }
 
 

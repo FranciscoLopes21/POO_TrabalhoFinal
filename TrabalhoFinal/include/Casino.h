@@ -95,6 +95,8 @@ class Casino
 
         list<User *> * Jogadores_Mais_Frequentes ();
 
+        void Relatorio(string fich_xml);
+
         int getJogadoresNoCasino() const { return jogadoresNoCasino; }
         void setJogadoresNoCasino(int jogadores) { jogadoresNoCasino = jogadores; }
 
@@ -102,6 +104,8 @@ class Casino
 
         void removerVizinho(int id_maq);
         bool adicionarVizinho(Maquina *M);
+
+        string devolveData();
 
 
     protected:

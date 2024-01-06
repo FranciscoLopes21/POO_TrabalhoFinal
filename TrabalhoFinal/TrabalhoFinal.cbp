@@ -48,6 +48,7 @@
 		<Unit filename="include/Maquina.h" />
 		<Unit filename="include/User.h" />
 		<Unit filename="include/XMLReader.h" />
+		<Unit filename="include/XMLWriter.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Casino.cpp" />
 		<Unit filename="src/MBlackJack.cpp" />
@@ -57,6 +58,7 @@
 		<Unit filename="src/Maquina.cpp" />
 		<Unit filename="src/User.cpp" />
 		<Unit filename="src/XMLReader.cpp" />
+		<Unit filename="src/XMLWriter.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>
