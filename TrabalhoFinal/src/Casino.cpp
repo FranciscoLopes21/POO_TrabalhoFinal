@@ -175,16 +175,17 @@ void Casino::Menu(){
     int op = 0;
     do {
         // code block to be executed
-        cout<< "||||||||||||||||||||||" <<endl;
-        cout<< "|        Menu        |" <<endl;
-        cout<< "|   1- Dados Casino  |" <<endl;
-        cout<< "|  2- Gestão Casino  |" <<endl;
-        cout<< "| 3- Gestão Maquinas |" <<endl;
-        cout<< "|   4- Gestão User   |" <<endl;
-        cout<< "|  5- Memoria Total  |" <<endl;
-        cout<< "|       0- Sair      |" <<endl;
-        cout<< "||||||||||||||||||||||" <<endl;
-
+        cout << "||||||||||||||||||||||" << endl;
+        cout << "|        Menu        |" << endl;
+        cout << "|   1- Dados Casino  |" << endl;
+        cout << "|  2- Gestão Casino  |" << endl;
+        cout << "| 3- Gestão Maquinas |" << endl;
+        cout << "|   4- Gestão User   |" << endl;
+        cout << "|  5- Memoria Total  |" << endl;
+        cout << "|       0- Sair      |" << endl;
+        cout << "||||||||||||||||||||||" << endl;
+        cout << endl;
+        cout << "Opção: ";
         cin >> op;
 
         switch(op){
@@ -259,8 +260,8 @@ void Casino::gestaoCasino(){
             cout<< "Relatorio" <<endl;
             nome = devolveData();
 
-            Relatorio(nome);
-            //maquinaAvariada(); //meter no sitio certo
+            //Relatorio(nome);
+            maquinaAvariada(); //meter no sitio certo
             break;
         case 3:
             cout<< "Subir probabilidade" <<endl;
@@ -595,9 +596,9 @@ list<string> * Casino::Ranking_Dos_Fracos(){
 
     // Preencher a lista de strings com informações das máquinas ordenadas
     for (auto maquina : maquinasCopy) {
-        string info = "ID: " + to_string(maquina->getID()) +
-                           " | Nome: " + maquina->getNome() +
-                           " | Avarias: " + to_string(maquina->getnAvarias());
+        string info =   " |ID: " + to_string(maquina->getID()) +
+                        " | Nome: " + maquina->getNome() +
+                        " | Avarias: " + to_string(maquina->getnAvarias());
         rankingAvariadas->push_back(info);
     }
 
