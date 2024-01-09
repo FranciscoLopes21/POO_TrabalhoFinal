@@ -35,7 +35,7 @@ class Casino
         Casino(string _nome);
         virtual ~Casino();
         void Run();
-        bool entrarUser();
+        bool entrarJogador();
 
         void CarregarDados(int _maxJogadores, int _probabilidadeUser,int _horaAbertura, int _minutosAbertura, int _segundosAbertura,
                            int _horaFecho, int _minutosFecho, int _segundosFecho);
@@ -106,6 +106,8 @@ class Casino
         bool adicionarVizinho(Maquina *M);
 
         string devolveData();
+
+        int Memoria_Total();
 
 
     protected:

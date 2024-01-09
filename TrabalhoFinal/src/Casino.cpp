@@ -102,8 +102,6 @@ void Casino::CarregarDados(int _maxJogadores, int _probabilidadeUser, int _horaA
 
 void Casino::Listar(ostream &f){
 
-    //Compor listagem para listar o estado atual do casino
-
     system("cls");
 
     cout << endl;
@@ -114,8 +112,14 @@ void Casino::Listar(ostream &f){
     f << "Estado Casino " << nome << endl;
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
 
-            f << "| ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() <<" | Probabilidade: " << (*it)->getProb() << " | Estado: " << estadoString((*it)->getEstado()) << " | Temperatura: " << (*it)->getTemperaturaSensor() << endl;
-            cout << "| ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() <<" | Probabilidade: " << (*it)->getProb() << " | Estado: " << estadoString((*it)->getEstado()) << " | Temperatura: " << (*it)->getTemperaturaSensor() << endl;
+        f << "| ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() <<" | Probabilidade: " << (*it)->getProb() << " | Estado: " << estadoString((*it)->getEstado()) << " | Temperatura: " << (*it)->getTemperaturaSensor() << endl;
+        if((*it)->getEstado()== ON){
+            cout << "| ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() <<" | Probabilidade: " << (*it)->getProb() << " | Estado: \033[1;32m"<<estadoString((*it)->getEstado())<<"\033[0m" << " | Temperatura: " << (*it)->getTemperaturaSensor() << endl;
+        }else if ((*it)->getEstado()== OFF){
+            cout << "| ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() <<" | Probabilidade: " << (*it)->getProb() << " | Estado: \033[1;33m"<<estadoString((*it)->getEstado())<<"\033[0m" << " | Temperatura: " << (*it)->getTemperaturaSensor() << endl;
+        }else if ((*it)->getEstado()== AVARIADA){
+            cout << "| ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() <<" | Probabilidade: " << (*it)->getProb() << " | Estado: \033[1;31m"<<estadoString((*it)->getEstado())<<"\033[0m" << " | Temperatura: " << (*it)->getTemperaturaSensor() << endl;
+        }
 
     }
 
@@ -164,17 +168,16 @@ bool Casino::LoadMachinesFromXML(const string& filename) {
 
     }
 
-    return true; // Indica que a leitura foi bem-sucedida
+    return true;
 }
 
 
 //Menu
 void Casino::Menu(){
 
-    //system("cls");
     int op = 0;
     do {
-        // code block to be executed
+
         cout << "||||||||||||||||||||||" << endl;
         cout << "|        Menu        |" << endl;
         cout << "|   1- Dados Casino  |" << endl;
@@ -209,13 +212,11 @@ void Casino::Menu(){
             system("cls");
             cout<< "Gestão User" <<endl;
             Jogadores_Mais_Ganhos();
-            //ContarLinhas("pessoas.txt");
             break;
         case 5:
             system("cls");
             cout<< "Memoria Total" <<endl;
-            Jogadores_Mais_Frequentes();
-            //Memoria();//Implementar total memoria
+            Memoria_Total();
             break;
         case 0:
             break;
@@ -231,18 +232,16 @@ void Casino::Menu(){
 //Menu Gestão Casino
 void Casino::gestaoCasino(){
 
-
     int op = 0;
     string nome;
     ofstream F("estadoAtualCasino.txt");
 
     do {
-        // code block to be executed
+
         cout << "Gestão Casino" << endl;
         cout << "1- Listar estado atual casino" << endl;
         cout << "2- Relatorio" << endl;
-        cout << "3- Subir probabilidade" << endl;
-        cout << "4- Listar maquinas com probabilidade superiora X" << endl;
+        cout << "3- Listar maquinas com probabilidade superiora X" << endl;
         cout << "0- Sair" << endl;
 
         cout << endl;
@@ -259,14 +258,9 @@ void Casino::gestaoCasino(){
             int id_maq;
             cout<< "Relatorio" <<endl;
             nome = devolveData();
-
-            //Relatorio(nome);
-            maquinaAvariada(); //meter no sitio certo
+            Relatorio(nome);
             break;
         case 3:
-            cout<< "Subir probabilidade" <<endl;
-            break;
-        case 4:
             system("cls");
             cout<< "Listar maquinas com probabilidade superiora X" <<endl;
             ListarMaquinasProbabilidade();
@@ -301,9 +295,10 @@ void Casino::gestaoMaquinas(){
 
 
     int op = 0;
+    int idMaquina;
 
     do {
-        // code block to be executed
+
         cout << "Gestão Maquinas" << endl;
         cout << "1- Listar maquinas" << endl;
         cout << "2- Crud maquina" << endl;
@@ -332,14 +327,12 @@ void Casino::gestaoMaquinas(){
             break;
         case 3:
             cout<< "Desligar maquina" <<endl;
-            int nMaquina;
             cout<< "ID: ";
-            cin >> nMaquina;
-            Desligar(nMaquina);
+            cin >> idMaquina;
+            Desligar(idMaquina);
             break;
         case 4:
             cout<< "Estado maquina ID" <<endl;
-            int idMaquina;
             cout<< "ID: ";
             cin >> idMaquina;
             cout  << " | Estado: " << estadoString(Get_Estado(idMaquina)) << endl;
@@ -366,79 +359,8 @@ void Casino::gestaoMaquinas(){
     while (op != 0);
 }// Fim Menu Gestão Maquinas
 
-//Menu
-/*
-system("cls");
-    int op = 0;
-    do {
-        // code block to be executed
-        cout<< "Menu" <<endl;
-        cout<< "1- Dados Casino" <<endl;
-        cout<< "2- Adicionar Máquina" <<endl;
-        cout<< "3- Maquinas Avariadas" <<endl;
-        cout<< "4- Maquina mais ganhos" <<endl;
-        cout<< "5- Reparar" <<endl;
-        cout<< "7- Desligar máquina" <<endl;
-        cout<< "8- Estado Máquina" <<endl;
-
-        cin >> op;
-
-        switch(op){
-
-        case 1:
-            cout<< "Dados Casino" <<endl;
-            dadosCasino();
-            //Add();
-            //maquinaAvariada();
-            break;
-        case 2:
-            cout<< "Maquinas Avariadas" <<endl;
-            ListMachines();
-            //maquinaAvariada();
-            break;
-        case 3:
-            cout<< "Maquina mais ganhos" <<endl;
-            //maquinaGanhos();
-            break;
-        case 4:
-            cout<< "Reparar" <<endl;
-            //reparar();
-            break;
-        case 5:
-            cout<< "Registar Maquina" <<endl;
-            //registarMaquina();
-            break;
-        case 7:
-            cout<< "Desligar Máquina" <<endl;
-            int nMaquina;
-            cin >> nMaquina;
-            Desligar(nMaquina);
-            break;
-        case 8:
-            cout << "Pesquisar máquina" << endl;
-            int idMaquina;
-            cin >> idMaquina;
-            estadoString(Get_Estado(idMaquina));
-            break; // Este break é necessário para corrigir o erro
-        case 9:
-            ListarMaquinasProbabilidade();
-            break; // Este break é necessário para corrigir o erro
-        case 10:
-            cout << "Crud maquina" << endl;
-            menuCrudMaquina();
-            break; // Este break é necessário para corrigir o erro
-        case 0:
-            break;
-
-        default:
-            cout << "Opção inválida. Tente novamente." << endl;
-        }
-    }
-    while (op != 20);
-*/
 
 //Funções
-
 
 //Função Run Casino
 void Casino::Run(){
@@ -449,128 +371,116 @@ void Casino::Run(){
         time_t now = time(nullptr);
             tm* current_time = localtime(&now);
 
-        int currentHour = current_time->tm_hour;
-        int currentMinute = current_time->tm_min;
-        int currentSecond = current_time->tm_sec;
+        int currentHour = current_time->tm_hour;//Hora atual
+        int currentMinute = current_time->tm_min;//Minuto atual
+        int currentSecond = current_time->tm_sec;//Segundo atual
 
-
-        // Converte o horário de abertura para segundos
-        int openingTimeInSeconds = horaAbertura * 3600 + minutosAbertura * 60 + segundosAbertura;
-
-        // Converte o horário de fechamento para segundos
-        int closingTimeInSeconds = horaFecho * 3600 + minutosFecho * 60 + segundosFecho;
-
-        // Converte o horário atual para segundos
-        int currentTimeInSeconds = currentHour * 3600 + currentMinute * 60 + currentSecond;
+        int openingTimeInSeconds = horaAbertura * 3600 + minutosAbertura * 60 + segundosAbertura;// Converte o horário de abertura para segundos
+        int closingTimeInSeconds = horaFecho * 3600 + minutosFecho * 60 + segundosFecho;// Converte o horário de fechamento para segundos
+        int currentTimeInSeconds = currentHour * 3600 + currentMinute * 60 + currentSecond;// Converte o horário atual para segundos
 
         if (currentTimeInSeconds >= openingTimeInSeconds && currentTimeInSeconds <= closingTimeInSeconds) {
 
-
                     // O casino está aberto!
                     cout << "O casino está aberto!" << endl;
-                    if (!maquinasJaLigadas) {
-                        ligarTodasMaquinas();
-                        maquinasJaLigadas = true;
+                    if (!maquinasJaLigadas) { //Verifica se já tem todas as maquinas ligadas
+                        ligarTodasMaquinas(); //Liga todas as maquinas
+                        maquinasJaLigadas = true; //Guarda estado como já as ligou
                     }
 
+                    // Todas as maquinas existentes passam pela função avariar e corre maquina
                     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){
-                        avariar((*it)->getID());
-                        (*it)->Run();
+                        avariar((*it)->getID()); //Função avariar
+                        (*it)->Run(); //Corre maquina
                     }
 
+                    // Verifica se o Casino está cheio  ou se podem entrar jogadores
                     if(jogadoresNoCasino < maxJogadores){
-                            if(entrarUser()){
+                            if(entrarJogador()){ //Verifica se entrou algum jogador
 
-                                int randomIndex = std::rand() % LM.size();
-                                auto it = std::next(LM.begin(), randomIndex);
-                                Maquina *maquina = *it;
-                                cout << "Maquinaaaaaaaaaaaaaaaaa " <<  maquina->getNome()  << endl;
+                                int randomIndex = rand() % LM.size(); //Vai buscar um numero random entre 0 e tamanho da lista
+                                auto it = next(LM.begin(), randomIndex); //o next faz com que se obtenha a posição correta da maquina
+                                //o auto it serve para ir buscar o tipo correto de dados que neste caso é máquina
+                                Maquina *maquina = *it; //guarda no apontador maquina o ponteiro it referente ao objeto amquina radnom
+                                cout << "Maquina escolhida: " <<  maquina->getNome()  << endl;
 
-                                jogadoresNoCasino ++;
-                                User *user = userEntraCasino("pessoas.txt");
-                                Add(user);
+                                jogadoresNoCasino ++; //Incrementa mais um jogador
+                                User *user = userEntraCasino("pessoas.txt"); //Guarda no apontador user o user retornado pela função userEntraCasino
+                                Add(user); //Adiciona User
 
 
-                                if(maquina->getUserAtual()!=nullptr){
-                                    user->entrarFilaEspera(maquina);
+                                if(maquina->getUserAtual()!=nullptr){ //Verifica se a maquina escolhida anteriormente está a ser usada
+                                    user->entrarFilaEspera(maquina); //Se estiver o user entra na fila de espera
                                 }else{
-                                    user->associarMaquina(maquina);
+                                    user->associarMaquina(maquina); //se não estiver o user associa-se a uma maquina
                                 }
 
-                                /*if(maquina->getUtilizacao()){//Se estiver em utilizaçãouser->entrarFilaEspera(maquina);}else{user->associarMaquina(maquina);}*/
-
-                                cout << "Maquinaaaaaaaaaaaaaaaaa " <<  user->getCarteira()  << endl;
+                                cout << "User " <<  user->getCarteira()  << endl;
                                 cout << "entrou " << jogadoresNoCasino << endl;
 
                             }
                     }
 
-
+                    //Se existirem mais do que 1 user percorre a lista de useres
                     if(LU.size()>=1){
                         for (list<User *>::iterator it = LU.begin(); it != LU.end(); ++it){
-                                (*it)->Run();
+                                (*it)->Run(); //correr user
                         }
                     }
 
-                    /*if (LU.size()>= 1){for (list<User *>::iterator it = LU.begin(); it != LU.end(); ++it){(*it)->Run();}}*/
-
                     // Verifica se saiu algum user
                     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
-                        if ((*it)->getUserAtual()==nullptr) {
-                            if (!(*it)->getFilaEspera().empty()) {
-                                User *useruser = (*it)->getFilaEspera().front();
-                                useruser->associarMaquina(*it);
-                                (*it)->removerUsuarioFilaEspera(useruser);
+                        if ((*it)->getUserAtual()==nullptr) { //verifica se a maqina atual não possui nenhum jogador
+                            if (!(*it)->getFilaEspera().empty()) { //verifica se lista de espera da maquina não esta vazia
+                                User *useruser = (*it)->getFilaEspera().front(); //Vai buscar o user a frente na lista de espera da maquina
+                                useruser->associarMaquina(*it); //user associa-se a maquina
+                                (*it)->removerUsuarioFilaEspera(useruser); //e é retirado da lista de espera
 
                                 cout << "User: " <<  useruser->getNome() << " saiu da fila de espera e sentou-se na maquina" << endl;
 
-                                // Antes de associar a máquina, certifique-se de que ela não está sendo usada//(*it)->setUtilizacao(true); // Marca a máquina como em uso//iniciarJogo(user); // Inicia o jogo para o usuário associado à máquina//else {// Se a máquina estiver em uso, o usuário entra na fila de espera//user->entrarFilaEspera(*it);//}
-
                             }else{
-                                (*it)->setUserAtual(nullptr);
+                                (*it)->setUserAtual(nullptr); //se não houver ninguem na lisat de espera o useratual da maquinafica a null
                             }
                         }
                     }
 
-                    //Jogadores vao jogar/*for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){avariar((*it)->getID());(*it)->Run();}*/
-
-
             } else {
                 cout << "O casino está fechado. Aguardando o horário de abertura." << endl;
-                if (maquinasJaLigadas) {
-                    desligarTodasMaquinas();
-                    maquinasJaLigadas = false;
+                if (maquinasJaLigadas) { //Se casino fechado então verifica se as amquina ainda estão ligadas
+                    desligarTodasMaquinas(); //Desliga todas as maquina
+                    maquinasJaLigadas = false; //Guarda estado como já desligou
                 }
             }
-            if (_kbhit()) {
-                key = _getch();
-                if (key == 'm' || key == 'M') {
-                    Menu();
+
+            if (_kbhit()) { //Função de c++ que verifica se foi pressionada alguma tecla
+                key = _getch(); //guarda tecka pressionada
+                if (key == 'm' || key == 'M') { //verifica se é m ou M
+                    Menu(); //abre Menu
                 }
             }
-            //corre o resto do programa
+
     }
 
 }
 
-void Casino::avariar(int nMaq){
+void Casino::avariar(int IDMaq){
 
-    /* initialize random seed: */
-    srand (time(NULL));
+    //srand (time(NULL));
 
-    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){
-        Sleep(500);
-        if((*it)->getID()==nMaq){
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){ //Percorre todas as maquinas
+        //Sleep(500);
+        if((*it)->getID() == IDMaq){ //verifica se o ud da maquina atual é igual ao passado na função
 
-            if((*it)->getEstado()==ON){
-                int nRandom1 = rand() % 100 + 1;
-                int nRandom2 = rand() % 100 + 1;
+            if((*it)->getEstado() == ON){ //Verifica se amaquina está ligada
+                //rand() %100, vai buscar um numero entre 0 e 99 e adiciona mais 1 par air buscar o número correto
+                int nRandom1 = rand() % 100 + 1; //gera um numero random
+                int nRandom2 = rand() % 100 + 1; //gera um numero random
 
                 cout << "nRandom1: " << nRandom1 << endl;
                 cout << "nRandom2: " << nRandom2 << endl;
 
-                if(nRandom1 == nRandom2){
-                    (*it)->avariaMaquina();
+                if(nRandom1 == nRandom2){ //se os numero random forem iguais então avaria maquina
+                    (*it)->avariaMaquina(); //Maquina chama função avariaMaquina()
                 }
 
             }
@@ -629,20 +539,18 @@ void Casino:: showRankingAvarias(){
 //Desligar todas as maquinas
 void Casino::desligarTodasMaquinas() {
 
-   for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
-        (*it)->Desligar();
+   for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) { //perocorre todas as maquinas
+        (*it)->Desligar(); //maquina chama função Desligar()
     }
 }
 
 //Ligar todas as maquinas
 void Casino::ligarTodasMaquinas() {
 
-   for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
-        (*it)->Ligar();
+   for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) { //perocorre todas as maquinas
+        (*it)->Ligar(); //maquina chama função Ligar()
     }
 }
-
-/**/
 
 //Mostrar dados do casino
 void Casino::dadosCasino() {
@@ -1222,7 +1130,7 @@ int Casino::ContarLinhas(const string& nomeArquivo) {
     return numeroLinhas;
 }
 
-bool Casino::entrarUser(){
+bool Casino::entrarJogador(){
 
     bool entrada = false;
 
@@ -1349,6 +1257,15 @@ void Casino::SubirProbabilidadeVizinhas(Maquina *M_ganhou, float R, list<Maquina
             (*it)->setProb(probAt + 1.0);
         }
     }
+
+}
+
+int Casino::Memoria_Total() {
+
+    int mem = 0;
+
+
+    return mem;
 
 }
 
