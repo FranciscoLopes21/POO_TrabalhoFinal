@@ -554,8 +554,8 @@ void Casino::ligarTodasMaquinas() {
 
 //Mostrar dados do casino
 void Casino::dadosCasino() {
-    cout << "Nome do Casino: " << nome << endl;
-    cout << "Máximo de Jogadores: " << maxJogadores << endl;
+    cout << "Nome do Casino: " << nome << endl; //nome casino
+    cout << "Máximo de Jogadores: " << maxJogadores << endl; //maximo de jogadores no casino
     cout << "Probabilidade de Usuários: " << probabilidadeUser << endl;
     cout << "Hora de Abertura: " << horaAbertura << ":" << minutosAbertura << ":" << segundosAbertura << endl;
     cout << "Hora de Encerramento: " << horaFecho << ":" << minutosFecho << ":" << segundosFecho << endl;
