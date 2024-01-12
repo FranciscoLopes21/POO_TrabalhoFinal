@@ -556,27 +556,32 @@ void Casino::ligarTodasMaquinas() {
 void Casino::dadosCasino() {
     cout << "Nome do Casino: " << nome << endl; //nome casino
     cout << "Máximo de Jogadores: " << maxJogadores << endl; //maximo de jogadores no casino
-    cout << "Probabilidade de Usuários: " << probabilidadeUser << endl;
-    cout << "Hora de Abertura: " << horaAbertura << ":" << minutosAbertura << ":" << segundosAbertura << endl;
-    cout << "Hora de Encerramento: " << horaFecho << ":" << minutosFecho << ":" << segundosFecho << endl;
+    cout << "Hora de Abertura: " << horaAbertura << ":" << minutosAbertura << ":" << segundosAbertura << endl; //hora de abertura
+    cout << "Hora de Encerramento: " << horaFecho << ":" << minutosFecho << ":" << segundosFecho << endl; //hora de fecho
 }
 
-bool Casino::Add(Maquina *m){
+//Adicionar máquina
+bool Casino::Add(Maquina *m){ //recebe por parametro um ponteiro para um objecto do tipo Maquina
 
-    adicionarVizinho(m);
-    LM.push_back(m);
+    adicionarVizinho(m); //Função para adicionar vizinho
+    LM.push_back(m); //Adicionar maquina a lisat de maquinas do casino
 
     return true;
 }
 
-bool Casino::adicionarVizinho(Maquina *m) {
+bool Casino::adicionarVizinho(Maquina *m) { //recebe por parametro um ponteiro para um objecto do tipo Maquina
 
-    bool estado = false;
-    int distanciaMaxima = 3;  // Defina a distância máxima desejada
+    bool estado = false; //iguala o estado a falso
+    int distanciaMaxima = 3;  //Defina a distância máxima desejada
 
-    for (auto it = LM.begin(); it != LM.end(); ++it) {
-        if ((*it)->getID() != m->getID() && std::abs((*it)->getX() - m->getX()) <= distanciaMaxima) {
-            int distanciaY = std::abs((*it)->getY() - m->getY());
+    for (auto it = LM.begin(); it != LM.end(); ++it) { //percorre todas as maquinas do casino
+        if ((*it)->getID() != m->getID() && (*it)->getX() == m->getX()) {
+            /*
+            verifica se o id da maquina que esta a ser verificada não é igual ao id da maquina que chega por parametro e
+            verifica também se esta na mesma fila de x
+            */
+
+            int distanciaY = abs((*it)->getY() - m->getY()); //diferença entre y´s das maquinas
 
             if (distanciaY <= distanciaMaxima) {
                 // Adicionar novaMaquina à lista de vizinhos de maquina
@@ -585,64 +590,53 @@ bool Casino::adicionarVizinho(Maquina *m) {
                 // Adicionar maquina à lista de vizinhos de novaMaquina
                 m->adicionarVizinho(*it);
 
-                estado = true;
+                estado = true; //iguala estado a true
             }
         }
     }
 
-    return estado;
+    return estado; //returna o estado
 }
 
-void Casino::Desligar(int id_maq) {
+void Casino::Desligar(int id_maq) { //recebe o id da maquina que pretendem desligar
 
-   for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
-        if((*it)->getID() == id_maq){
-            (*it)->Desligar();
+   for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) { //percorre todas as maquinas do casino
+        if((*it)->getID() == id_maq){ //se id maquina for igual ao id da maquina que pretendem desligar
+            (*it)->Desligar(); //chama função para desligar maquina
             cout << "Máquina " << (*it)->getNome() << " desligada." << endl;
-            return;
+            return; //ao desligar a maquina desejada a função encerra
         }
 
     }
-    cout << "Máquina não encontrada." << endl;
+    cout << "Máquina não encontrada." << endl; //se não encontrar a maquina desejada mostra mensagem de "erro"
 }
 
-estadoMaquina Casino::Get_Estado(int id_maq) {
+estadoMaquina Casino::Get_Estado(int id_maq) { //recebe id da maquina desejada
 
-    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
-        if((*it)->getID() == id_maq){
-            return (*it)->getEstado();
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) { //percorre todas as maquinas do casino
+        if((*it)->getID() == id_maq){ //se id maquina for igual ao id da maquina que pretendem desligar
+            return (*it)->getEstado(); //returna estado da maquina
         }
 
     }
-    cout << "Máquina não encontrada." << endl;
-    return estadoMaquina::OFF;
+    cout << "Máquina não encontrada." << endl; //se não encontrar a maquina desejada mostra mensagem de "erro"
+    return estadoMaquina::OFF; //e retorna estado OFF
 }
 
-void Casino::Listar(float X, std::ostream &f) {
 
-    f << "Máquinas com probabilidade " << X << " maior que de ganhar:" << endl;
-    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
-        if ((*it)->getProb() > X) {
-            f << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl;
-            cout << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl;
-        }
-    }
-
-}
-
+//Função complementar para lisatgem de maquina com probabilidade de ganhar superior a X
 void Casino::ListarMaquinasProbabilidade() {
 
     try {
-        // Listar máquinas com probabilidade de maior que x
-        float xProbabilidade;
+        float xProbabilidade; //variavel do tipo float para guardar probabilidade desejada
         cout << "Probabilidade: ";
-        cin >> xProbabilidade;
+        cin >> xProbabilidade; //guardar probabilidade
 
-        // Tentar abrir o arquivo
+        //Abrir ficheiro
         ofstream F("ListaProbX.txt");
         Listar(xProbabilidade, F);
 
-        // Fechar o arquivo após o uso
+        //Fechar ficheiro
         F.close();
     } catch (const exception& e) {
         cerr << "Erro: " << e.what() << endl;
@@ -650,9 +644,26 @@ void Casino::ListarMaquinasProbabilidade() {
 
 }
 
-string Casino::estadoString(estadoMaquina estadoma){
+//Listar maquinas com probabilidade de ganhar maior que X
+void Casino::Listar(float X, ostream &f) {
+    //recebere um float com a probabilidade desejada e uma referência a um objeto de fluxo de saída
+
+    f << "Máquinas com probabilidade " << X << " maior que de ganhar:" << endl; //escreve no ficheiro
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) { //percorre todas as maquinas do casino
+        if ((*it)->getProb() > X) { //se a probabilidade maquina for superior a probabilidade desejada
+            f << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl; //escreve no ficheiro
+            cout << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl; //printa no ecra
+            /*Mostra o numero da maquina e a probabilidade da mesma*/
+        }
+    }
+
+}
+
+
+//traduzir estado para string
+string Casino::estadoString(estadoMaquina estado){
     string estadoString;
-    switch (estadoma) {
+    switch (estado) {
         case ON:
             estadoString = "ON";
             break;

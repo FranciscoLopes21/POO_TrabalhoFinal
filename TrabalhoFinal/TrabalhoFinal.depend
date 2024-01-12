@@ -269,7 +269,7 @@
 	"pugixml.hpp"
 	"Casino.h"
 
-1704930327 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\maquina.cpp
+1704956554 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\maquina.cpp
 	"Maquina.h"
 	<stdlib.h>
 	<time.h>
@@ -328,4 +328,34 @@
 	<string>
 	<list>
 	<fstream>
+
+1704955336 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\casino.cpp
+	"Casino.h"
+	<conio.h>
+	<chrono>
+	<thread>
+	<iostream>
+	<fstream>
+	<string>
+	<list>
+	"pugixml.hpp"
+	"XMLReader.h"
+	"MBlackJack.h"
+	"MPoker.h"
+	"MRoleta.h"
+	"MSlot.h"
+	<cmath>
+	<list>
+	<string>
+	<cctype>
+	"XMLWriter.h"
+	<cstdlib>
+	<ctime>
+	<cstdlib>
+	<iomanip>
+	<sstream>
+	<random>
+	<ctime>
+	<iostream>
+	<windows.h>
 
