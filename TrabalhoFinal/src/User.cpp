@@ -125,3 +125,12 @@ void User::userSaiCasino(){
     cout << "User " << getNome() << " saiu da maquina" << endl;
 
 }
+
+int User::Memoria() {
+    int mem = sizeof(*this);
+    // Adicione a memória associada a membros dinâmicos, se houver
+    // Exemplo considerando listas dinâmicas
+    //mem += sizeof(User*) * filaEspera.size(); // tamanho da lista de ponteiros
+    //mem += sizeof(Maquina*) * vizinhos.size(); // tamanho da lista de ponteiros
+    return mem;
+}

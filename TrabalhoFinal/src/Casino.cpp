@@ -318,7 +318,7 @@ void Casino::gestaoMaquinas(){
         case 1:
             system("cls");
             cout << "Listar maquinas" << endl;
-            ListMachines();
+            ListarMaquinas();
             break;
         case 2:
             system("cls");
@@ -661,19 +661,23 @@ void Casino::Listar(float X, ostream &f) {
 
 
 //traduzir estado para string
-string Casino::estadoString(estadoMaquina estado){
-    string estadoString;
-    switch (estado) {
+string Casino::estadoString(estadoMaquina estado){ //recebe um valor do tipo estadoMaquina
+    string estadoString; //variavel que guarda o valor como string
+    switch (estado) { //verifica estado
         case ON:
+            // Se o estado for ON, atribui a string "ON" à variável estadoString
             estadoString = "ON";
             break;
         case OFF:
+            // Se o estado for OFF, atribui a string "OFF" à variável estadoString
             estadoString = "OFF";
             break;
         case AVARIADA:
+            // Se o estado for AVARIADA, atribui a string "AVARIADA" à variável estadoString
             estadoString = "AVARIADA";
             break;
         default:
+            // Se o estado não corresponder a nenhum dos casos anteriores, atribui a string "Unknown" à variável estadoString
             estadoString = "Unknown";
             break;
     }
@@ -681,107 +685,100 @@ string Casino::estadoString(estadoMaquina estado){
     return estadoString;
 }
 
-
+//Função complementar mostra maquinas avariadas
 void Casino::maquinaAvariada(){
 
-    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
-        if ((*it)->getEstado() ==  AVARIADA) {
-            cout << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl;
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) { //percorre todas as maquinas do casino
+        if ((*it)->getEstado() ==  AVARIADA) { //se o estado da maquina for igual a AVARIADA
+            cout << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl; //mostra a maquina
         }
     }
 
-    cout << "Deseja reparar alguma maquina (S/N): " << endl;
-    char repar;
-    cin >> repar;
+    cout << "Deseja reparar alguma maquina (S/N): " << endl; //printa se deseja repara alguam das maquinas que apareceu
+    char repar; //variavel do tipo char para guardar resposta
+    cin >> repar; //guarda resposta
 
-    if(repar == 'S' || repar == 's'){
-        int id_maq;
-        cout << "Numero Maquina: " ;
-        cin >> id_maq;
-        reparar(id_maq);
+    if(repar == 'S' || repar == 's'){ //verifica se escolheram reparar
+        int id_maq; //variavel do tipo int para guardar  numero da maquina
+        cout << "Numero Maquina: " ; //pede o numero da maquina
+        cin >> id_maq; //guarda numero da maquina que pretendem reparar
+        reparar(id_maq); //chama função complementar para reparar maquina
     }
 
 
 }
-void Casino::maquinaGanhos(){
 
-
-}
+//função comlementar para reparar maquina
 void Casino::reparar(int id_maq){
 
-    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
-        if ((*it)->getID() == id_maq) {
-            if ((*it)->getEstado() == AVARIADA){
-                (*it)->repararMaquina();
-                cout << "ID: " << (*it)->getID() << " | Maquina Reparada" << endl;
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) { //percorre todas as maquinas do casino
+        if ((*it)->getID() == id_maq) { //se o id da maquina for igual ao id da maquina desejada
+            if ((*it)->getEstado() == AVARIADA){ //se o estado da maquina for igual a AVARIADA
+                (*it)->repararMaquina(); //invoca função para reparar maquina
+                cout << "ID: " << (*it)->getID() << " | Maquina Reparada" << endl; //printa mensagem positiva apos reparação
             }
-            else if ((*it)->getEstado() == ON || (*it)->getEstado() == OFF){
-                cout << "ID: " << (*it)->getID() << " | Maquina sem avarias" << endl;
+            else if ((*it)->getEstado() == ON || (*it)->getEstado() == OFF){ //se a maquina não se encontrar AVARIADA
+                cout << "ID: " << (*it)->getID() << " | Maquina sem avarias" << endl; //printa mensagem com mensagem
             }
         }
     }
 
 
 }
-void Casino::registarMaquina(){
 
+//Listar maquinas
+void Casino::ListarMaquinas() {
 
-}
+    cout << "|ID: | Nome: | Posição: (x ,y ) | Prêmio | ProbG:  | Estado: " << endl; //printa cabeçalho da lista
 
-void Casino::ListMachines() const {
-    cout << "|ID: | Nome: | Posição: (x ,y ) | Prêmio | ProbG:  | Estado: " << endl;
-
-
-    for (const auto& maquina : LM) {
-        maquina->DisplayInfo();
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) { //percorre todas as maquinas do casino
+        (*it)->informacaoMaquina(); //Mostra dados da maquina
     }
+
 }
 
-/*
-// Listar máquinas com probabilidade de maior que x
-        float xProbabilidade;
-        cout << "Probabilidade: ";
-        cin >> xProbabilidade;
-
-        // Tentar abrir o arquivo
-        ofstream F("ListaProbX.txt");
-        Listar(xProbabilidade, F);
-
-        // Fechar o arquivo após o uso
-        F.close();
-        */
 
 //Outras Funções
 
+
+
+//Função complementar para listar maquinas de um dado tipo
 void Casino::listarTipoMaquina(){
-    string Tipo = "";
-    cin >> Tipo;
 
-    // Tentar abrir o arquivo
-    ofstream F("MaquinasTipo.txt");
-    Listar_Tipo(Tipo, F);
+    string Tipo; //varivel do tipo string para guardar o tipo de maquina desejada
+    cout << "Tipo de maquina: "; //pede o tipo de maquina pretendida
+    cin >> Tipo; //guarda tipo de maquina desejada
 
-    // Fechar o arquivo após o uso
-    F.close();
+    ofstream F("MaquinasTipo.txt"); //abrir fecheiro
+    Listar_Tipo(Tipo, F); //invoca função para listar maquinas de um dado tipo
+
+    F.close(); //fechar ficheiro
+
 }
 
-list<Maquina *> Casino::Listar_Tipo(string Tipo, std::ostream &f) {
-    list<Maquina *> maquinasDoTipo;
+//listar maquinas de um dado tipo
+list<Maquina *> * Casino::Listar_Tipo(string Tipo, std::ostream &f) {
 
-
+    list<Maquina *> * maquinasDoTipo = new list<Maquina*>;
 
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
         if ((*it)->getTipo() == Tipo) {
-            maquinasDoTipo.push_back((*it));
+            maquinasDoTipo->push_back((*it));
             f << "ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() << " | Tipo: " << (*it)->getTipo() << endl;
         }
     }
 
+
     return maquinasDoTipo;
 
-
 }
+/*void liberarMemoria(list<Maquina*>* listas) {
+    for (list<Maquina*>::iterator it = maquinasDoTipo->begin(); it != maquinasDoTipo->end(); it++) {
+        delete *it;  // Deleta cada objeto apontado pela lista
+    }
 
+    delete maquinasDoTipo;  // Deleta a lista em si
+}*/
 
 
 
@@ -1162,6 +1159,7 @@ bool Casino::entrarJogador(){
 list<Maquina *> *Casino::Ranking_Das_Mais_Trabalhadores() {
     // Crie uma cópia da lista de máquinas
     list<Maquina *> *copiaMaquinas = new list<Maquina *>(LM.begin(), LM.end());
+    new list<Maquina *>;
 
     copiaMaquinas->sort([](Maquina* a, Maquina* b) {
         return a->getNJogos() > b->getNJogos();
@@ -1275,8 +1273,30 @@ int Casino::Memoria_Total() {
 
     int mem = 0;
 
+    //calcular memoria variveis Casino
+    mem = nome.size()+sizeof(maxJogadores)+sizeof(jogadoresNoCasino)+sizeof(probabilidadeUser)+sizeof(horaAbertura)+sizeof(minutosAbertura)+sizeof(segundosAbertura)+sizeof(horaFecho)+sizeof(minutosFecho)+sizeof(segundosFecho)+sizeof(totalPremios)+sizeof(totalDinheiroDado);
+    mem += sizeof(*this);
+
+    // Adicione o tamanho da lista à memória total
+    mem += LM.size() * sizeof(Maquina*);
+
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
+        //mem += sizeof(*it);
+        mem += (*it)->Memoria();
+    }
+
+    // Adicione a memória associada a membros dinâmicos, se houver
+    mem += sizeof(User*) * LU.size(); // Tamanho da lista de ponteiros de usuários
+
+    // Itera sobre os usuários e adiciona a memória associada a cada um
+    for (list<User*>::iterator it = LU.begin(); it != LU.end(); ++it)
+        mem += (*it)->Memoria();
+
+
+    cout << "Memoria total Casino: " << mem << endl;
 
     return mem;
+
 
 }
 

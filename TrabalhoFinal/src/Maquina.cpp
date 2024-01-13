@@ -34,7 +34,8 @@ Maquina::~Maquina()
            delete (*it);
 }
 
-void Maquina::DisplayInfo() const {
+void Maquina::informacaoMaquina() {
+
     string estadoString;
     switch (estado) {
         case ON:
@@ -248,5 +249,14 @@ bool Maquina::removerVizinhoTodos(){
 
     return true;
 
+}
+
+int Maquina::Memoria() {
+    int mem = sizeof(*this);
+    // Adicione a memória associada a membros dinâmicos, se houver
+    // Exemplo considerando listas dinâmicas
+    mem += sizeof(User*) * filaEspera.size(); // tamanho da lista de ponteiros
+    mem += sizeof(Maquina*) * vizinhos.size(); // tamanho da lista de ponteiros
+    return mem;
 }
 

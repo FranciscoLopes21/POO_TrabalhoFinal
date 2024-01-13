@@ -46,7 +46,7 @@ class Maquina
         Maquina(int _nM, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta, Casino* _casino);
         virtual ~Maquina();
         virtual void Run();
-        virtual void DisplayInfo() const;
+        virtual void informacaoMaquina();
         void Desligar();
         void Ligar();
         void avariaMaquina();
@@ -111,6 +111,8 @@ class Maquina
 
         bool removerVizinho(int id_maq);
         bool removerVizinhoTodos();
+
+        int Memoria();
 
 
 

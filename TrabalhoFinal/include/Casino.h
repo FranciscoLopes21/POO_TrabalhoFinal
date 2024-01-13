@@ -23,9 +23,9 @@ class Casino
     int minutosFecho;
     int segundosFecho;
     list<Maquina *> LM;
-    list<Maquina *> LM_Avariadas;
+    //list<Maquina *> LM_Avariadas;
     list<User *> LU;
-    list<int> Lt;
+    //list<int> Lt;
     int totalPremios;
     int totalDinheiroDado;
 
@@ -46,7 +46,7 @@ class Casino
 
         bool LoadMachinesFromXML(const string& xmlFile);
         bool Add(Maquina *M);
-        void ListMachines() const;
+        void ListarMaquinas();
 
 
         void maquinaAvariada();
@@ -64,7 +64,7 @@ class Casino
         void showRankingAvarias();
 
         void listarTipoMaquina();
-        list<Maquina *> Listar_Tipo(string Tipo, ostream &f = cout);
+        list<Maquina *> * Listar_Tipo(string Tipo, ostream &f = cout);
 
         User* userEntraCasino(const string &nomeArquivo);
         bool Add(User *ut);

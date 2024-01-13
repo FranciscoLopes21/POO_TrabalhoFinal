@@ -63,6 +63,8 @@ class User
 
         time_t getTempoCasino(){return tempoCasino;}
 
+        int Memoria();
+
 
 
 
