@@ -786,75 +786,71 @@ list<Maquina *> * Casino::Listar_Tipo(string Tipo, std::ostream &f) {
 //Menu Crud Maquinas
 void Casino::menuCrudMaquina(){
 
-
-    int op = 0;
+    int op = 0; //varivel do tipo int para guardar a opção escolhida
+    int id_maq; //variavel do tipo int para guarda id maquina
 
     do {
-            //system("cls");
-        // code block to be executed
-        cout<< "Crud Maquina" <<endl;
-        cout<< "1- Adicionar Maquina" <<endl;
-        cout<< "2- Remover Maquina" <<endl;
-        cout<< "3- Editar Maquina" <<endl;
-        cout<< "4- Mover Maquina" <<endl;
-        cout<< "0- Sair" <<endl;
+        //system("cls"); //limpa ecra
+        cout << "Crud Maquina" << endl; //printa menu
+        cout << "1- Adicionar Maquina" << endl; //printa menu
+        cout << "2- Remover Maquina" << endl; //printa menu
+        cout << "3- Editar Maquina" << endl; //printa menu
+        cout << "4- Mover Maquina" << endl; //printa menu
+        cout << "0- Sair" << endl; //printa menu
 
-        cin >> op;
+        cout << "opcao: "; //printa qual é a decisão que pretende selecionar
+        cin >> op; //guarda opção desejada
 
-        switch(op){
+        switch(op){ //verifica opção
 
-        case 1:
-            cout<< "Adicionar Maquina" <<endl;
-            addMaquina();
-            break;
-        case 2:
-            int id_maq;
-            cout<< "Remover Maquina" <<endl;
-            cin >> id_maq;
-            removerMaquina(id_maq);
-            break;
-        case 3:
-            int id_maqq;
-            cout<< "Editar Maquina: Introduza id número maquina" <<endl;
-            cin >> id_maqq;
-            editarMaquina(id_maqq);
-            break;
-        case 4:
-            int id_maqqq;
-            cout <<"ID Maquina: ";
-            cin >> id_maqqq;
-            moverMaquina(id_maqqq);
-            break;
+        case 1: //caso seja 1
+            cout<< "Adicionar Maquina" <<endl; //printa escolha
+            addMaquina(); //chama função para adicionar maquina
+            break; //quebra codição
+        case 2: //caso seja 2
+            cout<< "Remover Maquina" <<endl; //printa escolha
+            cout <<"ID Maquina: "; //pede o id de maquina pretendida
+            cin >> id_maq; //guarda id maquina desejada
+            removerMaquina(id_maq); //chama função para remover maquina passando lhe o id da maquina por parametro
+            break; //quebra codição
+        case 3: //caso seja 3
+            cout<< "Editar Maquina: Introduza id número maquina" <<endl; //printa escolha
+            cout <<"ID Maquina: "; //pede o id de maquina pretendida
+            cin >> id_maq; //guarda id maquina desejada
+            editarMaquina(id_maq); //chama função para editar maquina passando lhe o id da maquina por parametro
+            break; //quebra codição
+        case 4: //caso seja 4
+            cout<< "Mover Maquina" <<endl; //printa escolha
+            cout <<"ID Maquina: "; //pede o id de maquina pretendida
+            cin >> id_maq; //guarda id maquina desejada
+            moverMaquina(id_maq); //chama função para mover maquina passando lhe o id da maquina por parametro
+            break; //quebra codição
         case 0:
-            break;
+            break; //quebra codição
 
-        default:
-            cout << "Opção inválida. Tente novamente." << endl;
+        default: //se nenhuma das opções
+            cout << "Opção inválida. Tente novamente." << endl; //printa mensagem de erro
         }
     }
-    while (op != 0);
+    while (op != 0); //repete processo enquanto opção diferente a 0
 }// Fim Menu Crud Maquinas
 
 // Crud Maquinas
 void Casino::addMaquina(){
 
-    int nMaquina, premio, x, y, temperaturaSensor;
-    int xMaquina, yMaquina;
-    string nome, tipo;
-    float prob;
-    bool existe = false;
-    Casino *Ptr_Casino;
+    int premio, x, y; //variveis do tipo int para guardar premio, x e y
+    string nome, tipo; //variveis do tipo string para guardar nome, tipo da maquina
+    float prob; //variveis do tipo float para guardar probabilidade da maquina
+    bool existe = false; //variveis do tipo bool para guardar premio, x e y ////////////////////
 
-    /*int getY(){ return y;}
-        int getX()*/
-    cout << "Nome máquina" << endl;
-    cin >> nome;
+    cout << "Nome máquina: "; //pede nome da maquina
+    cin >> nome; //guarda nome da maquina
     do {
-        cout << "X máquina" << endl;
-        cin >> x;
+        cout << "X máquina: "; //pede x da maquina
+        cin >> x; //guarda x da maquina
         for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
             if ((*it)->getX() == x) {
-                cout << "Y máquina" << endl;
+                cout << "Y máquina: ";
                 cin >> y;
                 if ((*it)->getY() == y) {
                     existe = true;
@@ -866,11 +862,11 @@ void Casino::addMaquina(){
     }
     while (existe == true);
 
-    cout << "Premio máquina" << endl;
+    cout << "Premio máquina: ";
     cin >> premio;
-    cout << "Probabilidade máquina" << endl;
+    cout << "Probabilidade máquina: ";
     cin >> prob;
-    cout << "Tipo máquina" << endl;
+    cout << "Tipo máquina: ";
     cin >> tipo;
 
     Maquina* m = nullptr;
@@ -886,13 +882,14 @@ void Casino::addMaquina(){
     Add(m);
 }
 
+//remover maquina
 bool Casino::removerMaquina(int id_maq) {
 
-    removerVizinho(id_maq);
+    removerVizinho(id_maq); //chama função para remover vizinhos da maquina a remover passando o id da maquina por parametro
 
-    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
-        if ((*it)->getID() == id_maq) {
-            //delete *it;  // Libera a memória alocada pela máquina
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) { //percorre todas as maquinas do casino
+        if ((*it)->getID() == id_maq) { //se id da maquina atual for igual ao id passado por parametro
+            //delete *it;  // Libera a memória alocada pela máquina /////////
             LM.erase(it); // Remove a máquina da lista
             cout << "Máquina removida." << endl;
             return true;
@@ -903,20 +900,21 @@ bool Casino::removerMaquina(int id_maq) {
     return false;
 }
 
-void Casino::removerVizinho(int id_maq) {
+//remover vizinhos
+void Casino::removerVizinho(int id_maq) { //recebe por parametro o id da maquina da qual os vizinhos serão apagados
 
-    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) { //percorre todas as maquinas do casino
 
-        //eleminar vizinho das maquinas
-        (*it)->removerVizinho(id_maq);
-
+        (*it)->removerVizinho(id_maq); //chama função para remover vizinhos da maquina que será remvida
 
     }
-    cout << "Eleminei tudo." << endl;
+    cout << "Eleminei tudo." << endl; //printa mensagem
 
 }
 
+//editar maquina
 bool Casino::editarMaquina(int id_maq){
+
     cout << " |Dados maquina|" << id_maq << endl;
     int op;
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
@@ -975,6 +973,7 @@ bool Casino::editarMaquina(int id_maq){
     return false;
 }
 
+//mover maquina
 bool Casino::moverMaquina(int id_maq){
 
     int x, y, xAnt;
@@ -1030,7 +1029,6 @@ bool Casino::moverMaquina(int id_maq){
                 ////Adicionar nvo vizinho
                 adicionarVizinho((*itFirst));
 
-
             }
 
         } while (!movido);
@@ -1045,7 +1043,7 @@ bool Casino::moverMaquina(int id_maq){
 // Fim Crud Maquinas
 
 
-
+//jogador entra no casino
 User* Casino::userEntraCasino(const string &nomeArquivo){
 
     int numeroLinhas = ContarLinhas(nomeArquivo);
@@ -1071,7 +1069,6 @@ User* Casino::userEntraCasino(const string &nomeArquivo){
 
     // Use um stringstream para processar a linha
     stringstream ss(linha);
-
 
     // Declare as variáveis para armazenar os dados do usuário
     int id;
@@ -1103,7 +1100,7 @@ User* Casino::userEntraCasino(const string &nomeArquivo){
     return newUser;
 }
 
-
+//adicionar jogador/user
 bool Casino::Add(User *ut){
 
     if (ut == nullptr) {
@@ -1119,6 +1116,7 @@ bool Casino::Add(User *ut){
 
 }
 
+//contar linhas de um ficheiro
 int Casino::ContarLinhas(const string& nomeArquivo) {
     ifstream arquivo(nomeArquivo);
     if (!arquivo.is_open()) {
@@ -1138,6 +1136,7 @@ int Casino::ContarLinhas(const string& nomeArquivo) {
     return numeroLinhas;
 }
 
+//jogador entra no casino
 bool Casino::entrarJogador(){
 
     bool entrada = false;
@@ -1155,7 +1154,7 @@ bool Casino::entrarJogador(){
 
 }
 
-
+//Ranking dos mais trabalhadores - as que são usadas
 list<Maquina *> *Casino::Ranking_Das_Mais_Trabalhadores() {
     // Crie uma cópia da lista de máquinas
     list<Maquina *> *copiaMaquinas = new list<Maquina *>(LM.begin(), LM.end());
@@ -1178,10 +1177,6 @@ list<Maquina *> *Casino::Ranking_Das_Mais_Trabalhadores() {
     return copiaMaquinas;
 }
 
-bool compararNjogos(Maquina *maquina1, Maquina *maquina2) {
-    // Compare o número de vezes que as máquinas foram utilizadas
-    return maquina1->getNJogos() > maquina2->getNJogos();
-}
 
 
 
