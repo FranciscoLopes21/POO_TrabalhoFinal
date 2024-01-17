@@ -48,6 +48,7 @@ class Maquina
         virtual void Run();
         virtual void informacaoMaquina();
         void Desligar();
+        void saemTodos();
         void Ligar();
         void avariaMaquina();
         void entrarFilaEspera(User* user);

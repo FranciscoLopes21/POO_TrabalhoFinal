@@ -64,7 +64,7 @@ void Maquina::Run(){
 
     verificaEstado();
 
-
+    //verificar probabilidade muito grande//
 
 }
 
@@ -85,16 +85,54 @@ bool Maquina::verificaEstado()
     return true;
 }
 
-void Maquina::Desligar() {
+void Maquina::Desligar(){
+
     if(estado == AVARIADA){
-        estado = AVARIADA;
-    }else{
+        cout << "Esta maquina encontra-se avariada!" << endl;
+        cout << "Deseja reparar (S/N): " << endl; //printa se deseja repara alguam das maquinas que apareceu
+        char repar; //variavel do tipo char para guardar resposta
+        cin >> repar; //guarda resposta
+        if(repar == 'S' || repar == 's'){ //verifica se escolheram reparar
+            //int id_maq; //variavel do tipo int para guardar  numero da maquina
+            //cout << "Numero Maquina: " ; //pede o numero da maquina
+            //cin >> id_maq; //guarda numero da maquina que pretendem reparar
+            repararMaquina(); //chama função complementar para reparar maquina
+            estado = OFF; // Altera o estado da máquina para OFF
+            saemTodos();
+        }
+        else{
+            cout << "Esta maquina não foi desligada, permanecerá avariada!" << endl;
+            estado = AVARIADA;
+        }
+    }else if(estado == ON){
         estado = OFF; // Altera o estado da máquina para OFF
+        saemTodos();
     }
+
+}
+
+void Maquina::saemTodos(){
+
+    if (getUserAtual()== nullptr){
+        if(filaEspera.size() > 0){
+            for (list<User *>::iterator it = filaEspera.begin(); it != filaEspera.end();it++) {
+                (*it)->userSaiCasino();
+            }
+        }
+    }else if(getUserAtual()!= nullptr){
+        User *user = getUserAtual();
+        user->userSaiCasino();
+        if(filaEspera.size() > 0){
+            for (list<User *>::iterator it = filaEspera.begin(); it != filaEspera.end();it++) {
+                (*it)->userSaiCasino();
+            }
+        }
+    }
+
 }
 
 void Maquina::Ligar() {
-    if(estado == AVARIADA){
+    if(estado == AVARIADA){ //verifica se a maquina esta AVARIADA
         estado = AVARIADA;
     }else{
         estado = ON; // Altera o estado da máquina para ON
@@ -141,25 +179,18 @@ void Maquina::rodadas(User* user){
     // Gerar um índice aleatório usando a operação de módulo
     float randomProb = rand() % 100;
 
-
     if (randomProb <= getProb()) {
         cout << "Jogador " << user->getNome() << " ganhou na máquina " << nome << "  premio   "<< premio << endl;
         float ganhosUser = user->getGanhos() + premio;
         user->setGanhos(ganhosUser);
 
-
         subirProbabilidade();
-
-
 
     } else {
         cout << "Jogador " << user->getNome() << " perdeu na máquina " << nome << endl;
     }
 
-
     setNJogos(nJogos + 1);
-
-
 
 
     // Se houver usuários na fila de espera, inicie o próximo
@@ -178,32 +209,30 @@ void Maquina::userSaiu() {
 
     setUserAtual(nullptr);
     cout << "Maquina " << getNome() << " ficou livre" << endl;
-    //setUtilizacao(false);
+
 }
 
 bool Maquina::repararMaquina(){
 
     bool reparado= false;
 
-
     estado = ON;
     reparado = true;
 
-
     return reparado;
-
 
 }
 
 void Maquina::adicionarVizinho(Maquina* vizinho) {
+
     vizinhos.push_back(vizinho);
+
 }
 
 
 void Maquina::subirProbabilidade(){
 
     casino->SubirProbabilidadeVizinhas(this,2,vizinhos);
-
 
 }
 
@@ -252,11 +281,13 @@ bool Maquina::removerVizinhoTodos(){
 }
 
 int Maquina::Memoria() {
+
     int mem = sizeof(*this);
     // Adicione a memória associada a membros dinâmicos, se houver
     // Exemplo considerando listas dinâmicas
     mem += sizeof(User*) * filaEspera.size(); // tamanho da lista de ponteiros
     mem += sizeof(Maquina*) * vizinhos.size(); // tamanho da lista de ponteiros
     return mem;
+
 }
 

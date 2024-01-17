@@ -103,34 +103,43 @@ void User::jogarNaMaquina(){
 
 void User::userSaiCasino(){
 
-    setMaquinaAssociada(nullptr);
+    if(getMaquinaAssociada() != nullptr){
 
-    int jogadores = casino->getJogadoresNoCasino();
-    casino->setJogadoresNoCasino(jogadores - 1);
+        setMaquinaAssociada(nullptr);
 
-    time_t currentTime;
-    horaSaida = time(&currentTime);
+        int jogadores = casino->getJogadoresNoCasino();
+        casino->setJogadoresNoCasino(jogadores - 1);
 
-    //tempo em segundos
-    tempoCasino = difftime(horaSaida, horaEntrada);
+        time_t currentTime;
+        horaSaida = time(&currentTime);
 
+        //tempo em segundos
+        tempoCasino = difftime(horaSaida, horaEntrada);
 
-    // Exibir a diferença em minutos
-    cout << "Diferença em minutos: " << tempoCasino * 0.0166667<< endl;
+        // Exibir a diferença em minutos
+        cout << "Diferença em minutos: " << tempoCasino * 0.0166667<< endl;
 
+        //setAJogar(false);
+        cout << "User " << getNome() << " saiu da maquina" << endl;
 
+    }else{
 
+        int jogadores = casino->getJogadoresNoCasino();
+        casino->setJogadoresNoCasino(jogadores - 1);
+        cout << "User " << getNome() << " saiu da maquina" << endl;
+    }
 
-    //setAJogar(false);
-    cout << "User " << getNome() << " saiu da maquina" << endl;
 
 }
 
+//Calcular memoria User
 int User::Memoria() {
+
     int mem = sizeof(*this);
     // Adicione a memória associada a membros dinâmicos, se houver
     // Exemplo considerando listas dinâmicas
     //mem += sizeof(User*) * filaEspera.size(); // tamanho da lista de ponteiros
     //mem += sizeof(Maquina*) * vizinhos.size(); // tamanho da lista de ponteiros
     return mem;
+
 }
