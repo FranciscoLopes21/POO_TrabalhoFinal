@@ -75,6 +75,7 @@ class Casino
         void gestaoCasino();
         void gestaoMaquinas();
         void menuCrudMaquina();
+        void gestaoUseres();
 
         //Quando Run Casino
         void desligarTodasMaquinas();
@@ -88,12 +89,15 @@ class Casino
 
 
         list<Maquina *> * Ranking_Das_Mais_Trabalhadores();
+        void listarRankingMaisTrabalhadores();
 
         bool compararNjogos(Maquina *maquina1, Maquina *maquina2);
 
-        list<User *> * Jogadores_Mais_Ganhos ();
-
         list<User *> * Jogadores_Mais_Frequentes ();
+        void listarJogadoresMaisFrequentes();
+
+        list<User *> * Jogadores_Mais_Ganhos ();
+        void listarJogadoresMaisGanhos();
 
         void Relatorio(string fich_xml);
 
@@ -101,6 +105,7 @@ class Casino
         void setJogadoresNoCasino(int jogadores) { jogadoresNoCasino = jogadores; }
 
         void SubirProbabilidadeVizinhas(Maquina *M_ganhou, float R, list<Maquina *> &lmvizinhas);
+        void mostrarMaquinasAfetadas(list<Maquina *> &maquinasAfetadas);
 
         void removerVizinho(int id_maq);
         bool adicionarVizinho(Maquina *M);

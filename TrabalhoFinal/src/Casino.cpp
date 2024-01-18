@@ -201,7 +201,7 @@ void Casino::Menu(){
         case 4:
             system("cls"); //limpa ecrã
             cout<< "Gestão User" <<endl; //printa opção
-            Jogadores_Mais_Ganhos(); //chama função gestaoCasino que irá exibir os jogadores que tem mais ganhos no casino
+            gestaoUseres();
             break; //quebra verificação
         case 5:
             system("cls"); //limpa ecrã
@@ -335,7 +335,7 @@ void Casino::gestaoMaquinas(){
             break;
         case 7:
             cout << "Ranking mais trabalhadores" << endl;
-            Ranking_Das_Mais_Trabalhadores();
+            listarRankingMaisTrabalhadores();
             break;
         case 0:
             break;
@@ -347,6 +347,43 @@ void Casino::gestaoMaquinas(){
     while (op != 0);
 }// Fim Menu Gestão Maquinas
 
+//Menu Gestão User
+void Casino::gestaoUseres(){
+
+    int op = 0;
+
+    do {
+
+        cout << "Gestão Useres" << endl;
+        cout << "1- Jogadores mais frequentes" << endl;
+        cout << "2- Jogadores com mais ganhos" << endl;
+        cout << "0- Sair" << endl;
+
+        cout << endl;
+        cout << "Opção: ";
+        cin >> op;
+
+        switch(op){
+
+        case 1:
+            system("cls");
+            cout << "Jogadores mais frequentes" << endl;
+            listarJogadoresMaisFrequentes();
+            break;
+        case 2:
+            system("cls");
+            cout << "Jogadores com mais ganhos" << endl;
+            listarJogadoresMaisGanhos(); //chama função gestaoCasino que irá exibir os jogadores que tem mais ganhos no casino
+            break;
+        case 0:
+            break;
+
+        default:
+            cout << "Opção inválida. Tente novamente." << endl;
+        }
+    }
+    while (op != 0);
+}// Fim Menu Gestão User
 
 //Funções
 
@@ -354,6 +391,7 @@ void Casino::gestaoMaquinas(){
 void Casino::Run(){
     char key;
     bool maquinasJaLigadas = false;
+    bool casinoEncerrado = false;
     while(true){
         cout<< "Menu" <<endl;
         time_t now = time(nullptr);
@@ -371,6 +409,7 @@ void Casino::Run(){
 
                     // O casino está aberto!
                     cout << "O casino está aberto!" << endl;
+                    casinoEncerrado = false;
                     if (!maquinasJaLigadas) { //Verifica se já tem todas as maquinas ligadas
                         ligarTodasMaquinas(); //Liga todas as maquinas
                         maquinasJaLigadas = true; //Guarda estado como já as ligou
@@ -434,10 +473,18 @@ void Casino::Run(){
 
             } else {
                 cout << "O casino está fechado. Aguardando o horário de abertura." << endl;
-                if (maquinasJaLigadas) { //Se casino fechado então verifica se as amquina ainda estão ligadas
-                    desligarTodasMaquinas(); //Desliga todas as maquina
-                    maquinasJaLigadas = false; //Guarda estado como já desligou
+
+                if (!casinoEncerrado){
+                    string nome = devolveData();
+                    Relatorio(nome);
+                    casinoEncerrado = true;
+                    if (maquinasJaLigadas) { //Se casino fechado então verifica se as amquina ainda estão ligadas
+                        desligarTodasMaquinas(); //Desliga todas as maquina
+                        maquinasJaLigadas = false; //Guarda estado como já desligou
+                    }
+
                 }
+
             }
 
             if (_kbhit()) { //Função de c++ que verifica se foi pressionada alguma tecla
@@ -493,10 +540,10 @@ list<string> * Casino::Ranking_Dos_Fracos(){
     });
 
     // Preencher a lista de strings com informações das máquinas ordenadas
-    for (auto maquina : maquinasCopy) {
-        string info =   " |ID: " + to_string(maquina->getID()) +
-                        " | Nome: " + maquina->getNome() +
-                        " | Avarias: " + to_string(maquina->getnAvarias());
+    for (list<Maquina *>::iterator it = maquinasCopy.begin(); it != maquinasCopy.end(); ++it) {
+        string info =   " |ID: " + to_string((*it)->getID()) +
+                        " | Nome: " + (*it)->getNome() +
+                        " | Avarias: " + to_string((*it)->getnAvarias());
         rankingAvariadas->push_back(info);
     }
 
@@ -507,16 +554,17 @@ list<string> * Casino::Ranking_Dos_Fracos(){
 void Casino:: showRankingAvarias(){
 
     // Chamar a função para obter o ranking das máquinas avariadas
-    list<std::string>* rankingAvariadas = Ranking_Dos_Fracos();
+    list<string>* rankingAvariadas = Ranking_Dos_Fracos();
 
     // Verificar se a lista não está vazia antes de tentar acessar os elementos
     if (rankingAvariadas->size() <= 0) {
         cout << "Nenhuma máquina avariada encontrada." << endl;
     } else {
         // Percorrer e exibir as informações das máquinas no ranking
-        for (const auto& info : *rankingAvariadas) {
-            cout << info << endl;
+        for (list<string>::iterator it = rankingAvariadas->begin(); it != rankingAvariadas->end(); ++it) {
+            cout << (*it) << endl;
         }
+
     }
 
     // Não se esqueça de liberar a memória alocada para a lista
@@ -647,7 +695,6 @@ void Casino::Listar(float X, ostream &f) {
 
 }
 
-
 //traduzir estado para string
 string Casino::estadoString(estadoMaquina estado){ //recebe um valor do tipo estadoMaquina
     string estadoString; //variavel que guarda o valor como string
@@ -694,7 +741,6 @@ void Casino::maquinaAvariada(){
     }
     else{
         cout << "Esta maquina não foi reparada, permanecerá avariada!" << endl;
-        estado = AVARIADA;
     }
 
 }
@@ -741,7 +787,15 @@ void Casino::listarTipoMaquina(){
     cin >> Tipo; //guarda tipo de maquina desejada
 
     ofstream F("MaquinasTipo.txt"); //abrir fecheiro
-    Listar_Tipo(Tipo, F); //invoca função para listar maquinas de um dado tipo
+    list<Maquina*>* maquinasDoTipo = Listar_Tipo(Tipo, F); //invoca função para listar maquinas de um dado tipo
+
+    for (list<Maquina *>::iterator it = maquinasDoTipo->begin(); it != maquinasDoTipo->end(); it++) {
+        if ((*it)->getTipo() == Tipo) {
+            cout << "ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() << " | Tipo: " << (*it)->getTipo() << endl;
+        }
+    }
+
+    delete maquinasDoTipo;
 
     F.close(); //fechar ficheiro
 
@@ -1095,13 +1149,13 @@ User* Casino::userEntraCasino(const string &nomeArquivo){
 bool Casino::Add(User *ut){
 
     if (ut == nullptr) {
-        cerr << "Erro: Tentativa de adicionar um usuário nulo." << endl;
+        cout << "Erro: Não foi possivel adicionar este user pois está a nulo." << endl;
         return false;
     }
 
     LU.push_back(ut);
 
-    cout << "Usuário adicionado com sucesso!" << endl;
+    cout << "User adicionado com sucesso!" << endl;
 
     return true;
 
@@ -1147,46 +1201,30 @@ bool Casino::entrarJogador(){
 
 //Ranking dos mais trabalhadores - as que são usadas
 list<Maquina *> *Casino::Ranking_Das_Mais_Trabalhadores() {
-    // Crie uma cópia da lista de máquinas
-    list<Maquina *> *copiaMaquinas = new list<Maquina *>(LM.begin(), LM.end());
-    new list<Maquina *>;
 
+    //Crie uma cópia da lista de máquinas
+    list<Maquina *> * copiaMaquinas = new list<Maquina *>(LM.begin(), LM.end());
+
+    //Ordene a lista usando a função de comparação
     copiaMaquinas->sort([](Maquina* a, Maquina* b) {
         return a->getNJogos() > b->getNJogos();
     });
 
-    // Ordene a lista usando a função de comparação
-    //copiaMaquinas->sort(compararNjogos);
-
-    for (auto maquina : *copiaMaquinas) {
-
-        cout << "ID: " << maquina->getID() << " | Nome: " << maquina->getNome() << " | Tipo: " << maquina->getNJogos() << endl;
-
-    }
-
-
     return copiaMaquinas;
+
 }
 
-//jogadores que ganharam mais dinheiro
-list<User *> * Casino::Jogadores_Mais_Ganhos () {
+void Casino::listarRankingMaisTrabalhadores(){
 
-    // Crie uma cópia da lista de máquinas
-    list<User *> *copiaUser = new list<User *>(LU.begin(), LU.end());
+    list<Maquina*>* maquinasMaisTrabalhadores = Ranking_Das_Mais_Trabalhadores();
 
-    copiaUser->sort([](User* a, User* b) {
-        return a->getGanhos() > b->getGanhos();
-    });
+    for (list<Maquina *>::iterator it = maquinasMaisTrabalhadores->begin(); it != maquinasMaisTrabalhadores->end(); ++it) {
 
-    for (auto user : *copiaUser) {
-
-        cout << "ID: " << user->getNUser() << " | Nome: " << user->getNome() << " | ganhos: " << user->getGanhos() << endl;
+        cout << "ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() << " | Numero de jogos: " << (*it)->getNJogos() << endl;
 
     }
 
-
-    return copiaUser;
-
+    delete maquinasMaisTrabalhadores;
 
 }
 
@@ -1200,18 +1238,49 @@ list<User *> * Casino::Jogadores_Mais_Frequentes (){
         return a->getTempoCasino() > b->getTempoCasino();
     });
 
-    // Ordene a lista usando a função de comparação
-    //copiaMaquinas->sort(compararNjogos);
+    return copiaUser;
 
-    for (auto user : *copiaUser) {
+}
 
-        cout << "ID: " << user->getNUser() << " | Nome: " << user->getNome() << " | tempo casino: " << user->getTempoCasino() << endl;
+void Casino::listarJogadoresMaisFrequentes(){
+
+    list<User*>* copiaUser = Jogadores_Mais_Frequentes();
+
+    for (list<User *>::iterator it = copiaUser->begin(); it != copiaUser->end(); ++it) {
+
+        cout << "ID: " << (*it)->getNUser() << " | Nome: " << (*it)->getNome() << " | tempo casino: " << (*it)->getTempoCasino() << endl;
 
     }
 
+    delete copiaUser;
+
+}
+
+//jogadores que ganharam mais dinheiro
+list<User *> * Casino::Jogadores_Mais_Ganhos () {
+
+    // Crie uma cópia da lista de máquinas
+    list<User *> *copiaUser = new list<User *>(LU.begin(), LU.end());
+
+    copiaUser->sort([](User* a, User* b) {
+        return a->getGanhos() > b->getGanhos();
+    });
 
     return copiaUser;
 
+}
+
+void Casino::listarJogadoresMaisGanhos(){
+
+    list<User*>* jogadoresMaisGanhos = Jogadores_Mais_Ganhos();
+
+    for (list<User *>::iterator it = jogadoresMaisGanhos->begin(); it != jogadoresMaisGanhos->end(); ++it) {
+
+        cout << "ID: " << (*it)->getNUser() << " | Nome: " << (*it)->getNome() << " | ganhos: " << (*it)->getGanhos() << endl;
+
+    }
+
+    delete jogadoresMaisGanhos;
 
 }
 
@@ -1240,14 +1309,27 @@ void Casino::Relatorio(string fich_xml) {
 //subir probabilidade das maquinas vizinhas da maquina que ganhou
 void Casino::SubirProbabilidadeVizinhas(Maquina *M_ganhou, float R, list<Maquina *> &lmvizinhas) {
 
+    // Lista para armazenar máquinas afetadas
+    list<Maquina *> maquinasAfetadas;
+
     for (list<Maquina *>::iterator it = lmvizinhas.begin(); it != lmvizinhas.end(); ++it) {
         int distanciaY = abs((*it)->getY() - M_ganhou->getY());
         if (distanciaY <= R) {
             float probAt = (*it)->getProb();
             (*it)->setProb(probAt + 1.0);
+            maquinasAfetadas.push_back((*it));
         }
     }
 
+    mostrarMaquinasAfetadas(maquinasAfetadas);
+
+}
+
+void Casino::mostrarMaquinasAfetadas(list<Maquina *> &maquinasAfetadas) {
+    cout << "Máquinas afetadas:" << endl;
+    for (list<Maquina *>::iterator it = maquinasAfetadas.begin(); it != maquinasAfetadas.end(); ++it) {
+        cout << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl;
+    }
 }
 
 //memoria toral do programa
