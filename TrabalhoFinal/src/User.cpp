@@ -47,7 +47,6 @@ void User::Run(){
 
     if(maquinaAssociada!=nullptr){
 
-
            if(jogadas>=1){
 
                 if(maquinaAssociada->getEstado()== ON){
@@ -65,16 +64,11 @@ void User::Run(){
                 userSaiCasino();
             }
 
-
     }
-
 
 }
 
 void User::associarMaquina(Maquina* maquina) {
-    /*maquinaAssociada = maquina;
-    maquina->associarUser(this);
-    setAJogar(true);*/
 
     setMaquinaAssociada(maquina);
     maquina->associarUser(this);
@@ -85,8 +79,8 @@ void User::associarMaquina(Maquina* maquina) {
     time_t currentTime;
     horaEntrada = time(&currentTime);
 
-
     cout << "User " << nomeUser << " foi associado a Maquina: " <<  maquinaAssociada->getNome() << endl;
+
 }
 
 void User::entrarFilaEspera(Maquina* maquina) {
@@ -95,10 +89,9 @@ void User::entrarFilaEspera(Maquina* maquina) {
 
 void User::jogarNaMaquina(){
 
-    //if(maquinaAssociada!=nullptr){
-        setJogadas(getJogadas()-1);
-        maquinaAssociada->rodadas(this);
-    //}
+    setJogadas(getJogadas()-1);
+    maquinaAssociada->rodadas(this);
+
 }
 
 void User::userSaiCasino(){
@@ -128,7 +121,6 @@ void User::userSaiCasino(){
         casino->setJogadoresNoCasino(jogadores - 1);
         cout << "User " << getNome() << " saiu da maquina" << endl;
     }
-
 
 }
 

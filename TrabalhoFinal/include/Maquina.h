@@ -41,6 +41,8 @@ class Maquina
 
     int nJogos;
 
+    bool quente;
+
 
     public:
         Maquina(int _nM, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta, Casino* _casino);
@@ -88,6 +90,9 @@ class Maquina
 
         int getNJogos(){return nJogos;}
         int setNJogos(int _nJogos){nJogos=_nJogos;}
+
+        bool getQuente(){return quente;}
+        bool setQuente(int _quente){quente=_quente;}
 
         float getTemperaturaSensor(){return temperaturaSensor;}
         float setTemperaturaSensor(float _temperaturaSensor){temperaturaSensor = _temperaturaSensor;}

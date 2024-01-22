@@ -14,14 +14,14 @@ Maquina::Maquina(int _nM, string _nome, int _x, int _y, float _premio, float _pr
     tipo = _tipo;
     aposta = _aposta;
 
-
     estado = ON;
-    temperaturaSensor = 0.0;
+    temperaturaSensor = 20.0;
     nAvarias = 0;
     nJogos = 0;
     //utilizacao = false;
     userAtual=nullptr;
     casino = _casino;
+    quente = false;
 
 }
 
@@ -32,6 +32,7 @@ Maquina::~Maquina()
     //destui Maquinas
     for (list<Maquina *>::iterator it = vizinhos.begin(); it != vizinhos.end(); ++it)
            delete (*it);
+
 }
 
 void Maquina::informacaoMaquina() {
@@ -53,23 +54,29 @@ void Maquina::informacaoMaquina() {
     }
 
     cout << "ID: " << nMaquina << " | Nome: " << nome << " | Posição: (" << x << ", " << y << ") | Prêmio: " << premio << " | ProbG: " << prob << " | Estado: " << estadoString << endl;
+
 }
 
 void Maquina::Run(){
-    cout << "Eu Máquina: " << nMaquina << " Estou ligada" << endl;
-    //a temperatura aumenta quando liga e vai aumentado se estiver a ser utilizada
-    //temperaturaSensor += 1;
 
+    cout << "Eu Máquina: " << nMaquina << " Estou ligada" << endl;
     cout << "Lista de vizinhos: " << vizinhos.size() << endl;
 
     verificaEstado();
 
     //verificar probabilidade muito grande//
+    cout << "Probabilidade da maquina: " << prob << endl;
+    if(prob >= 35.0){
+        cout << "\033[3;41;30m Probabilidade da maquina: " << prob << "\033[0m\t\t" << endl;//VERMELHO
+    }
+    else if(prob  >= 30.0){
+        cout << "\033[3;43;30m Probabilidade da maquina: " << prob << "\033[0m\t\t" << endl;//AMARELO
+    }
+    else if(prob < 29.0){
+        cout << "\033[3;42;30m Probabilidade da maquina: " << prob << "\033[0m\t\t" << endl;//VERDE
+    }
 
 }
-
-
-
 
 bool Maquina::verificaEstado()
 {
@@ -83,6 +90,7 @@ bool Maquina::verificaEstado()
         cout << "\033[1;31mMaquina Avariada\033[0m\n";
     }
     return true;
+
 }
 
 void Maquina::Desligar(){
@@ -93,9 +101,6 @@ void Maquina::Desligar(){
         char repar; //variavel do tipo char para guardar resposta
         cin >> repar; //guarda resposta
         if(repar == 'S' || repar == 's'){ //verifica se escolheram reparar
-            //int id_maq; //variavel do tipo int para guardar  numero da maquina
-            //cout << "Numero Maquina: " ; //pede o numero da maquina
-            //cin >> id_maq; //guarda numero da maquina que pretendem reparar
             repararMaquina(); //chama função complementar para reparar maquina
             estado = OFF; // Altera o estado da máquina para OFF
             saemTodos();
@@ -132,6 +137,7 @@ void Maquina::saemTodos(){
 }
 
 void Maquina::Ligar() {
+
     if(estado == AVARIADA){ //verifica se a maquina esta AVARIADA
         estado = AVARIADA;
     }else{
@@ -141,15 +147,19 @@ void Maquina::Ligar() {
 }
 
 void Maquina::avariaMaquina(){
+
     estado = AVARIADA;
     nAvarias ++;
+
 }
 
 void Maquina::entrarFilaEspera(User* user) {
+
     if (userAtual != nullptr) {
         filaEspera.push_back(user);
         cout << "User " << user->getNome() << " entrou na fila de espera para a máquina " << nome << endl;
     }
+
 }
 
 void Maquina::associarUser(User* user) {
@@ -161,17 +171,9 @@ void Maquina::associarUser(User* user) {
         user->setJogadas(3);
 
         cout << "User " << user->getNome() << " trocou carteira " << user->getCarteira() << " por " << user->getJogadas() << " fichas" << endl;
-        //cout << "User " << user->getJogadas() << " jogadas para jogar" << nome << endl;
+
     }
 
-    /*if (userAtual == nullptr) {
-        userAtual = user;
-        setUtilizacao(true);
-        int rodadas = user->getCarteira()/this->getAposta();
-        user->setJogadas(3);
-        cout << "User " << user->getNome() << " começou a jogar na máquina " << nome << endl;
-        cout << "User " << user->getJogadas() << " jogadas para jogar" << nome << endl;
-    }*/
 }
 
 void Maquina::rodadas(User* user){
@@ -191,17 +193,6 @@ void Maquina::rodadas(User* user){
     }
 
     setNJogos(nJogos + 1);
-
-
-    // Se houver usuários na fila de espera, inicie o próximo
-    /*if (!filaEspera.empty()) {
-        usuarioAtual = filaEspera.front();
-        filaEspera.pop();
-        std::cout << "Usuário " << usuarioAtual->getNome() << " começou a jogar na máquina " << nome << std::endl;
-        // Lógica de iniciar o jogo para o próximo usuário...
-    } else {
-        usuarioAtual = nullptr;
-    }*/
 
 }
 
@@ -255,26 +246,8 @@ bool Maquina::removerVizinhoTodos(){
 
     cout << "Lista de vizinhos antes: " << vizinhos.size() << endl;
 
-
-    /*for (list<Maquina *>::iterator it = vizinhos.begin(); it != vizinhos.end();it++) {
-            cout << "Lista de vizinhos vazia: " << vizinhos.size() << endl;
-            vizinhos.erase(it); // Remove a máquina da lista
-            return true;
-            cout << "Máquina vizinha removida." << endl;
-    }
-
-    return false;*/
-
-
-    // Percorre a lista de vizinhos e apaga cada elemento
-    /*for (list<Maquina *>::iterator it = vizinhos.begin(); it != vizinhos.end(); ++it) {
-        delete *it;
-    }*/
-
     // Limpa a lista de vizinhos
     vizinhos.clear();
-
-    cout << "Lista de vizinhos depois: " << vizinhos.size() << endl;
 
     return true;
 

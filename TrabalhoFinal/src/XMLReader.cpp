@@ -24,7 +24,7 @@ bool XMLReader::LoadCasinoData(const string& filename, string& nome, int& maxJog
     pugi::xml_parse_result result = doc.load_file(filename.c_str());
 
     if (!result) {
-        cerr << "Erro ao carregar o arquivo XML: " << result.description() << endl;
+        cout << "Erro ao carregar o arquivo XML: " << result.description() << endl;
         return false;
     }
 

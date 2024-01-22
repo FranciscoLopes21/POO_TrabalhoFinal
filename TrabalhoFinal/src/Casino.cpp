@@ -886,45 +886,46 @@ void Casino::addMaquina(){
     int premio, x, y; //variveis do tipo int para guardar premio, x e y
     string nome, tipo; //variveis do tipo string para guardar nome, tipo da maquina
     float prob; //variveis do tipo float para guardar probabilidade da maquina
-    bool existe = false; //variveis do tipo bool para guardar premio, x e y ////////////////////
+    bool existe; //variveis do tipo bool para guardar premio, x e y ////////////////////
 
     cout << "Nome máquina: "; //pede nome da maquina
     cin >> nome; //guarda nome da maquina
     do {
         cout << "X máquina: "; //pede x da maquina
         cin >> x; //guarda x da maquina
+        cout << "Y máquina: ";
+        cin >> y;
+        existe = false;
         for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
-            if ((*it)->getX() == x) {
-                cout << "Y máquina: ";
-                cin >> y;
-                if ((*it)->getY() == y) {
-                    existe = true;
-                }else{
-                    existe = false;
-                }
+            if ((*it)->getX() == x && (*it)->getY() == y) {
+                existe = true;
             }
+        }
+
+        if(!existe){
+            cout << "Premio máquina: ";
+            cin >> premio;
+            cout << "Probabilidade máquina: ";
+            cin >> prob;
+            cout << "Tipo máquina: ";
+            cin >> tipo;
+
+            Maquina* m = nullptr;
+
+            int id = LM.back()->getID()+1;
+
+            if (tipo == "slot" || tipo == "Slot") {
+                m = new MSlot(id, nome, x, y, premio, prob, tipo,10, this);
+            } else if (tipo == "poker" || tipo == "Poker") {
+                m = new MPoker(id, nome, x, y, premio, prob, tipo,15, this);
+            }
+
+            Add(m);
         }
     }
     while (existe == true);
 
-    cout << "Premio máquina: ";
-    cin >> premio;
-    cout << "Probabilidade máquina: ";
-    cin >> prob;
-    cout << "Tipo máquina: ";
-    cin >> tipo;
 
-    Maquina* m = nullptr;
-
-    int id = LM.size()+1;
-
-    if (tipo == "slot" || tipo == "Slot") {
-        m = new MSlot(id, nome, x, y, premio, prob, tipo,10, this);
-    } else if (tipo == "poker" || tipo == "Poker") {
-        m = new MPoker(id, nome, x, y, premio, prob, tipo,15, this);
-    }
-
-    Add(m);
 }
 
 //remover maquina
