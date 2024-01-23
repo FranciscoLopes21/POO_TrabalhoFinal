@@ -170,7 +170,7 @@ void Maquina::associarUser(User* user) {
         int rodadas = user->getCarteira()/this->getAposta();
         user->setJogadas(3);
 
-        cout << "User " << user->getNome() << " trocou carteira " << user->getCarteira() << " por " << user->getJogadas() << " fichas" << endl;
+        cout << "User " << user->getNome() << " trocou " << user->getCarteira() << "€ por " << user->getJogadas() << " fichas" << endl;
 
     }
 
