@@ -50,6 +50,7 @@ class Casino
 
 
         void maquinaAvariada();
+        bool mostrarMaquinas();
         void maquinaGanhos();
         void reparar(int id_maq);
         void registarMaquina();

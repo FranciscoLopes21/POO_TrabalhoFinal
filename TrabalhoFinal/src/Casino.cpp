@@ -295,6 +295,7 @@ void Casino::gestaoMaquinas(){
         cout << "5- Listar maquinas do tipo" << endl;
         cout << "6- Ranking mais fracos" << endl;
         cout << "7- Ranking mais trabalhadores" << endl;
+        cout << "8- Maquinas avariadas" << endl;
         cout << "0- Sair" << endl;
 
         cout << endl;
@@ -336,6 +337,10 @@ void Casino::gestaoMaquinas(){
         case 7:
             cout << "Ranking mais trabalhadores" << endl;
             listarRankingMaisTrabalhadores();
+            break;
+        case 8:
+            cout << "Maquinas avariadas" << endl;
+            maquinaAvariada();
             break;
         case 0:
             break;
@@ -723,36 +728,59 @@ string Casino::estadoString(estadoMaquina estado){ //recebe um valor do tipo est
 //Função complementar mostra maquinas avariadas
 void Casino::maquinaAvariada(){
 
+    char opReparar; //variavel do tipo char para guardar resposta
+    bool maquinasAvariadas;
+
+    do{
+
+        maquinasAvariadas = mostrarMaquinas();
+
+        if(maquinasAvariadas == true){
+            cout << "Deseja reparar alguma maquina (S/N): " << endl; //printa se deseja repara alguam das maquinas que apareceu
+            cin >> opReparar; //guarda resposta
+            if(opReparar == 'S' || opReparar == 's'){ //verifica se escolheram reparar
+                int id_maq; //variavel do tipo int para guardar  numero da maquina
+                cout << "Numero Maquina: " ; //pede o numero da maquina
+                cin >> id_maq; //guarda numero da maquina que pretendem reparar
+                reparar(id_maq); //chama função complementar para reparar maquina
+            }
+        }else{
+            cout << "Não existem maquinas para reparação" << endl;
+        }
+
+    }while (maquinasAvariadas && (opReparar != 'N' && opReparar != 'n'));
+
+}
+
+bool Casino::mostrarMaquinas(){
+
+    bool maquinasAvariadas = false;
+
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) { //percorre todas as maquinas do casino
         if ((*it)->getEstado() ==  AVARIADA) { //se o estado da maquina for igual a AVARIADA
-            cout << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl; //mostra a maquina
+            cout << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << " | Estado: " << (*it)->getEstado() << " | Temperatura: " << (*it)->getTemperaturaSensor() << endl; //mostra a maquina
+            maquinasAvariadas = true;
         }
     }
 
-    cout << "Deseja reparar alguma maquina (S/N): " << endl; //printa se deseja repara alguam das maquinas que apareceu
-    char repar; //variavel do tipo char para guardar resposta
-    cin >> repar; //guarda resposta
-
-    if(repar == 'S' || repar == 's'){ //verifica se escolheram reparar
-        int id_maq; //variavel do tipo int para guardar  numero da maquina
-        cout << "Numero Maquina: " ; //pede o numero da maquina
-        cin >> id_maq; //guarda numero da maquina que pretendem reparar
-        reparar(id_maq); //chama função complementar para reparar maquina
-    }
-    else{
-        cout << "Esta maquina não foi reparada, permanecerá avariada!" << endl;
-    }
-
+    return maquinasAvariadas;
 }
 
 //função comlementar para reparar maquina
 void Casino::reparar(int id_maq){
 
+    bool reparada = false;
+
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) { //percorre todas as maquinas do casino
         if ((*it)->getID() == id_maq) { //se o id da maquina for igual ao id da maquina desejada
             if ((*it)->getEstado() == AVARIADA){ //se o estado da maquina for igual a AVARIADA
-                (*it)->repararMaquina(); //invoca função para reparar maquina
-                cout << "ID: " << (*it)->getID() << " | Maquina Reparada" << endl; //printa mensagem positiva apos reparação
+                reparada = (*it)->repararMaquina(); //invoca função para reparar maquina
+                if(reparada){
+                    cout << "ID: " << (*it)->getID() << " | Maquina Reparada" << endl; //printa mensagem positiva apos reparação
+                }else if(!reparada){
+                    cout << "ID: " << (*it)->getID() << " | Maquina não foi reparada" << endl; //printa mensagem positiva apos reparação
+                }
+
             }
             else if ((*it)->getEstado() == ON || (*it)->getEstado() == OFF){ //se a maquina não se encontrar AVARIADA
                 cout << "ID: " << (*it)->getID() << " | Maquina sem avarias" << endl; //printa mensagem com mensagem

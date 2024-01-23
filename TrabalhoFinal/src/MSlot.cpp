@@ -43,8 +43,8 @@ void MSlot::Run() {
     }
     else if(getEstado() == AVARIADA){
         temp = getTemperaturaSensor();
-        setTemperaturaSensor(temp - 0.90);  // Arrefecimento mais lento quando desligada
-        if (getTemperaturaSensor() <= 25.0 && getQuente() == true) {  // Valor mais realista para arrefecimento
+        setTemperaturaSensor(temp - 0.50);  // Arrefecimento mais lento quando desligada
+        if (getTemperaturaSensor() <= 25.0 && getQuente() == true) {  //para verifica se a avaria é de quente ou se esta avariada
             estado = ON;
             setQuente(false);
             cout << "A máquina " << getID() << " foi ligada novamente." << endl;

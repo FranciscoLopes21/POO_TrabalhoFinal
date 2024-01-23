@@ -206,9 +206,13 @@ void Maquina::userSaiu() {
 bool Maquina::repararMaquina(){
 
     bool reparado= false;
-
-    estado = ON;
-    reparado = true;
+    if(getQuente() == false && getTemperaturaSensor() < 35.0){
+        estado = ON;
+        reparado = true;
+    }else if(getQuente() == true ){
+        reparado = false;
+        cout << "Maquina esta a arrefecer - " << getTemperaturaSensor() << "º" << endl;
+    }
 
     return reparado;
 
