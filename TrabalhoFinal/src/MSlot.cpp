@@ -24,19 +24,21 @@ void MSlot::Run() {
             if(getUserAtual() != nullptr){
                 temp = getTemperaturaSensor();
                 setTemperaturaSensor(temp += 0.05) ;
+                cout << "Aumentoooooooooooooooooooooooooo" << endl;
                 if(getTemperaturaSensor() >= 35.00){
                     cout << "A maquina " << getID() << " esta a sobreaquecida: " << getTemperaturaSensor() << endl;
                     setQuente(true);
-                    estado = AVARIADA;
+                    setEstado(AVARIADA);
                 } //Avidar que maquina que vai desligar, retirar user e desligar ate x grau e ligar denovo
                 cout << "MSlot - Temperatura aumentada: " << getTemperaturaSensor() << "   " << getID() << endl;
             }else if(getUserAtual() == nullptr){
                 temp = getTemperaturaSensor();
                 setTemperaturaSensor(temp += 0.1) ;
+                cout << "Aumentoooooooooooooooooooooooooo" << endl;
                 if(getTemperaturaSensor() >= 35.00){
                     cout << "A maquina " << getID() << " esta a sobreaquecida: " << getTemperaturaSensor() << endl;
                     setQuente(true);
-                    estado = AVARIADA;
+                    setEstado(AVARIADA);
                 } //Avidar que maquina que vai desligar, retirar user e desligar ate x grau e ligar denovo
                 cout << "MSlot - Temperatura aumentada: " << getTemperaturaSensor() << "   " << getID() << endl;
             }
@@ -45,7 +47,7 @@ void MSlot::Run() {
         temp = getTemperaturaSensor();
         setTemperaturaSensor(temp - 0.50);  // Arrefecimento mais lento quando desligada
         if (getTemperaturaSensor() <= 25.0 && getQuente() == true) {  //para verifica se a avaria é de quente ou se esta avariada
-            estado = ON;
+            setEstado(ON);
             setQuente(false);
             cout << "A máquina " << getID() << " foi ligada novamente." << endl;
         }
@@ -55,7 +57,7 @@ void MSlot::Run() {
         temp = getTemperaturaSensor();
         setTemperaturaSensor(temp - 0.90);  // Arrefecimento mais lento quando desligada
         if (getTemperaturaSensor() <= 25.0) {  // Valor mais realista para arrefecimento
-            estado = ON; //para ajudar a manter a temperatura da maquina
+            setEstado(ON); //para ajudar a manter a temperatura da maquina
             setQuente(false);
             cout << "A máquina " << getID() << " foi ligada novamente." << endl;
         }

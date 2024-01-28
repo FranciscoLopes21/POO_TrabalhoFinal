@@ -1,50 +1,45 @@
 #ifndef CASINO_H
 #define CASINO_H
 #include <iostream>
-using namespace std;
 #include <string>
 #include <list>
+#include <random>
 #include "pugixml.hpp"
-
 #include "Maquina.h"
 #include "User.h"
-#include <random>  // Adicione esta linha para incluir a biblioteca <random>
+
+using namespace std;
 
 class Casino
 {
+
+    int maxJogadores, jogadoresNoCasino, probabilidadeUser, totalCaixa, totalDinheiroDado;
+    int horaAbertura, minutosAbertura, segundosAbertura;
+    int horaFecho, minutosFecho, segundosFecho;
     string nome;
-    int maxJogadores;
-    int jogadoresNoCasino;
-    int probabilidadeUser;
-    int horaAbertura;
-    int minutosAbertura;
-    int segundosAbertura;
-    int horaFecho;
-    int minutosFecho;
-    int segundosFecho;
     list<Maquina *> LM;
-    //list<Maquina *> LM_Avariadas;
     list<User *> LU;
-    //list<int> Lt;
-    int totalPremios;
-    int totalDinheiroDado;
-
-
 
     public:
         Casino(string _nome);
         virtual ~Casino();
         void Run();
-        bool entrarJogador();
 
+        //Carregar dados atarvés de ficheiros
         void CarregarDados(int _maxJogadores, int _probabilidadeUser,int _horaAbertura, int _minutosAbertura, int _segundosAbertura,
                            int _horaFecho, int _minutosFecho, int _segundosFecho);
-        void dadosCasino();
+        bool LoadMachinesFromXML(const string& xmlFile);
+
+
+        //get
+
+        //set
+
         string getNome(){return nome;}
         void Listar(ostream &f);//compor função
 
+        bool entrarJogador();
 
-        bool LoadMachinesFromXML(const string& xmlFile);
         bool Add(Maquina *M);
         void ListarMaquinas();
 
@@ -115,10 +110,21 @@ class Casino
 
         int Memoria_Total();
 
+        int setTotalCaixa(int _totalCaixa){ totalCaixa = _totalCaixa; }
+        int getTotalCaixa(){ return totalCaixa; }
+
+        int setTotalDinheiroDado( int _totalDinheiroDado ){ totalDinheiroDado = _totalDinheiroDado; }
+        int getTotalDinheiroDado(){ return totalDinheiroDado; }
+
+
+
+    private:
+
+        void dadosCasino();
 
     protected:
 
-    private:
+
 };
 
 #endif // CASINO_H

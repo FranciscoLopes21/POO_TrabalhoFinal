@@ -62,10 +62,20 @@ Casino::Casino(string _nome)
 
 Casino::~Casino()
 {
+
     //dtor
     //destui Maquinas
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it)
            delete (*it);
+
+    LM.clear();
+
+    //destui User
+    for (list<User *>::iterator it = LU.begin(); it != LU.end(); ++it)
+           delete (*it);
+
+    LU.clear();
+
 }
 
 void Casino::CarregarDados(int _maxJogadores, int _probabilidadeUser, int _horaAbertura, int _minutosAbertura, int _segundosAbertura,
@@ -82,22 +92,18 @@ void Casino::CarregarDados(int _maxJogadores, int _probabilidadeUser, int _horaA
     segundosFecho = _segundosFecho;
 
     jogadoresNoCasino=0;
-    totalPremios=0;
+    totalCaixa=0;
     totalDinheiroDado=0;
 }
 
 void Casino::Listar(ostream &f){
 
-    system("cls"); //limpa ecra
-
-    cout << endl; //escreve nova linha
     cout << "Listar estado atual do Casino" << endl; //printa ação da função
     cout << endl; //escreve nova linha
     cout << "| ID Maquina | Nome Maquina | Probabilidade | Estado | temperatura |" << endl; //printa campos que vão ser mostrados
 
     f << "Estado Casino " << nome << endl; //escreve no ficheiro
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) { //percorre todas as maquinas do casino
-
         //escreve no ficheiro os campos - id, nome, probabilidade, estado, temperatura
         f << "| ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() <<" | Probabilidade: " << (*it)->getProb() << " | Estado: " << estadoString((*it)->getEstado()) << " | Temperatura: " << (*it)->getTemperaturaSensor() << endl;
         if((*it)->getEstado()== ON){ //verifica se o estado é ON para ajustar a cor do estado quando printa
@@ -110,18 +116,18 @@ void Casino::Listar(ostream &f){
             //printa dados
             cout << "| ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() <<" | Probabilidade: " << (*it)->getProb() << " | Estado: \033[1;31m"<<estadoString((*it)->getEstado())<<"\033[0m" << " | Temperatura: " << (*it)->getTemperaturaSensor() << endl;
         }
-
     }
 
+    cout << endl;
+    cout << "Numero de Maquinas: " << LM.size() << endl; //maximo de jogadores no casino
     cout << endl; //adiciona linha
     cout << "Jogadores no casino: " << jogadoresNoCasino << endl; //printa a quantidade de jogadores no casino atualmente
     cout << "Numero total de jogadores: " << LU.size() << endl; //printa a quantidade de jogadores que já passaram pelo casino
     cout << endl; //adiciona linha
+    cout << "Dinheiro em caixa: " << totalCaixa << endl; //maximo de jogadores no casino
+    cout << "Dinheiro dado: " << totalDinheiroDado << endl; //hora de abertura
 
 }
-
-
-
 
 bool Casino::LoadMachinesFromXML(const string& filename) {
 
@@ -132,7 +138,6 @@ bool Casino::LoadMachinesFromXML(const string& filename) {
         cerr << "Erro ao carregar o arquivo XML: " << result.description() << endl;
         return false;
     }
-
 
     pugi::xml_node listaMaq = doc.child("DADOS").child("LISTA_MAQ");
 
@@ -159,6 +164,7 @@ bool Casino::LoadMachinesFromXML(const string& filename) {
     }
 
     return true;
+
 }
 
 
@@ -171,48 +177,43 @@ void Casino::Menu(){
         cout << "||||||||||||||||||||||" << endl; //printa menu
         cout << "|        Menu        |" << endl; //printa menu
         cout << "|   1- Dados Casino  |" << endl; //printa menu
-        cout << "|  2- Gestão Casino  |" << endl; //printa menu
-        cout << "| 3- Gestão Maquinas |" << endl; //printa menu
-        cout << "|   4- Gestão User   |" << endl; //printa menu
+        cout << "|  2- Gestao Casino  |" << endl; //printa menu
+        cout << "| 3- Gestao Maquinas |" << endl; //printa menu
+        cout << "|   4- Gestao User   |" << endl; //printa menu
         cout << "|  5- Memoria Total  |" << endl; //printa menu
         cout << "|       0- Sair      |" << endl; //printa menu
         cout << "||||||||||||||||||||||" << endl; //printa menu
         cout << endl; //adiciona linha
-        cout << "Opção: "; //pergunta por opção desejada
+        cout << "Opcao: "; //pergunta por opção desejada
         cin >> op; //guarda opção desejada
 
         switch(op){ //verifica opção
 
         case 1: //caso seja 1
             system("cls"); //limpa ecra
-            cout<< "Dados Casino" <<endl; //printa opção
             dadosCasino(); //chama função que exibe dados sobre o casino
             break; //quebra verificação
         case 2: //caso seja 2
             system("cls"); //limpa ecrã
-            cout<< "Gestão Casino" <<endl; //printa opção
             gestaoCasino(); //chama função gestaoCasino que irá exibir um menu para gerir casino
             break; //quebra verificação
         case 3: //caso seja 3
             system("cls"); //limpa ecrã
-            cout<< "Gestão Maquinas" <<endl; //printa opção
             gestaoMaquinas(); //chama função gestaoCasino que irá exibir um menu para gerir maquinas
             break; //quebra verificação
         case 4:
             system("cls"); //limpa ecrã
-            cout<< "Gestão User" <<endl; //printa opção
             gestaoUseres();
             break; //quebra verificação
         case 5:
             system("cls"); //limpa ecrã
-            cout<< "Memoria Total" <<endl; //printa opção
             Memoria_Total(); //chama função gestaoCasino que irá exibir a memoria total usada pelo programa
             break; //quebra verificação
         case 0:
             break;
 
         default:
-            cout << "Opção inválida. Tente novamente." << endl;
+            cout << "Opcao invalida. Tente novamente." << endl;
         }
     }
     while (op != 0);
@@ -224,36 +225,36 @@ void Casino::gestaoCasino(){
 
     int op = 0;
     string nome;
-    ofstream F("estadoAtualCasino.txt");
+    ofstream F("estadoAtualCasino.txt"); //Cria objeto ofstream para escrever no arquivo "estadoAtualCasino.txt"
+
+    system("cls"); //limpa ecra
 
     do {
-
-        cout << "Gestão Casino" << endl;
-        cout << "1- Listar estado atual casino" << endl;
-        cout << "2- Relatorio" << endl;
-        cout << "3- Listar maquinas com probabilidade superiora X" << endl;
-        cout << "0- Sair" << endl;
+        cout << endl;
+        cout << "Gesto Casino" << endl; //printa menu
+        cout << "1- Listar estado atual casino" << endl; //printa menu
+        cout << "2- Relatorio" << endl; //printa menu
+        cout << "3- Listar maquinas com probabilidade superiora X" << endl; //printa menu
+        cout << "0- Sair" << endl; //printa menu
 
         cout << endl;
-        cout << "Opção: ";
+        cout << "Opcao: ";
         cin >> op;
 
         switch(op){
 
         case 1:
-            cout<< "Listar estado atual casino" <<endl;
-            Listar(F);
+            system("cls"); //Limpa ecra
+            Listar(F); //Chama a função Listar passando por parameto o ficheiro
             break;
         case 2:
-            int id_maq;
-            cout<< "Relatorio" <<endl;
-            nome = devolveData();
-            Relatorio(nome);
+            system("cls"); //Limpa ecra
+            nome = devolveData(); //guarda o nome com a data atual
+            Relatorio(nome); //Chama a função Relatorio passando por parametro o nome do ficheiro com a data atual
             break;
         case 3:
-            system("cls");
-            cout<< "Listar maquinas com probabilidade superiora X" <<endl;
-            ListarMaquinasProbabilidade();
+            system("cls"); //Limpa ecra
+            ListarMaquinasProbabilidade(); //Chama a função ListarMaquinasProbabilidade
             break;
         case 0:
             break;
@@ -286,17 +287,17 @@ void Casino::gestaoMaquinas(){
     int idMaquina;
 
     do {
-
-        cout << "Gestão Maquinas" << endl;
-        cout << "1- Listar maquinas" << endl;
-        cout << "2- Crud maquina" << endl;
-        cout << "3- Desligar maquina" << endl;
-        cout << "4- Estado maquina ID" << endl;
-        cout << "5- Listar maquinas do tipo" << endl;
-        cout << "6- Ranking mais fracos" << endl;
-        cout << "7- Ranking mais trabalhadores" << endl;
-        cout << "8- Maquinas avariadas" << endl;
-        cout << "0- Sair" << endl;
+        cout << endl;
+        cout << "Gestão Maquinas" << endl; //printa menu
+        cout << "1- Listar maquinas" << endl; //printa menu
+        cout << "2- Crud maquina" << endl; //printa menu
+        cout << "3- Desligar maquina" << endl; //printa menu
+        cout << "4- Estado maquina ID" << endl; //printa menu
+        cout << "5- Listar maquinas do tipo" << endl; //printa menu
+        cout << "6- Ranking mais fracos" << endl; //printa menu
+        cout << "7- Ranking mais trabalhadores" << endl; //printa menu
+        cout << "8- Maquinas avariadas" << endl; //printa menu
+        cout << "0- Sair" << endl; //printa menu
 
         cout << endl;
         cout << "Opção: ";
@@ -305,42 +306,41 @@ void Casino::gestaoMaquinas(){
         switch(op){
 
         case 1:
-            system("cls");
-            cout << "Listar maquinas" << endl;
-            ListarMaquinas();
+            system("cls"); //Limpa ecra
+            ListarMaquinas(); //Chama função ListarMaquinas()
             break;
         case 2:
-            system("cls");
-            cout << "Crud maquina" << endl;
-            menuCrudMaquina();
+            system("cls"); //Limpa ecra
+            menuCrudMaquina(); //Chama função menuCrudMaquina()
             break;
         case 3:
-            cout<< "Desligar maquina" <<endl;
+            system("cls"); //Limpa ecra
             cout<< "ID: ";
             cin >> idMaquina;
-            Desligar(idMaquina);
+            Desligar(idMaquina); //Chama função Desligar() passando por parametro o id da maquina
             break;
         case 4:
+            system("cls"); //Limpa ecra
             cout<< "Estado maquina ID" <<endl;
             cout<< "ID: ";
             cin >> idMaquina;
             cout  << " | Estado: " << estadoString(Get_Estado(idMaquina)) << endl;
             break;
         case 5:
-            cout << "Listar maquinas do tipo" << endl;
-            listarTipoMaquina();
+            system("cls"); //Limpa ecra
+            listarTipoMaquina(); //Chama função listarTipoMaquina()
             break;
         case 6:
-            cout << "Ranking mais fracos" << endl;
-            showRankingAvarias();
+            system("cls"); //Limpa ecra
+            showRankingAvarias(); //Chama função showRankingAvarias()
             break;
         case 7:
-            cout << "Ranking mais trabalhadores" << endl;
-            listarRankingMaisTrabalhadores();
+            system("cls"); //Limpa ecra
+            listarRankingMaisTrabalhadores(); //Chama função listarRankingMaisTrabalhadores()
             break;
         case 8:
-            cout << "Maquinas avariadas" << endl;
-            maquinaAvariada();
+            system("cls"); //Limpa ecra
+            maquinaAvariada(); //Chama função maquinaAvariada()
             break;
         case 0:
             break;
@@ -466,7 +466,7 @@ void Casino::Run(){
                             if (!(*it)->getFilaEspera().empty()) { //verifica se lista de espera da maquina não esta vazia
                                 User *useruser = (*it)->getFilaEspera().front(); //Vai buscar o user a frente na lista de espera da maquina
                                 useruser->associarMaquina(*it); //user associa-se a maquina
-                                (*it)->removerUsuarioFilaEspera(useruser); //e é retirado da lista de espera
+                                (*it)->removerUsersFilaEspera(useruser); //e é retirado da lista de espera
 
                                 cout << "User: " <<  useruser->getNome() << " saiu da fila de espera e sentou-se na maquina" << endl;
 
@@ -508,7 +508,7 @@ void Casino::avariar(int IDMaq){
     //srand (time(NULL));
 
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){ //Percorre todas as maquinas
-        //Sleep(500);
+        Sleep(100);
         if((*it)->getID() == IDMaq){ //verifica se o ud da maquina atual é igual ao passado na função
 
             if((*it)->getEstado() == ON){ //Verifica se amaquina está ligada
@@ -529,7 +529,6 @@ void Casino::avariar(int IDMaq){
     }
 
 }
-
 
 list<string> * Casino::Ranking_Dos_Fracos(){
 
@@ -595,10 +594,21 @@ void Casino::ligarTodasMaquinas() {
 
 //Mostrar dados do casino
 void Casino::dadosCasino() {
+    cout << "/////Dados Casino/////" << endl; //Cabeçalho dados casino
     cout << "Nome do Casino: " << nome << endl; //nome casino
     cout << "Máximo de Jogadores: " << maxJogadores << endl; //maximo de jogadores no casino
     cout << "Hora de Abertura: " << horaAbertura << ":" << minutosAbertura << ":" << segundosAbertura << endl; //hora de abertura
     cout << "Hora de Encerramento: " << horaFecho << ":" << minutosFecho << ":" << segundosFecho << endl; //hora de fecho
+    cout << "Dinheiro em caixa: " << totalCaixa << endl; //maximo de jogadores no casino
+    cout << "Dinheiro dado: " << totalDinheiroDado << endl; //hora de abertura
+    cout << endl;
+    cout << "/////Maquinas/////" << endl; //hora de fechocout << "Nome do Casino: " << nome << endl; //nome casino
+    cout << "Numero de Maquinas: " << LM.size() << endl; //maximo de jogadores no casino
+    cout << endl;
+    cout << "/////Users/////" << endl; //hora de fechocout << "Nome do Casino: " << nome << endl; //nome casino
+    cout << "Numero de jogadores que passaram no casino: " << LU.size() << endl; //maximo de jogadores no casino
+    cout << "Numero de jogadores no casino: " << jogadoresNoCasino << endl; //hora de abertura
+    cout << endl;
 }
 
 //Adicionar máquina
@@ -668,33 +678,26 @@ estadoMaquina Casino::Get_Estado(int id_maq) { //recebe id da maquina desejada
 //Função complementar para lisatgem de maquina com probabilidade de ganhar superior a X
 void Casino::ListarMaquinasProbabilidade() {
 
-    try {
-        float xProbabilidade; //variavel do tipo float para guardar probabilidade desejada
-        cout << "Probabilidade: ";
-        cin >> xProbabilidade; //guardar probabilidade
+    float xProbabilidade; //variavel do tipo float para guardar probabilidade desejada
 
-        //Abrir ficheiro
-        ofstream F("ListaProbX.txt");
-        Listar(xProbabilidade, F);
+    cout<< "Listar maquinas com probabilidade superiora X" <<endl; //Printa cabeçalho da função
+    cout << "Probabilidade: ";
+    cin >> xProbabilidade; //guardar probabilidade
 
-        //Fechar ficheiro
-        F.close();
-    } catch (const exception& e) {
-        cerr << "Erro: " << e.what() << endl;
-    }
+    ofstream F("ListaProbX.txt"); //Abrir ficheiro
+    Listar(xProbabilidade, F); //Chama função Listar() que irá escrever no ficheiro as maquinas com probabilidade superior a X
+    F.close(); //Fechar ficheiro
 
 }
 
 //Listar maquinas com probabilidade de ganhar maior que X
-void Casino::Listar(float X, ostream &f) {
-    //recebere um float com a probabilidade desejada e uma referência a um objeto de fluxo de saída
+void Casino::Listar(float X, ostream &f) { //Recebe um float com a probabilidade desejada e uma referência a um objeto de fluxo de saída
 
-    f << "Máquinas com probabilidade " << X << " maior que de ganhar:" << endl; //escreve no ficheiro
-    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) { //percorre todas as maquinas do casino
-        if ((*it)->getProb() > X) { //se a probabilidade maquina for superior a probabilidade desejada
-            f << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl; //escreve no ficheiro
-            cout << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl; //printa no ecra
-            /*Mostra o numero da maquina e a probabilidade da mesma*/
+    f << "Máquinas com probabilidade " << X << " maior que de ganhar:" << endl; //Escreve no ficheiro
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) { //Percorre todas as maquinas do casino
+        if ((*it)->getProb() > X) { //Se a probabilidade maquina for superior a probabilidade desejada
+            f << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl; //Escreve no ficheiro o id da maquina e a probabilidade da mesma
+            cout << "ID: " << (*it)->getID() << " | Probabilidade: " << (*it)->getProb() << endl; //Printa id da maquina e a probabilidade da mesma
         }
     }
 
@@ -794,8 +797,10 @@ void Casino::reparar(int id_maq){
 //Listar maquinas
 void Casino::ListarMaquinas() {
 
-    cout << "|ID: | Nome: | Posição: (x ,y ) | Prêmio | ProbG:  | Estado: " << endl; //printa cabeçalho da lista
+    cout << "Listar maquinas" << endl;
+    cout << endl;
 
+    cout << "|ID: | Nome: | Posição: (x ,y ) | Prêmio | ProbG:  | Estado: " << endl; //printa cabeçalho da lista
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) { //percorre todas as maquinas do casino
         (*it)->informacaoMaquina(); //Mostra dados da maquina
     }
@@ -927,6 +932,7 @@ void Casino::addMaquina(){
         for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
             if ((*it)->getX() == x && (*it)->getY() == y) {
                 existe = true;
+                cout << "Posição já ocupada. Escolha outra posição." << endl;
             }
         }
 
@@ -964,6 +970,8 @@ bool Casino::removerMaquina(int id_maq) {
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) { //percorre todas as maquinas do casino
         if ((*it)->getID() == id_maq) { //se id da maquina atual for igual ao id passado por parametro
             //delete *it;  // Libera a memória alocada pela máquina /////////
+            (*it)->saemTodos();
+            removerVizinho((*it)->getID());
             LM.erase(it); // Remove a máquina da lista
             cout << "Máquina removida." << endl;
             return true;
@@ -1050,64 +1058,57 @@ bool Casino::editarMaquina(int id_maq){
 //mover maquina
 bool Casino::moverMaquina(int id_maq){
 
-    int x, y, xAnt;
+    int x, y;
     bool movido = false;
 
     cout << "Mover Máquina de lugar" << endl;
 
     // Procurar a máquina com o ID fornecido
-    list<Maquina *>::iterator itFirst = LM.begin();
-    while (itFirst != LM.end() && (*itFirst)->getID() != id_maq) {
-        ++itFirst;
-    }
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
+        if ((*it)->getID() == id_maq) {
 
-    if (itFirst != LM.end()) {
-        cout << " |Nome Maquina: " << (*itFirst)->getNome() << "| " << endl;
-        cout << " |X: " << (*itFirst)->getX() << "| " << endl;
-        cout << " |Y: " << (*itFirst)->getY() << "| " << endl;
-        cout << " |Probabilidade: " << (*itFirst)->getProb() << "| " << endl;
-        cout << " |Premio: " << (*itFirst)->getPremio() << "| " << endl;
+        cout << " |Nome Maquina: " << (*it)->getNome() << "| " << endl;
+        cout << " |X: " << (*it)->getX() << "| " << endl;
+        cout << " |Y: " << (*it)->getY() << "| " << endl;
+        cout << " |Probabilidade: " << (*it)->getProb() << "| " << endl;
+        cout << " |Premio: " << (*it)->getPremio() << "| " << endl;
         cout << endl;
 
-        do {
-            // Obter a nova posição
-            cout << "Novo valor de X: ";
-            cin >> x;
-            cout << "Novo valor de Y: ";
-            cin >> y;
+            do {
+                // Obter a nova posição
+                cout << "Novo valor de X: ";
+                cin >> x;
+                cout << "Novo valor de Y: ";
+                cin >> y;
 
-            // Verificar se a nova posição já está ocupada
-            bool posicaoOcupada = false;
-            list<Maquina *>::iterator it = LM.begin();
-            while (it != LM.end()) {
-                if ((*it)->getX() == x && (*it)->getY() == y) {
-                    posicaoOcupada = true;
-                    cout << "Posição já ocupada. Escolha outra posição." << endl;
-                    break;
+                // Verificar se a nova posição já está ocupada
+                bool posicaoOcupada = false;
+                for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
+                    if ((*it)->getX() == x && (*it)->getY() == y) {
+                        posicaoOcupada = true;
+                        cout << "Posição já ocupada. Escolha outra posição." << endl;
+                    }
                 }
-                ++it;
-            }
 
-            if (!posicaoOcupada) {
-                // Atualizar a posição da máquina
-                (*itFirst)->setX(x);
-                (*itFirst)->setY(y);
-                movido = true;
-                cout << "Máquina movida para (" << x << ", " << y << ")" << endl;
+                if (!posicaoOcupada) {
+                    // Atualizar a posição da máquina
+                    (*it)->setX(x);
+                    (*it)->setY(y);
+                    movido = true;
+                    cout << "Máquina movida para (" << x << ", " << y << ")" << endl;
 
-                //Atualizar vizinhos
-                ////Remover vizinho
-                (*itFirst)->removerVizinhoTodos();
-                removerVizinho((*itFirst)->getID());
+                    //Atualizar vizinhos
+                    ////Remover vizinho
+                    (*it)->removerVizinhoTodos();
+                    removerVizinho((*it)->getID());
 
-                ////Adicionar nvo vizinho
-                adicionarVizinho((*itFirst));
+                    ////Adicionar nvo vizinho
+                    adicionarVizinho((*it));
 
-            }
+                }
 
-        } while (!movido);
-    } else {
-        cout << "Máquina com ID " << id_maq << " não encontrada." << endl;
+            } while (!movido);
+        }
     }
 
     return movido;
@@ -1121,57 +1122,62 @@ bool Casino::moverMaquina(int id_maq){
 User* Casino::userEntraCasino(const string &nomeArquivo){
 
     int numeroLinhas = ContarLinhas(nomeArquivo);
+    User* novoUser = nullptr;
+    bool entrou = false;
+
     if (numeroLinhas != -1) {
         cout << "O arquivo tem " << numeroLinhas << " linhas." << endl;
     }
 
-    // Gere um número aleatório dentro do intervalo de linhas do arquivo
-    int linhaAleatoria = rand() % numeroLinhas + 1;
+    do{
 
-    // Abra o arquivo
-    ifstream arquivo(nomeArquivo);
-    if (!arquivo.is_open()) {
-        cerr << "Erro ao abrir o arquivo." << endl;
-        return nullptr;
-    }
+        int linhaAleatoria = rand() % numeroLinhas + 1; //Gera um número aleatório dentro do intervalo de linhas do arquivo
+        ifstream arquivo(nomeArquivo); //Abra o arquivo
+        if (!arquivo.is_open()) {
+            cerr << "Erro ao abrir o arquivo." << endl;
+            return nullptr;
+        }
 
-    // Leitura das linhas até chegar à linha desejada
-    string linha;
-    for (int i = 0; i < linhaAleatoria; ++i) {
-        getline(arquivo, linha);
-    }
+        // Leitura das linhas até chegar à linha desejada
+        string linha;
+        for (int i = 0; i < linhaAleatoria; ++i) {
+            getline(arquivo, linha);
+        }
 
-    // Use um stringstream para processar a linha
-    stringstream ss(linha);
+        // Use um stringstream para processar a linha
+        stringstream ss(linha);
 
-    // Declare as variáveis para armazenar os dados do usuário
-    int id;
-    string nome, sobrenome, morada;
-    int idade;
+        // Declare as variáveis para armazenar os dados do usuário
+        int id;
+        string nome, sobrenome, morada;
+        int idade;
 
-    // Leitura dos dados do usuário da linha
-    // Leitura dos dados do usuário da linha
-    ss >> id;
-    ss.ignore(); // Ignora o espaço em branco
-    getline(ss, nome, '\t');
-    getline(ss, morada, '\t');
-    ss >> idade;
+        // Leitura dos dados do usuário da linha
+        ss >> id;
+        ss.ignore(); // Ignora o espaço em branco
+        getline(ss, nome, '\t');
+        getline(ss, morada, '\t');
+        ss >> idade;
 
-    cout << "Código: " << id << endl;
-    cout << "Nome: " << nome << endl;
-    cout << "Morada: " << morada << endl;
-    cout << "Idade: " << idade << endl;
+        if(idade >= 18){
+            cout << "Código: " << id << endl;
+            cout << "Nome: " << nome << endl;
+            cout << "Morada: " << morada << endl;
+            cout << "Idade: " << idade << endl;
 
-    // Feche o arquivo
-    arquivo.close();
+            // Feche o arquivo
+            arquivo.close();
 
-    // Crie um objeto User com base nos dados lidos
-    User* newUser = new User(id, nome, morada, idade, this);
+            // Crie um objeto User com base nos dados lidos
+            novoUser = new User(id, nome, morada, idade, this);
+            entrou = true;
+        }else{
+            entrou = false;
+        }
 
-    jogadoresNoCasino +1;
+    }while (!entrou);
 
-    // Adicione o usuário ao casino
-    return newUser;
+    return novoUser; // Adicione o usuário ao casino
 }
 
 //adicionar jogador/user
@@ -1316,22 +1322,21 @@ void Casino::listarJogadoresMaisGanhos(){
 //Relatório casino - informação do estado atual de cada máquina
 void Casino::Relatorio(string fich_xml) {
 
-    cout<< "Nome ficheiro: " << fich_xml <<endl;
+    cout << "Gerar Relatorio" << endl; //Printa cabeçalho da função
+    cout<< "Nome ficheiro: " << fich_xml <<endl; //Printa nome do ficheiro
 
-    XMLWriter XX;
-    XX.WriteStartDocument(fich_xml);
-    XX.WriteStartElement("RELATORIO");
+    XMLWriter XX; //Cria uma instância de XMLWriter para escrever no arquivo XML
+    XX.WriteStartDocument(fich_xml); //Escreve no documanto XML com o nome passado por parametro
+    XX.WriteStartElement("RELATORIO"); //Abre o elemento "Relatorio"
 
-    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
-
-        XX.WriteStartElement("Maquina"); // Abre o Elemento “Maquina”
-            XX.WriteElementString("ID",to_string((*it)->getID()));
-            XX.WriteElementString("ESTADO",estadoString((*it)->getEstado()));
-        XX.WriteEndElement(); // Fecha o Elemento “Maquina”
-
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) { //Percorre as maquinas do casino
+        XX.WriteStartElement("Maquina"); //Abre o elemento “Maquina”
+            XX.WriteElementString("ID",to_string((*it)->getID())); //Escreve no elemento "ID" com o id da maquina
+            XX.WriteElementString("ESTADO",estadoString((*it)->getEstado())); //Escreve no elemento "ESTADO" com o estado da maquina
+        XX.WriteEndElement(); //Fecha o Elemento “Maquina”
     }
+    XX.WriteEndElement(); //Fecha o Elemento “RELATORIO”
 
-    XX.WriteEndElement(); // Fecha o Elemento “RELATORIO”
 }
 
 
@@ -1367,7 +1372,7 @@ int Casino::Memoria_Total() {
     int mem = 0;
 
     //calcular memoria variveis Casino
-    mem = nome.size()+sizeof(maxJogadores)+sizeof(jogadoresNoCasino)+sizeof(probabilidadeUser)+sizeof(horaAbertura)+sizeof(minutosAbertura)+sizeof(segundosAbertura)+sizeof(horaFecho)+sizeof(minutosFecho)+sizeof(segundosFecho)+sizeof(totalPremios)+sizeof(totalDinheiroDado);
+    mem = nome.size()+sizeof(maxJogadores)+sizeof(jogadoresNoCasino)+sizeof(probabilidadeUser)+sizeof(horaAbertura)+sizeof(minutosAbertura)+sizeof(segundosAbertura)+sizeof(horaFecho)+sizeof(minutosFecho)+sizeof(segundosFecho)+sizeof(totalCaixa)+sizeof(totalDinheiroDado);
     mem += sizeof(*this);
 
     // Adicione o tamanho da lista à memória total
@@ -1377,6 +1382,7 @@ int Casino::Memoria_Total() {
         //mem += sizeof(*it);
         mem += (*it)->Memoria();
     }
+
 
     // Adicione a memória associada a membros dinâmicos, se houver
     mem += sizeof(User*) * LU.size(); // Tamanho da lista de ponteiros de usuários

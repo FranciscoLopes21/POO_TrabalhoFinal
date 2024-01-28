@@ -13,7 +13,6 @@ class XMLWriter
 
     string NOME_FICHEIRO;
     list<string> TAGS;
-    // ofstream F;
     string Tabulacoes(int N);
 
     public:

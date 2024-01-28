@@ -1,133 +1,87 @@
 #ifndef MAQUINA_H
 #define MAQUINA_H
 #include <iostream>
-using namespace std;
 #include <string>
 #include <list>
-
 #include "User.h"
 
-class Casino;
-
+using namespace std;
 enum estadoMaquina{ON, OFF, AVARIADA};
 
+class Casino;
 class Maquina
 {
-    int nMaquina;
-    string nome;
-    int x;
-    int y;
-    float premio;
-    float prob;
-    float temperaturaSensor;
-    int aposta;
 
-    Casino* casino;
-
-    //bool utilizacao;
+    int idMaquina, x, y, aposta, nAvarias, nJogos;
+    string nome, tipo;
+    float premio, prob, temperaturaSensor;
+    bool quente;
+    estadoMaquina estado;
     list<User *> filaEspera;
     list<Maquina*> vizinhos;
-
+    Casino* casino;
     User *userAtual;
 
-
-    string tipo;
-
-    //Casino *Ptr_Casino;
-
-    bool verificaEstado();
-
-    int nAvarias;
-
-    int nJogos;
-
-    bool quente;
-
-
     public:
-        Maquina(int _nM, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta, Casino* _casino);
+        Maquina(int _idM, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta, Casino* _casino);
         virtual ~Maquina();
         virtual void Run();
-        virtual void informacaoMaquina();
-        void Desligar();
-        void saemTodos();
+
+        void informacaoMaquina();
         void Ligar();
-        void avariaMaquina();
-        void entrarFilaEspera(User* user);
-        void associarUser(User *user);
-        void rodadas(User *user);
-        void userSaiu();
-
-
-        int getID(){ return nMaquina;}
-
-        int getPremio(){ return premio;}
-        int setPremio(int _premio){ premio = _premio;}
-
-        float getProb(){ return prob;}
-        float setProb(float _prob){ prob = _prob ;}
-
-        string getTipo(){ return tipo;}
-        string setTipo(string _tipo){ tipo = _tipo;}
-
-        string getNome(){ return nome;}
-        string setNome(string _nome){ nome = _nome;}
-
-        int getY(){ return y;}
-        int setY(int _y){ y = _y;}
-
-        int getX(){ return x;}
-        int setX(int _x){ x = _x;}
-
-        int getnAvarias(){return nAvarias;}
-        int setnAvarias(int _nAvarias){nAvarias = _nAvarias;}
-
-        //bool getUtilizacao(){return utilizacao;}
-        //bool setUtilizacao(bool _utilizacao){utilizacao = _utilizacao;}
-
-        int getAposta(){return aposta;}
-        int setAposta(int _aposta){aposta = _aposta;}
-
-        int getNJogos(){return nJogos;}
-        int setNJogos(int _nJogos){nJogos=_nJogos;}
-
-        bool getQuente(){return quente;}
-        bool setQuente(int _quente){quente=_quente;}
-
-        float getTemperaturaSensor(){return temperaturaSensor;}
-        float setTemperaturaSensor(float _temperaturaSensor){temperaturaSensor = _temperaturaSensor;}
-
-        bool repararMaquina();
-
-        list<User *> getFilaEspera(){return filaEspera;}
-        void removerUsuarioFilaEspera(User* user) {
-            filaEspera.remove(user);
-        }
-
-
-        estadoMaquina getEstado(){return estado;}
-
-        User * getUserAtual(){return userAtual;}
-        User * setUserAtual(User *user){userAtual = user;}
-
+        void Desligar();
         void adicionarVizinho(Maquina* vizinho);
-
-        void subirProbabilidade();
-        list<Maquina*> getVizinhos(){return vizinhos;}
-
+        void saemTodos();
+        void avariaMaquina();
         bool removerVizinho(int id_maq);
         bool removerVizinhoTodos();
-
+        void entrarFilaEspera(User* user);
+        void associarUser(User *user);
+        void removerUsersFilaEspera(User* user) {filaEspera.remove(user);}
+        bool repararMaquina();
+        void rodadas(User *user);
+        void userSaiu();
         int Memoria();
 
+        //get
+        int getID(){ return idMaquina;}
+        int getX(){ return x;}
+        int getY(){ return y;}
+        int getAposta(){return aposta;}
+        int getnAvarias(){return nAvarias;}
+        int getNJogos(){return nJogos;}
+        float getPremio(){ return premio;}
+        float getProb(){ return prob;}
+        float getTemperaturaSensor(){return temperaturaSensor;}
+        string getTipo(){ return tipo;}
+        string getNome(){ return nome;}
+        bool getQuente(){return quente;}
+        list<User *> getFilaEspera(){return filaEspera;}
+        list<Maquina*> getVizinhos(){return vizinhos;}
+        estadoMaquina getEstado(){return estado;}
+        User * getUserAtual(){return userAtual;}
 
+        //set
+        void setID(int _idMaquina){idMaquina = _idMaquina;}
+        void setX(int _x){ x = _x;}
+        void setY(int _y){ y = _y;}
+        void setAposta(int _aposta){aposta = _aposta;}
+        void setnAvarias(int _nAvarias){nAvarias = _nAvarias;}
+        void setNJogos(int _nJogos){nJogos=_nJogos;}
+        void setPremio(float _premio){ premio = _premio;}
+        void setProb(float _prob){ prob = _prob ;}
+        void setTemperaturaSensor(float _temperaturaSensor){temperaturaSensor = _temperaturaSensor;}
+        void setTipo(string _tipo){ tipo = _tipo;}
+        void setNome(string _nome){ nome = _nome;}
+        void setQuente(bool _quente){ quente=_quente;}
+        void setEstado(estadoMaquina _estado){estado = _estado;}
+        void setUserAtual(User *user){userAtual = user;}
+
+    private:
+        bool verificaEstado();
+        void subirProbabilidade();
 
     protected:
 
-        estadoMaquina estado;
-
-
-    private:
 };
-
 #endif // MAQUINA_H

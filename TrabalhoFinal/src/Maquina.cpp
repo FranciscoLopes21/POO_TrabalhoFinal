@@ -3,9 +3,9 @@
 #include <time.h>       /* time */
 #include "Casino.h"
 
-Maquina::Maquina(int _nM, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta, Casino* _casino) {
+Maquina::Maquina(int _idM, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta, Casino* _casino) {
 
-    nMaquina = _nM;
+    idMaquina = _idM;
     nome = _nome;
     x = _x;
     y = _y;
@@ -13,15 +13,14 @@ Maquina::Maquina(int _nM, string _nome, int _x, int _y, float _premio, float _pr
     prob = _prob;
     tipo = _tipo;
     aposta = _aposta;
+    casino = _casino;
 
+    userAtual=nullptr;
+    quente = false;
     estado = ON;
     temperaturaSensor = 20.0;
     nAvarias = 0;
     nJogos = 0;
-    //utilizacao = false;
-    userAtual=nullptr;
-    casino = _casino;
-    quente = false;
 
 }
 
@@ -53,19 +52,27 @@ void Maquina::informacaoMaquina() {
             break;
     }
 
-    cout << "ID: " << nMaquina << " | Nome: " << nome << " | Posição: (" << x << ", " << y << ") | Prêmio: " << premio << " | ProbG: " << prob << " | Estado: " << estadoString << endl;
+    if(estado== ON){ //verifica se o estado é ON para ajustar a cor do estado quando printa
+        //printa dados
+        cout << "| ID: " << getID() << " | Nome: " << getNome() <<" | Probabilidade: " << getProb() << " | Estado: \033[1;32m"<<estadoString<<"\033[0m" << " | Temperatura: " << getTemperaturaSensor() << endl;
+    }else if (estado== OFF){ //verifica se o estado é ON para ajustar a cor do estado quando printa
+        //printa dados
+        cout << "| ID: " << getID() << " | Nome: " << getNome() <<" | Probabilidade: " << getProb() << " | Estado: \033[1;33m"<<estadoString<<"\033[0m" << " | Temperatura: " << getTemperaturaSensor() << endl;
+    }else if (estado== AVARIADA){ //verifica se o estado é ON para ajustar a cor do estado quando printa
+        //printa dados
+        cout << "| ID: " << getID() << " | Nome: " << getNome() <<" | Probabilidade: " << getProb() << " | Estado: \033[1;31m"<<estadoString<<"\033[0m" << " | Temperatura: " << getTemperaturaSensor() << endl;
+    }
 
 }
 
 void Maquina::Run(){
 
-    cout << "Eu Máquina: " << nMaquina << " Estou ligada" << endl;
+    cout << "Eu Máquina: " << idMaquina << " Estou ligada" << endl;
     cout << "Lista de vizinhos: " << vizinhos.size() << endl;
 
     verificaEstado();
 
     //verificar probabilidade muito grande//
-    cout << "Probabilidade da maquina: " << prob << endl;
     if(prob >= 35.0){
         cout << "\033[3;41;30m Probabilidade da maquina: " << prob << "\033[0m\t\t" << endl;//VERMELHO
     }
@@ -81,9 +88,8 @@ void Maquina::Run(){
 bool Maquina::verificaEstado()
 {
 
-    //estado = "bom";
     if(estado==ON){
-        cout << "\033[1;32mMaquina Ligada\033[0m"<< nMaquina << "\n";
+        cout << "\033[1;32mMaquina Ligada\033[0m"<< idMaquina << "\n";
     }else if(estado==OFF){
         cout << "\033[1;33mMaquina Desligada\033[0m\n";
     }else if(estado==AVARIADA){
@@ -181,18 +187,28 @@ void Maquina::rodadas(User* user){
     // Gerar um índice aleatório usando a operação de módulo
     float randomProb = rand() % 100;
 
+    int dinheiroCasino = 0;
+    int dinheiroDado = 0;
+    dinheiroCasino += casino->getTotalCaixa();
+    dinheiroDado += casino->getTotalDinheiroDado();
+
     if (randomProb <= getProb()) {
         cout << "Jogador " << user->getNome() << " ganhou na máquina " << nome << "  premio   "<< premio << endl;
         float ganhosUser = user->getGanhos() + premio;
         user->setGanhos(ganhosUser);
 
+        dinheiroCasino -= premio;
+        dinheiroDado += premio;
         subirProbabilidade();
 
     } else {
         cout << "Jogador " << user->getNome() << " perdeu na máquina " << nome << endl;
+        dinheiroCasino += aposta;
     }
 
     setNJogos(nJogos + 1);
+    casino->setTotalCaixa(dinheiroCasino);
+    casino->setTotalDinheiroDado(dinheiroDado);
 
 }
 

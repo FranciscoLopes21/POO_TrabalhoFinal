@@ -233,14 +233,14 @@
 	"Casino.h"
 	"XMLReader.h"
 
-1706006215 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\casino.h
+1706402080 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\casino.h
 	<iostream>
 	<string>
 	<list>
+	<random>
 	"pugixml.hpp"
 	"Maquina.h"
 	"User.h"
-	<random>
 
 1704930327 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\pugixml.hpp
 	"pugiconfig.hpp"
@@ -252,13 +252,13 @@
 
 1704930327 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\pugiconfig.hpp
 
-1705953018 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\maquina.h
+1706401918 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\maquina.h
 	<iostream>
 	<string>
 	<list>
 	"User.h"
 
-1705142486 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\user.h
+1706402145 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\user.h
 	<iostream>
 	<string>
 	<ctime>
@@ -269,7 +269,7 @@
 	"pugixml.hpp"
 	"Casino.h"
 
-1706002606 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\maquina.cpp
+1706399884 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\maquina.cpp
 	"Maquina.h"
 	<stdlib.h>
 	<time.h>
@@ -296,16 +296,16 @@
 1704930327 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\mroleta.h
 	<Maquina.h>
 
-1706002514 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\mslot.cpp
+1706385452 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\mslot.cpp
 	"MSlot.h"
 	<stdlib.h>
 	<time.h>
 	"Casino.h"
 
-1704930327 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\mslot.h
+1706205752 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\mslot.h
 	<Maquina.h>
 
-1705576470 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\user.cpp
+1706135395 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\user.cpp
 	"User.h"
 	<random>
 	<ctime>
@@ -320,16 +320,16 @@
 	"pugixml.hpp"
 	"Casino.h"
 
-1704930327 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\xmlwriter.cpp
+1706379756 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\xmlwriter.cpp
 	"XMLWriter.h"
 
-1704930327 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\xmlwriter.h
+1706111858 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\xmlwriter.h
 	<iostream>
 	<string>
 	<list>
 	<fstream>
 
-1706004682 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\casino.cpp
+1706401970 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\casino.cpp
 	<iostream>
 	<sstream>
 	<fstream>

@@ -1,0 +1,127 @@
+#ifndef MAQUINA_H
+#define MAQUINA_H
+#include <iostream>
+using namespace std;
+#include <string>
+#include <list>
+
+#include "User.h"
+
+class Casino;
+
+enum estadoMaquina{ON, OFF, AVARIADA};
+
+class Maquina
+{
+    int idMaquina;
+    string nome;
+    int x;
+    int y;
+    float premio;
+    float prob;
+    float temperaturaSensor;
+    int aposta;
+
+    Casino* casino;
+
+    list<User *> filaEspera;
+    list<Maquina*> vizinhos;
+
+    User *userAtual;
+
+
+    string tipo;
+
+    bool verificaEstado();
+
+    int nAvarias;
+
+    int nJogos;
+
+    bool quente;
+
+
+    public:
+        Maquina(int _idM, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta, Casino* _casino);
+        virtual ~Maquina();
+        virtual void Run();
+        void informacaoMaquina();
+        void Desligar();
+        void saemTodos();
+        void Ligar();
+        void avariaMaquina();
+        void entrarFilaEspera(User* user);
+        void associarUser(User *user);
+        void rodadas(User *user);
+        void userSaiu();
+
+
+        int getID(){ return idMaquina;}
+
+        int getPremio(){ return premio;}
+        int setPremio(int _premio){ premio = _premio;}
+
+        float getProb(){ return prob;}
+        float setProb(float _prob){ prob = _prob ;}
+
+        string getTipo(){ return tipo;}
+        string setTipo(string _tipo){ tipo = _tipo;}
+
+        string getNome(){ return nome;}
+        string setNome(string _nome){ nome = _nome;}
+
+        int getY(){ return y;}
+        int setY(int _y){ y = _y;}
+
+        int getX(){ return x;}
+        int setX(int _x){ x = _x;}
+
+        int getnAvarias(){return nAvarias;}
+        int setnAvarias(int _nAvarias){nAvarias = _nAvarias;}
+
+        int getAposta(){return aposta;}
+        int setAposta(int _aposta){aposta = _aposta;}
+
+        int getNJogos(){return nJogos;}
+        int setNJogos(int _nJogos){nJogos=_nJogos;}
+
+        bool getQuente(){return quente;}
+        bool setQuente(int _quente){ quente=_quente;}
+
+        float getTemperaturaSensor(){return temperaturaSensor;}
+        float setTemperaturaSensor(float _temperaturaSensor){temperaturaSensor = _temperaturaSensor;}
+
+        bool repararMaquina();
+
+        list<User *> getFilaEspera(){return filaEspera;}
+        void removerUsuarioFilaEspera(User* user) {
+            filaEspera.remove(user);
+        }
+
+
+        estadoMaquina getEstado(){return estado;}
+
+        User * getUserAtual(){return userAtual;}
+        User * setUserAtual(User *user){userAtual = user;}
+
+        void adicionarVizinho(Maquina* vizinho);
+
+        void subirProbabilidade();
+        list<Maquina*> getVizinhos(){return vizinhos;}
+
+        bool removerVizinho(int id_maq);
+        bool removerVizinhoTodos();
+
+        int Memoria();
+
+
+
+    protected:
+
+        estadoMaquina estado;
+
+
+    private:
+};
+
+#endif // MAQUINA_H

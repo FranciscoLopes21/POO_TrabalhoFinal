@@ -1,3 +1,10 @@
-Máquinas com probabilidade 1 maior que de ganhar:
+Máquinas com probabilidade 0 maior que de ganhar:
 ID: 1 | Probabilidade: 10
 ID: 2 | Probabilidade: 10
+ID: 3 | Probabilidade: 1
+ID: 4 | Probabilidade: 1
+ID: 5 | Probabilidade: 1
+ID: 6 | Probabilidade: 1
+ID: 7 | Probabilidade: 1
+ID: 8 | Probabilidade: 1
+ID: 9 | Probabilidade: 1
