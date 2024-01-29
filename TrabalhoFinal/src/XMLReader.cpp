@@ -17,7 +17,7 @@ XMLReader::~XMLReader()
     //dtor
 }
 
-bool XMLReader::LoadCasinoData(const string& filename, string& nome, int& maxJogadores, int& probabilidadeUser,
+bool XMLReader::LoadCasinoData(const string& filename, int& maxJogadores, int& probabilidadeUser,
                                int& horaAbertura,int& minutoAbertura,int& segundoAbertura,
                                int& horaFecho, int& minutoFecho, int& segundoFecho) {
     pugi::xml_document doc;
@@ -30,7 +30,7 @@ bool XMLReader::LoadCasinoData(const string& filename, string& nome, int& maxJog
 
     pugi::xml_node definicoes = doc.child("DADOS").child("DEFINICOES");
 
-    nome = definicoes.child("NOME").text().get();
+    //nome = definicoes.child("NOME").text().get();
     maxJogadores = definicoes.child("MAX_JOG").text().as_int();
     probabilidadeUser = definicoes.child("PROB_USER").text().as_int();
     //horaAbertura = definicoes.child("HORA_INICIO").text().as_int();

@@ -13,8 +13,8 @@ class Maquina
 {
 
     int idMaquina, x, y, aposta, nAvarias, nJogos;
-    string nome, tipo;
     float premio, prob, temperaturaSensor;
+    string nome, tipo;
     bool quente;
     estadoMaquina estado;
     list<User *> filaEspera;
@@ -29,7 +29,7 @@ class Maquina
 
         void informacaoMaquina();
         void Ligar();
-        void Desligar();
+        bool Desligar();
         void adicionarVizinho(Maquina* vizinho);
         void saemTodos();
         void avariaMaquina();

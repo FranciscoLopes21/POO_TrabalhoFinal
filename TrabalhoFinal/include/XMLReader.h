@@ -12,7 +12,7 @@ class XMLReader
     public:
         XMLReader();
         virtual ~XMLReader();
-        static bool LoadCasinoData(const string& filename, string& nome, int& maxJogadores, int& probabilidadeUser,
+        static bool LoadCasinoData(const string& filename, int& maxJogadores, int& probabilidadeUser,
                                    int& horaAbertura, int& minutosAbertura, int& segundosAbertura,
                                    int& horaFecho, int& minutosFecho, int& segundosFecho);
     protected:

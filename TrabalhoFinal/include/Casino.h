@@ -28,43 +28,34 @@ class Casino
         //Carregar dados atarvés de ficheiros
         void CarregarDados(int _maxJogadores, int _probabilidadeUser,int _horaAbertura, int _minutosAbertura, int _segundosAbertura,
                            int _horaFecho, int _minutosFecho, int _segundosFecho);
-        bool LoadMachinesFromXML(const string& xmlFile);
-
-
-        //get
-
-        //set
-
-        string getNome(){return nome;}
-        void Listar(ostream &f);//compor função
-
-        bool entrarJogador();
-
+        bool Load(const string& xmlFile);
+        bool LoadMaquina(const string& xmlFile);
+        bool Add(User *ut);
         bool Add(Maquina *M);
-        void ListarMaquinas();
-
-
-        void maquinaAvariada();
-        bool mostrarMaquinas();
-        void maquinaGanhos();
-        void reparar(int id_maq);
-        void registarMaquina();
+        void Listar(ostream &f);//compor função
         void Desligar(int id_maq);
         estadoMaquina Get_Estado(int id_maq);
-        string estadoString(estadoMaquina estadoma);
-        void Listar(float X, ostream &f =  cout);
-        void ListarMaquinasProbabilidade();
-
-        void avariar(int nMaq);
-        list<string> * Ranking_Dos_Fracos();
-        void showRankingAvarias();
-
-        void listarTipoMaquina();
+        int Memoria_Total();
         list<Maquina *> * Listar_Tipo(string Tipo, ostream &f = cout);
+        list<string> * Ranking_Dos_Fracos();
+        list<Maquina *> * Ranking_Das_Mais_Trabalhadores();
+        list<User *> * Jogadores_Mais_Frequentes ();
+        list<User *> * Jogadores_Mais_Ganhos ();
+        void Relatorio(string fich_xml);
+        void SubirProbabilidadeVizinhas(Maquina *M_ganhou, float R, list<Maquina *> &lmvizinhas);
+        void Listar(float X, ostream &f =  cout);
 
-        User* userEntraCasino(const string &nomeArquivo);
-        bool Add(User *ut);
-        int ContarLinhas(const string &nomeArquivo);
+        //get
+        int getJogadoresNoCasino() const { return jogadoresNoCasino; }
+        int getTotalCaixa(){ return totalCaixa; }
+        int getTotalDinheiroDado(){ return totalDinheiroDado; }
+
+        //set
+        void setJogadoresNoCasino(int jogadores) { jogadoresNoCasino = jogadores; }
+        void setTotalCaixa(int _totalCaixa){ totalCaixa = _totalCaixa; }
+        void setTotalDinheiroDado( int _totalDinheiroDado ){ totalDinheiroDado = _totalDinheiroDado; }
+
+    private:
 
         //Menus
         void Menu();
@@ -72,59 +63,41 @@ class Casino
         void gestaoMaquinas();
         void menuCrudMaquina();
         void gestaoUseres();
-
-        //Quando Run Casino
-        void desligarTodasMaquinas();
-        void ligarTodasMaquinas();
-
         //Crud Maquina
         void addMaquina();
         bool removerMaquina(int id_maq);
         bool editarMaquina(int id_maq);
         bool moverMaquina(int id_maq);
-
-
-        list<Maquina *> * Ranking_Das_Mais_Trabalhadores();
-        void listarRankingMaisTrabalhadores();
-
-        bool compararNjogos(Maquina *maquina1, Maquina *maquina2);
-
-        list<User *> * Jogadores_Mais_Frequentes ();
-        void listarJogadoresMaisFrequentes();
-
-        list<User *> * Jogadores_Mais_Ganhos ();
-        void listarJogadoresMaisGanhos();
-
-        void Relatorio(string fich_xml);
-
-        int getJogadoresNoCasino() const { return jogadoresNoCasino; }
-        void setJogadoresNoCasino(int jogadores) { jogadoresNoCasino = jogadores; }
-
-        void SubirProbabilidadeVizinhas(Maquina *M_ganhou, float R, list<Maquina *> &lmvizinhas);
-        void mostrarMaquinasAfetadas(list<Maquina *> &maquinasAfetadas);
-
+        //Metodos secundarios
+        void dadosCasino();
+        bool entrarJogador();
+        void ListarMaquinas();
+        string devolveData();
         void removerVizinho(int id_maq);
         bool adicionarVizinho(Maquina *M);
-
-        string devolveData();
-
-        int Memoria_Total();
-
-        int setTotalCaixa(int _totalCaixa){ totalCaixa = _totalCaixa; }
-        int getTotalCaixa(){ return totalCaixa; }
-
-        int setTotalDinheiroDado( int _totalDinheiroDado ){ totalDinheiroDado = _totalDinheiroDado; }
-        int getTotalDinheiroDado(){ return totalDinheiroDado; }
-
-
-
-    private:
-
-        void dadosCasino();
+        void mostrarMaquinasAfetadas(list<Maquina *> &maquinasAfetadas);
+        void listarRankingMaisTrabalhadores();
+        bool compararNjogos(Maquina *maquina1, Maquina *maquina2);
+        void listarJogadoresMaisFrequentes();
+        void listarJogadoresMaisGanhos();
+        //Quando Run Casino
+        void desligarTodasMaquinas();
+        void ligarTodasMaquinas();
+        void maquinaAvariada();
+        bool mostrarMaquinas();
+        void maquinaGanhos();
+        void reparar(int id_maq);
+        void registarMaquina();
+        string estadoString(estadoMaquina estadoma);
+        void ListarMaquinasProbabilidade();
+        void avariar(int nMaq);
+        void showRankingAvarias();
+        void listarTipoMaquina();
+        User* userEntraCasino(const string &nomeArquivo);
+        int ContarLinhas(const string &nomeArquivo);
+        string getNome(){return nome;}
 
     protected:
 
-
 };
-
 #endif // CASINO_H

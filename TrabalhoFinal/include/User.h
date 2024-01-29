@@ -28,6 +28,7 @@ class User
         void entrarFilaEspera(Maquina* maquina);
         void userSaiCasino();
         int Memoria();
+        void mostrarDados();
 
         //get
         int getNUser(){ return nUser;}

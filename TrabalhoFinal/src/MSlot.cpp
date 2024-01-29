@@ -15,16 +15,13 @@ MSlot::~MSlot()
 }
 
 void MSlot::Run() {
-
     float temp;
-
     Maquina::Run();  // Chama o método Run da classe base se necessário
-
     if(getEstado() == ON){
             if(getUserAtual() != nullptr){
                 temp = getTemperaturaSensor();
                 setTemperaturaSensor(temp += 0.05) ;
-                cout << "Aumentoooooooooooooooooooooooooo" << endl;
+                cout << "Temperatura aumentou " << 0.05 << endl;
                 if(getTemperaturaSensor() >= 35.00){
                     cout << "A maquina " << getID() << " esta a sobreaquecida: " << getTemperaturaSensor() << endl;
                     setQuente(true);
@@ -34,7 +31,7 @@ void MSlot::Run() {
             }else if(getUserAtual() == nullptr){
                 temp = getTemperaturaSensor();
                 setTemperaturaSensor(temp += 0.1) ;
-                cout << "Aumentoooooooooooooooooooooooooo" << endl;
+                cout << "Temperatura aumentou " << 0.1 << endl;
                 if(getTemperaturaSensor() >= 35.00){
                     cout << "A maquina " << getID() << " esta a sobreaquecida: " << getTemperaturaSensor() << endl;
                     setQuente(true);
@@ -62,11 +59,7 @@ void MSlot::Run() {
             cout << "A máquina " << getID() << " foi ligada novamente." << endl;
         }
         cout << "Máquina - Temperatura diminuída: " << getTemperaturaSensor() << "°C   " << getID() << endl;
-
     }
-
-    //Maquina::Run();
-
 }
 
 
