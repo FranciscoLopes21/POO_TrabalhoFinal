@@ -1,9 +1,12 @@
 #include "Maquina.h"
-#include <stdlib.h>     /* srand, rand */
-#include <time.h>       /* time */
+#include <stdlib.h>
+#include <time.h>
+
 #include "Casino.h"
 
-Maquina::Maquina(int _idM, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta, Casino* _casino) {
+Maquina::Maquina(int _idM, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta, Casino* _casino)
+{//ctor
+    // Inicializa as variaveis da classe com os valores passados como argumentos
     idMaquina = _idM;
     nome = _nome;
     x = _x;
@@ -13,6 +16,7 @@ Maquina::Maquina(int _idM, string _nome, int _x, int _y, float _premio, float _p
     tipo = _tipo;
     aposta = _aposta;
     casino = _casino;
+    // Inicializa outras variaveis da classe
     userAtual=nullptr;
     quente = false;
     estado = ON;
@@ -24,12 +28,19 @@ Maquina::Maquina(int _idM, string _nome, int _x, int _y, float _premio, float _p
 Maquina::~Maquina()
 {
     //dtor
-
     //destui Maquinas
-    for (list<Maquina *>::iterator it = vizinhos.begin(); it != vizinhos.end(); ++it)
-           delete (*it);
+    for (list<Maquina *>::iterator it = vizinhos.begin(); it != vizinhos.end(); ++it){
+        delete (*it);
+    }
+    vizinhos.clear();  // Limpar a lista de vizinhos
+    // Destruir os usuários na fila de espera
+    for (list<User*>::iterator it = filaEspera.begin(); it != filaEspera.end(); ++it) {
+        delete (*it);
+    }
+    filaEspera.clear();  // Limpar a lista de usuários na fila de espera
 }
 
+//Metodo de mostrar estado da maquina
 void Maquina::informacaoMaquina() {
     string estadoString;
     switch (estado) {
@@ -58,12 +69,14 @@ void Maquina::informacaoMaquina() {
     }
 }
 
+//Metodo Run
 void Maquina::Run(){
+    //Printa informação
     cout << endl;
-    cout << "Eu Máquina: " << idMaquina << " Estou ligada" << endl;
-    cout << "Lista de vizinhos: " << vizinhos.size() << endl;
-    verificaEstado();
-    //verificar probabilidade muito grande//
+    cout << "Máquina: " << idMaquina << endl;
+    cout << "Numero de vizinhos: " << vizinhos.size() << endl;
+    verificaEstado(); //Verifica estado da maquina
+    //verificar probabilidade e printa mensagem com a cor de fundo consoante o nivel de probabilidade
     if(prob >= 35.0){
         cout << "\033[3;41;30m Probabilidade da maquina: " << prob << "\033[0m\t\t" << endl;//VERMELHO
     }
@@ -75,10 +88,12 @@ void Maquina::Run(){
     }
 }
 
+//Verificar estado
 bool Maquina::verificaEstado()
 {
+    //Verifica o estado da máquina e printa mensagens com a cor respetiva ao estado
     if(estado==ON){
-        cout << "\033[1;32mMaquina Ligada\033[0m"<< idMaquina << "\n";
+        cout << "\033[1;32mMaquina Ligada\033[0m\n";
     }else if(estado==OFF){
         cout << "\033[1;33mMaquina Desligada\033[0m\n";
     }else if(estado==AVARIADA){
@@ -87,9 +102,10 @@ bool Maquina::verificaEstado()
     return true;
 }
 
+//Processo de desligar maquina
 bool Maquina::Desligar(){
     bool desligado = false;
-    if(estado == AVARIADA){
+    if(estado == AVARIADA){ //Se estado AVARIADA
         cout << "Esta maquina encontra-se avariada!" << endl;
         cout << "Deseja reparar (S/N): " << endl; //printa se deseja repara alguam das maquinas que apareceu
         char repar; //variavel do tipo char para guardar resposta
@@ -98,100 +114,115 @@ bool Maquina::Desligar(){
             repararMaquina(); //chama função complementar para reparar maquina
             estado = OFF; // Altera o estado da máquina para OFF
             desligado = true;
-            saemTodos();
+            saemTodos(); //Retirar todos os jogadores da maquina
         }
-        else{
+        else{ //Se não pretender reparar a maquina
             cout << "Esta maquina não foi desligada, permanecerá avariada!" << endl;
-            estado = AVARIADA;
+            estado = AVARIADA; //Estado continua como AVARIADA
         }
-    }else if(estado == ON){
+    }else if(estado == ON){ //Se estado ON
         estado = OFF; // Altera o estado da máquina para OFF
         desligado = true;
-        saemTodos();
+        saemTodos(); //Retirar todos os jogadores da maquina
     }
     return desligado;
 }
 
+//Processo de retirar todos os jogadores associados a amquina
 void Maquina::saemTodos(){
-    if (getUserAtual()== nullptr){
-        if(filaEspera.size() > 0){
+    if (getUserAtual()== nullptr){ //Se maquina livre
+        if(filaEspera.size() > 0){ //Se existirem jogadores na fila de espera
             for (list<User *>::iterator it = filaEspera.begin(); it != filaEspera.end();it++) {
-                (*it)->userSaiCasino();
+                (*it)->userSaiCasino(); //Tira jogadores do casino
             }
         }
-    }else if(getUserAtual()!= nullptr){
+    }else if(getUserAtual()!= nullptr){ //Se maquina ocupada
         User *user = getUserAtual();
-        user->userSaiCasino();
-        if(filaEspera.size() > 0){
+        user->userSaiCasino(); //Remove jogador atual da maquina
+        if(filaEspera.size() > 0){ //Se existirem jogadores na fila de espera
             for (list<User *>::iterator it = filaEspera.begin(); it != filaEspera.end();it++) {
-                (*it)->userSaiCasino();
+                (*it)->userSaiCasino(); //Tira jogadores do casino
             }
         }
     }
 }
 
+//Processo de ligar maquina
 void Maquina::Ligar() {
-    if(estado == AVARIADA){ //verifica se a maquina esta AVARIADA
+    if(estado == AVARIADA){ //Se maquina esta AVARIADA
         estado = AVARIADA;
-    }else{
-        estado = ON; // Altera o estado da máquina para ON
+    }else{ //Caso seja diferente de AVARIADA
+        estado = ON; //Troca o estado para ON
     }
 }
 
+//Processo de avariar maquina
 void Maquina::avariaMaquina(){
-    estado = AVARIADA;
-    nAvarias ++;
+    estado = AVARIADA; //Troca estado para AVARIADA
+    nAvarias ++; //Incrementa numero de avarias
 }
 
+//Processo de jogador entrar na fila de espera
 void Maquina::entrarFilaEspera(User* user) {
-    if (userAtual != nullptr) {
-        filaEspera.push_back(user);
+    if (userAtual != nullptr) { //Se maquina ocupada
+        filaEspera.push_back(user); //Adiciona jogador a fila de espera
         cout << "User " << user->getNome() << " entrou na fila de espera para a máquina " << nome << endl;
     }
 }
 
+//Porcesso de associar jogador a maquina
 void Maquina::associarUser(User* user) {
-    if(getUserAtual() ==nullptr){
-        setUserAtual(user);
+    if(getUserAtual() ==nullptr){ //Se maquina livre
+        setUserAtual(user); //Associa jogador
+        //Calcula o número de jogadas que o jogador pode fazer com dinheiro da carteira
         int rodadas = user->getCarteira()/this->getAposta();
         user->setJogadas(rodadas);
-        cout << "Jogador " << user->getNome() << " trocou " << user->getCarteira() << "E por " << user->getJogadas() << " fichas" << endl;
+        cout << "Jogador " << user->getNome() << " trocou " << user->getCarteira() << " Euros por " << user->getJogadas() << " fichas" << endl;
     }
 }
 
+//Processo de jogada na maquina
 void Maquina::rodadas(User* user){
-    // Gerar um índice aleatório usando a operação de módulo
-    float randomProb = rand() % 100;
+    float randomProb = rand() % 100; //Gera um numero random
     int dinheiroCasino = 0;
     int dinheiroDado = 0;
     dinheiroCasino += casino->getTotalCaixa();
     dinheiroDado += casino->getTotalDinheiroDado();
-    if (randomProb <= getProb()) {
+    if (randomProb <= getProb()) { //Se a probabilidade random for menor ou igual a probabilidade de ganhar da maquina
         cout << "Jogador " << user->getNome() << " ganhou na máquina " << nome << "  premio   "<< premio << endl;
+        //Atualiza os ganhos do jogador
         float ganhosUser = user->getGanhos() + premio;
         user->setGanhos(ganhosUser);
+        //Atualiza dinheiro do casino
         dinheiroCasino -= premio;
         dinheiroDado += premio;
+        //Aumenta a probabilidade da máquina
         subirProbabilidade();
     } else {
         cout << "Jogador " << user->getNome() << " perdeu na máquina " << nome << endl;
+        //Atualiza dinheiro do casino
         dinheiroCasino += aposta;
     }
-    setNJogos(nJogos + 1);
+    setNJogos(nJogos + 1); //Atualiza o número de jogos da máquina
+    //Atualiza dinheiro do casino
     casino->setTotalCaixa(dinheiroCasino);
     casino->setTotalDinheiroDado(dinheiroDado);
 }
 
+//Processo de saida do jogador
 void Maquina::userSaiu() {
-    setUserAtual(nullptr);
+    setUserAtual(nullptr); //Remove jogador da maquina
     cout << "Maquina " << getNome() << " ficou livre" << endl;
 }
 
+//Processo de raparação da maquina
 bool Maquina::repararMaquina(){
     bool reparado= false;
+    // Verifica se a máquina não está quente e a temperatura é inferior a 35.0
     if(getQuente() == false && getTemperaturaSensor() < 35.0){
-        estado = ON;
+        estado = ON; //Trocar estado para ON
         reparado = true;
+    // Se a máquina estiver quente printa mensagem
     }else if(getQuente() == true ){
         reparado = false;
         cout << "Maquina esta a arrefecer - " << getTemperaturaSensor() << "º" << endl;
@@ -199,18 +230,22 @@ bool Maquina::repararMaquina(){
     return reparado;
 }
 
+//Processo de adicionar vizinho
 void Maquina::adicionarVizinho(Maquina* vizinho) {
-    vizinhos.push_back(vizinho);
+    vizinhos.push_back(vizinho); //Adiciona a máquina à lista de vizinhos
 }
 
-
+//Processo para subir probabilidade das maquinas vizinhas
 void Maquina::subirProbabilidade(){
+    //Chama o método SubirProbabilidadeVizinhas do Casino
+    //Para aumentar a probabilidade das máquinas vizinhas
     casino->SubirProbabilidadeVizinhas(this,2,vizinhos);
 }
 
+//Processo de remover vizinho
 bool Maquina::removerVizinho(int id_maq){
-    for (list<Maquina *>::iterator it = vizinhos.begin(); it != vizinhos.end();it++) {
-        if ((*it)->getID() == id_maq) {
+    for (list<Maquina *>::iterator it = vizinhos.begin(); it != vizinhos.end();it++) { //Percorre lista de maquinas vizinhas
+        if ((*it)->getID() == id_maq) { //Se id da maquina for igual ao id da maquina desejada
             cout << "Máquina vizinha removida com ID: " << id_maq << endl;
             vizinhos.erase(it); // Remove a máquina da lista
             return true;
@@ -220,19 +255,21 @@ bool Maquina::removerVizinho(int id_maq){
     return false;
 }
 
+//Porcesso de remover todos os vizinhos
 bool Maquina::removerVizinhoTodos(){
     cout << "Lista de vizinhos antes: " << vizinhos.size() << endl;
-    // Limpa a lista de vizinhos
-    vizinhos.clear();
+    vizinhos.clear(); //Limpa a lista de vizinhos
     return true;
 }
 
+//Calcular memoria
 int Maquina::Memoria() {
-    int mem = sizeof(*this);
-    // Adicione a memória associada a membros dinâmicos, se houver
-    // Exemplo considerando listas dinâmicas
-    mem += sizeof(User*) * filaEspera.size(); // tamanho da lista de ponteiros
-    mem += sizeof(Maquina*) * vizinhos.size(); // tamanho da lista de ponteiros
-    return mem;
+    int mem = sizeof(*this); //Tamanho atual do objeto Maquina
+    mem += sizeof(User*) * filaEspera.size(); //Tamanho da lista de ponteiros User na fila de espera
+    mem += sizeof(Maquina*) * vizinhos.size(); //Tamanho da lista de ponteiros Maquina vizinhas
+    mem += sizeof(Casino*); //Tamanho do ponteiro para Casino
+    mem += sizeof(User*); //Tamanho do ponteiro para User
+    mem += nome.size() + tipo.size(); //Tamanho da string "nome" e "tipo"
+    return mem; //Retorna memoria total
 }
 

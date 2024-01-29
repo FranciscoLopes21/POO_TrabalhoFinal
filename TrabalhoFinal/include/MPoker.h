@@ -10,6 +10,7 @@ class MPoker : public Maquina
         MPoker(int _id, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta, Casino* _casino);
         virtual ~MPoker();
         void Run();
+        int Memoria();
 
     private:
 

@@ -26,6 +26,7 @@ class Maquina
         Maquina(int _idM, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta, Casino* _casino);
         virtual ~Maquina();
         virtual void Run();
+        virtual int Memoria();
 
         void informacaoMaquina();
         void Ligar();
@@ -41,7 +42,6 @@ class Maquina
         bool repararMaquina();
         void rodadas(User *user);
         void userSaiu();
-        int Memoria();
 
         //get
         int getID(){ return idMaquina;}

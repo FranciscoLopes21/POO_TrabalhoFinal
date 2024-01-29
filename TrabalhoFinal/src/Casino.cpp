@@ -12,7 +12,6 @@
 #include <ctime>
 #include <string>
 #include <list>
-
 ////////////////////////
 #include "Casino.h"
 #include "pugixml.hpp"
@@ -27,8 +26,8 @@
 using namespace std;
 
 Casino::Casino(string _nome)
-{
-    //ctor
+{//ctor
+    // Inicializa as variaveis da classe com os valores passados como argumentos
     nome = _nome;
 }
 
@@ -777,10 +776,8 @@ void Casino::gestaoUseres(){
 //memoria toral do programa
 int Casino::Memoria_Total() {
     int mem = 0;
-    //calcular memoria variveis Casino
-    mem = nome.size()+sizeof(maxJogadores)+sizeof(jogadoresNoCasino)+sizeof(probabilidadeUser)+sizeof(horaAbertura)+sizeof(minutosAbertura)+sizeof(segundosAbertura)+sizeof(horaFecho)+sizeof(minutosFecho)+sizeof(segundosFecho)+sizeof(totalCaixa)+sizeof(totalDinheiroDado);
-    mem += sizeof(*this);
-    // Adicione o tamanho da lista à memória total
+    mem = sizeof(*this);
+    mem += nome.size();
     mem += LM.size() * sizeof(Maquina*);
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
         //mem += sizeof(*it);
@@ -843,8 +840,7 @@ void Casino::menuCrudMaquina(){
             default: //se nenhuma das opções
                 cout << "Opção inválida. Tente novamente." << endl; //printa mensagem de erro
         }
-    }
-    while (op != 0); //repete processo enquanto opção diferente a 0
+    }while (op != 0); //repete processo enquanto opção diferente a 0
 }// Fim Menu Crud Maquinas
 
 // Crud Maquinas

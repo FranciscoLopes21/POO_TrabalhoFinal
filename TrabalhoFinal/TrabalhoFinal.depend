@@ -252,7 +252,7 @@
 
 1704930327 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\pugiconfig.hpp
 
-1706486567 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\maquina.h
+1706528964 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\maquina.h
 	<iostream>
 	<string>
 	<list>
@@ -269,43 +269,43 @@
 	"pugixml.hpp"
 	"Casino.h"
 
-1706493652 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\maquina.cpp
+1706535796 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\maquina.cpp
 	"Maquina.h"
 	<stdlib.h>
 	<time.h>
 	"Casino.h"
 
-1706493170 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\mblackjack.cpp
+1706539717 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\mblackjack.cpp
 	"MBlackJack.h"
 	"Casino.h"
 
-1706460212 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\mblackjack.h
+1706529549 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\mblackjack.h
 	<Maquina.h>
 
-1706493170 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\mpoker.cpp
+1706539717 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\mpoker.cpp
 	"MPoker.h"
 	"Casino.h"
 
-1706460212 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\mpoker.h
+1706529549 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\mpoker.h
 	<Maquina.h>
 
-1706493170 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\mroleta.cpp
+1706539642 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\mroleta.cpp
 	"MRoleta.h"
 	"Casino.h"
 
-1706458186 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\mroleta.h
+1706529549 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\mroleta.h
 	<Maquina.h>
 
-1706493745 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\mslot.cpp
+1706539436 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\mslot.cpp
 	"MSlot.h"
 	<stdlib.h>
 	<time.h>
 	"Casino.h"
 
-1706457810 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\mslot.h
+1706529037 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\mslot.h
 	<Maquina.h>
 
-1706493170 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\user.cpp
+1706538082 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\user.cpp
 	"User.h"
 	<random>
 	<ctime>
@@ -329,7 +329,7 @@
 	<list>
 	<fstream>
 
-1706493467 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\casino.cpp
+1706535796 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\casino.cpp
 	<iostream>
 	<sstream>
 	<fstream>

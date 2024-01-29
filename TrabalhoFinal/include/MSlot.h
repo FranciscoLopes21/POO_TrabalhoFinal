@@ -10,6 +10,7 @@ class MSlot : public Maquina
         MSlot(int _id, string _nome, int _x, int _y, float _premio, float _prob, string _tipo, int _aposta, Casino* _casino);
         virtual ~MSlot();
         void Run();
+        int Memoria();
 
     private:
 
