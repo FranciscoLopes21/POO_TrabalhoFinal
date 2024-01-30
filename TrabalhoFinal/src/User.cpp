@@ -33,7 +33,7 @@ User::~User()
 //Metodo Run do User
 void User::Run(){
     if(maquinaAssociada!=nullptr){ //Verifica se o jogador está associado a uma máquina
-           if(mogadas>=1){ //Verifica se o jogador tem jogadas
+           if(jogadas>=1){ //Verifica se o jogador tem jogadas
                 if(maquinaAssociada->getEstado()== ON){ //Verifica se a máquina associada está ligada
                     jogarNaMaquina(); //Invoca função para o jogador jogar na maquina
                 }

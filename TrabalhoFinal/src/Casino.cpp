@@ -103,11 +103,11 @@ bool Casino::LoadMaquina(const string& ficheiro) {
         if (tipo == "slot" || tipo == "Slot") {
             m = new MSlot(id, nome, x, y, premio, probG, tipo,5,this);
         } else if (tipo == "roleta" || tipo == "Roleta") {
-            m = new MPoker(id, nome, x, y, premio, probG, tipo,10,this);
+            m = new MRoleta(id, nome, x, y, premio, probG, tipo,10,this);
         }else if (tipo == "poker" || tipo == "Poker") {
             m = new MPoker(id, nome, x, y, premio, probG, tipo,15,this);
         }  else if (tipo == "blackjack" || tipo == "Blackjack") {
-            m = new MPoker(id, nome, x, y, premio, probG, tipo,20,this);
+            m = new MBlackJack(id, nome, x, y, premio, probG, tipo,20,this);
         }
         //Adiciona a máquina à lista do casino
         Add(m);
@@ -902,11 +902,11 @@ void Casino::addMaquina(){
             if (tipo == "slot" || tipo == "Slot") {
                 m = new MSlot(id, nome, x, y, premio, prob, tipo,5, this);
             } else if (tipo == "roleta" || tipo == "Roleta") {
-                m = new MPoker(id, nome, x, y, premio, prob, tipo,10, this);
+                m = new MRoleta(id, nome, x, y, premio, prob, tipo,10, this);
             } else if (tipo == "poker" || tipo == "Poker") {
                 m = new MPoker(id, nome, x, y, premio, prob, tipo,15, this);
             } else if (tipo == "blackjack" || tipo == "Blackjack") {
-                m = new MPoker(id, nome, x, y, premio, prob, tipo,20, this);
+                m = new MBlackJack(id, nome, x, y, premio, prob, tipo,20, this);
             }
             if(Add(m)){
                 cout << "Maquina foi adicionada ao Casino com sucesso!" << endl;
