@@ -269,7 +269,7 @@
 	"pugixml.hpp"
 	"Casino.h"
 
-1706535796 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\maquina.cpp
+1706565785 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\maquina.cpp
 	"Maquina.h"
 	<stdlib.h>
 	<time.h>
@@ -305,7 +305,7 @@
 1706529037 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\mslot.h
 	<Maquina.h>
 
-1706538082 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\user.cpp
+1706544088 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\user.cpp
 	"User.h"
 	<random>
 	<ctime>
@@ -329,7 +329,7 @@
 	<list>
 	<fstream>
 
-1706535796 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\casino.cpp
+1706620656 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\casino.cpp
 	<iostream>
 	<sstream>
 	<fstream>

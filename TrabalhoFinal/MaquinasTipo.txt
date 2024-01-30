@@ -1,2 +1,0 @@
-ID: 1 | Nome: Slot200 | Tipo: slot
-ID: 2 | Nome: Slot300 | Tipo: slot

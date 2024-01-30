@@ -1,0 +1,10 @@
+Estado Casino Casino Figueira
+| ID: 1 | Nome: Slot200 | Tipo: slot | Probabilidade: 10 | Estado: ON | Temperatura: 20.05
+| ID: 2 | Nome: Slot300 | Tipo: slot | Probabilidade: 10 | Estado: ON | Temperatura: 20.05
+| ID: 3 | Nome: Slot400 | Tipo: poker | Probabilidade: 1 | Estado: ON | Temperatura: 20.05
+| ID: 4 | Nome: Slot500 | Tipo: poker | Probabilidade: 1 | Estado: ON | Temperatura: 20.05
+| ID: 5 | Nome: Slot500 | Tipo: poker | Probabilidade: 1 | Estado: ON | Temperatura: 20.05
+| ID: 6 | Nome: Slot700 | Tipo: poker | Probabilidade: 1 | Estado: ON | Temperatura: 20.05
+| ID: 7 | Nome: Slot800 | Tipo: poker | Probabilidade: 1 | Estado: ON | Temperatura: 20.05
+| ID: 8 | Nome: Slot900 | Tipo: poker | Probabilidade: 1 | Estado: ON | Temperatura: 20.05
+| ID: 9 | Nome: Slot1000 | Tipo: poker | Probabilidade: 1 | Estado: ON | Temperatura: 20.05

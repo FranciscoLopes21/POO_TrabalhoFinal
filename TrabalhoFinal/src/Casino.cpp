@@ -1,10 +1,10 @@
-#include <iostream> // sleep function
-#include <sstream>  // Inclua este cabeçalho para std::stringstream
+#include <iostream>
+#include <sstream>
 #include <fstream>
 #include <conio.h>
 #include <chrono>
 #include <thread>
-#include <cstdlib>  // Para a função sleep
+#include <cstdlib>
 #include <iomanip>
 #include <random>
 #include <cmath>
@@ -21,7 +21,7 @@
 #include "MRoleta.h"
 #include "MSlot.h"
 #include "XMLWriter.h"
-#include <windows.h> // Library effective with Windows
+#include <windows.h>
 
 using namespace std;
 
@@ -46,11 +46,13 @@ Casino::~Casino()
     LU.clear();
 }
 
+//Processo de carregar dados do casino através do XML
 bool Casino::Load(const string& ficheiro) {
     int maxJogadores, probabilidadeUser, horaAbertura, minutosAbertura, segundosAbertura, horaFecho, minutosFecho, segundosFecho;
+    //Chama XMLReader::LoadCasinoData para obter os dados do XML
     bool result = XMLReader::LoadCasinoData("XML_Projecto.xml", maxJogadores, probabilidadeUser, horaAbertura,minutosAbertura, segundosAbertura, horaFecho, minutosFecho, segundosFecho);
-
-    if (result) {
+    if (result) { //Se a operação de leitura do XML for bem sucedida
+        //Chama CarregarDados passando por parametros os dados obtidos
         CarregarDados(maxJogadores,probabilidadeUser,horaAbertura,minutosAbertura, segundosAbertura, horaFecho, minutosFecho, segundosFecho);
     } else {
         cout << "Falha ao carregar as configurações do Casino a partir do XML." << endl;
@@ -74,16 +76,21 @@ void Casino::CarregarDados(int _maxJogadores, int _probabilidadeUser, int _horaA
     totalDinheiroDado=0;
 }
 
+//Processo de carregar dados da maquina através do XML
 bool Casino::LoadMaquina(const string& ficheiro) {
 
     pugi::xml_document doc;
     pugi::xml_parse_result result = doc.load_file(ficheiro.c_str());
+    //Verifica se houve algum erro ao carregar o XML
     if (!result) {
         cout << "Erro ao carregar o arquivo XML: " << result.description() << endl;
         return false;
     }
+    //Obtém a lista de máquinas do node XML
     pugi::xml_node listaMaq = doc.child("DADOS").child("LISTA_MAQ");
-    for (pugi::xml_node maquina = listaMaq.child("MAQUINA"); maquina; maquina = maquina.next_sibling("MAQUINA")) {
+    //Percorre o XML e obtem os node da maquina
+    for (pugi::xml_node maquina = listaMaq.child("MAQUINA"); maquina; maquina = maquina.next_sibling("MAQUINA")){
+        //Guarda os dados de cada nó de máquina
         int id = maquina.child("ID").text().as_int();
         string nome = maquina.child("NOME").text().get();
         int x = maquina.child("X").text().as_int();
@@ -91,6 +98,7 @@ bool Casino::LoadMaquina(const string& ficheiro) {
         int premio = maquina.child("PREMIO").text().as_int();
         int probG = maquina.child("PROB_G").text().as_int();
         string tipo = maquina.child("TIPO").text().get();
+        //Cria uma instância da máquina com base no tipo
         Maquina* m = nullptr;
         if (tipo == "slot" || tipo == "Slot") {
             m = new MSlot(id, nome, x, y, premio, probG, tipo,5,this);
@@ -101,6 +109,7 @@ bool Casino::LoadMaquina(const string& ficheiro) {
         }  else if (tipo == "blackjack" || tipo == "Blackjack") {
             m = new MPoker(id, nome, x, y, premio, probG, tipo,20,this);
         }
+        //Adiciona a máquina à lista do casino
         Add(m);
     }
     return true;
@@ -109,9 +118,10 @@ bool Casino::LoadMaquina(const string& ficheiro) {
 //adicionar jogador/user
 bool Casino::Add(User *ut){
     bool resultado = false;
-    if (ut == nullptr) {
+    if (ut == nullptr) { //Se ponteiro do User fou nulo
         resultado = false;
     }else{
+        //Adiciona o User à lista de users do casino
         LU.push_back(ut);
         resultado = true;
     }
@@ -121,7 +131,7 @@ bool Casino::Add(User *ut){
 //Adicionar máquina
 bool Casino::Add(Maquina *m){ //recebe por parametro um ponteiro para um objecto do tipo Maquina
     bool resultado = false;
-    if (m == nullptr) {
+    if (m == nullptr) { //Se ponteiro de Maquina for nulo
         resultado = false;
     }else{
         adicionarVizinho(m); //Função para adicionar vizinho
@@ -207,26 +217,33 @@ estadoMaquina Casino::Get_Estado(int id_maq) { //recebe id da maquina desejada
 
 //Função complementar para listar maquinas de um dado tipo
 void Casino::listarTipoMaquina(){
-    string Tipo; //varivel do tipo string para guardar o tipo de maquina desejada
-    cout << "Tipo de maquina: "; //pede o tipo de maquina pretendida
-    cin >> Tipo; //guarda tipo de maquina desejada
-    ofstream F("MaquinasTipo.txt"); //abrir fecheiro
-    list<Maquina*>* maquinasDoTipo = Listar_Tipo(Tipo, F); //invoca função para listar maquinas de um dado tipo
-    for (list<Maquina *>::iterator it = maquinasDoTipo->begin(); it != maquinasDoTipo->end(); it++) {
-        if ((*it)->getTipo() == Tipo) {
-            cout << "ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() << " | Tipo: " << (*it)->getTipo() << endl;
+    string Tipo; //Varivel do tipo string para guardar o tipo de maquina desejada
+    cout << "Tipo de maquina: "; //Pede o tipo de maquina pretendida
+    cin >> Tipo; //Guarda tipo de maquina desejada
+    ofstream F("MaquinasTipo.txt"); //Abrir fecheiro
+    if (!F.is_open()) { //Se ficheiro não foi aberto corretamente
+        cout << "Erro ao abrir o arquivo MaquinasTipo.txt" << endl;
+    }else{
+        list<Maquina*>* maquinasDoTipo = Listar_Tipo(Tipo, F); //Invoca função para listar maquinas de um dado tipo
+        for (list<Maquina *>::iterator it = maquinasDoTipo->begin(); it != maquinasDoTipo->end(); it++) {
+            if ((*it)->getTipo() == Tipo) {
+                cout << "ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() << " | Tipo: " << (*it)->getTipo() << endl;
+            }
         }
+        delete maquinasDoTipo; //Liberta memoria alocada pela lista
+        F.close(); //Fechar ficheiro
     }
-    delete maquinasDoTipo;
-    F.close(); //fechar ficheiro
 }
 
 //listar maquinas de um dado tipo
 list<Maquina *> * Casino::Listar_Tipo(string Tipo, std::ostream &f) {
+    //Cria lista armazenar máquinas
     list<Maquina *> * maquinasDoTipo = new list<Maquina*>;
     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); it++) {
-        if ((*it)->getTipo() == Tipo) {
+        if ((*it)->getTipo() == Tipo) { //Verifica se a máquina atual tem o tipo desejado
+            //Adiciona a máquina à lista
             maquinasDoTipo->push_back((*it));
+            //Escreve informações sobre a máquina no ficheiro
             f << "ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() << " | Tipo: " << (*it)->getTipo() << endl;
         }
     }
@@ -265,7 +282,7 @@ void Casino:: showRankingAvarias(){
             cout << (*it) << endl;
         }
     }
-    delete rankingAvariadas; //Não se esqueça de liberar a memória alocada para a lista
+    delete rankingAvariadas; //Liberta memoria alocada pela lista
 }
 
 //Ranking dos mais trabalhadores - as que são usadas
@@ -284,7 +301,7 @@ void Casino::listarRankingMaisTrabalhadores(){
     for (list<Maquina *>::iterator it = maquinasMaisTrabalhadores->begin(); it != maquinasMaisTrabalhadores->end(); ++it) {
         cout << "ID: " << (*it)->getID() << " | Nome: " << (*it)->getNome() << " | Tipo: " << (*it)->getTipo() << " | Numero de jogos: " << (*it)->getNJogos() << endl;
     }
-    delete maquinasMaisTrabalhadores;
+    delete maquinasMaisTrabalhadores; //Liberta memoria alocada pela lista
 }
 
 //jogadores mais frequentes - jogadores que mais tempo passaram a jogar
@@ -302,7 +319,7 @@ void Casino::listarJogadoresMaisFrequentes(){
     for (list<User *>::iterator it = copiaUser->begin(); it != copiaUser->end(); ++it) {
         cout << "ID: " << (*it)->getNUser() << " | Nome: " << (*it)->getNome() << " | tempo casino: " << (*it)->getTempoCasino() << endl;
     }
-    delete copiaUser;
+    delete copiaUser; //Liberta memoria alocada pela lista
 }
 
 //jogadores que ganharam mais dinheiro
@@ -320,7 +337,7 @@ void Casino::listarJogadoresMaisGanhos(){
     for (list<User *>::iterator it = jogadoresMaisGanhos->begin(); it != jogadoresMaisGanhos->end(); ++it) {
         cout << "ID: " << (*it)->getNUser() << " | Nome: " << (*it)->getNome() << " | ganhos: " << (*it)->getGanhos() << endl;
     }
-    delete jogadoresMaisGanhos;
+    delete jogadoresMaisGanhos; //Liberta memoria alocada pela lista
 }
 
 //Relatório casino - informação do estado atual de cada máquina
@@ -586,7 +603,7 @@ void Casino::gestaoCasino(){
     system("cls"); //limpa ecra
     do {
         cout << endl;
-        cout << "Gesto Casino" << endl; //printa menu
+        cout << "Gestao Casino" << endl; //printa menu
         cout << "1- Listar estado atual casino" << endl; //printa menu
         cout << "2- Relatorio" << endl; //printa menu
         cout << "3- Listar maquinas com probabilidade superiora X" << endl; //printa menu
@@ -598,6 +615,7 @@ void Casino::gestaoCasino(){
             case 1:
                 system("cls"); //Limpa ecra
                 Listar(F); //Chama a função Listar passando por parameto o ficheiro
+                F.close();
                 break;
             case 2:
                 system("cls"); //Limpa ecra
@@ -1075,24 +1093,24 @@ bool Casino::adicionarVizinho(Maquina *m) { //recebe por parametro um ponteiro p
     return estado; //returna o estado
 }
 
-//traduzir estado para string
-string Casino::estadoString(estadoMaquina estado){ //recebe um valor do tipo estadoMaquina
-    string estadoString; //variavel que guarda o valor como string
-    switch (estado) { //verifica estado
+//Traduzir estado para string
+string Casino::estadoString(estadoMaquina estado){ //Recebe um valor do tipo estadoMaquina
+    string estadoString; //Variavel que guarda o valor como string
+    switch (estado) { //Verifica estado
         case ON:
             // Se o estado for ON, atribui a string "ON" à variável estadoString
             estadoString = "ON";
             break;
         case OFF:
-            // Se o estado for OFF, atribui a string "OFF" à variável estadoString
+            //Se o estado for OFF, atribui a string "OFF" à variável estadoString
             estadoString = "OFF";
             break;
         case AVARIADA:
-            // Se o estado for AVARIADA, atribui a string "AVARIADA" à variável estadoString
+            //Se o estado for AVARIADA, atribui a string "AVARIADA" à variável estadoString
             estadoString = "AVARIADA";
             break;
         default:
-            // Se o estado não corresponder a nenhum dos casos anteriores, atribui a string "Unknown" à variável estadoString
+            //Se o estado não corresponder a nenhum dos casos anteriores, atribui a string "Unknown" à variável estadoString
             estadoString = "Unknown";
             break;
     }
@@ -1109,70 +1127,68 @@ void Casino::removerVizinho(int id_maq) { //recebe por parametro o id da maquina
 
 //jogador entra no casino
 User* Casino::userEntraCasino(const string &nomeArquivo){
-    int numeroLinhas = ContarLinhas(nomeArquivo);
+    int numeroLinhas = ContarLinhas(nomeArquivo), id, idade;
+    string linha, nome, sobrenome, morada;
     User* novoUser = nullptr;
     bool entrou = false;
     if (numeroLinhas > 0) {
         do{
             int linhaAleatoria = rand() % numeroLinhas + 1; //Gera um número aleatório dentro do intervalo de linhas do arquivo
-            ifstream arquivo(nomeArquivo); //Abra o arquivo
-            if (!arquivo.is_open()) {
+            ifstream F(nomeArquivo); //Abra o arquivo
+            if (!F.is_open()) {
                 cerr << "Erro ao abrir o arquivo." << endl;
                 return nullptr;
-            }
-            // Leitura das linhas até chegar à linha desejada
-            string linha;
-            for (int i = 0; i < linhaAleatoria; ++i) {
-                getline(arquivo, linha);
-            }
-            stringstream ss(linha); //Use um stringstream para processar a linha
-            // Declare as variáveis para armazenar os dados do usuário
-            int id;
-            string nome, sobrenome, morada;
-            int idade;
-            // Leitura dos dados do usuário da linha
-            ss >> id;
-            ss.ignore(); // Ignora o espaço em branco
-            getline(ss, nome, '\t');
-            getline(ss, morada, '\t');
-            ss >> idade;
-            if(idade >= 18){
-                arquivo.close(); //Feche o arquivo
-                // Crie um objeto User com base nos dados lidos
-                novoUser = new User(id, nome, morada, idade, this);
-                entrou = true;
             }else{
-                entrou = false;
+                //Leitura das linhas até chegar à linha desejada
+                for (int i = 0; i < linhaAleatoria; ++i) {
+                    getline(F, linha);
+                }
+                stringstream ss(linha); //Use um stringstream para processar a linha
+                //Leitura dos dados do usuário da linha
+                ss >> id;
+                ss.ignore(); //Ignorar o espaço em branco
+                getline(ss, nome, '\t');
+                getline(ss, morada, '\t');
+                ss >> idade;
+                if(idade >= 18){ //Se o User escolhido maior de idade
+                    F.close(); //Feche o arquivo
+                    // Crie um objeto User com base nos dados lidos
+                    novoUser = new User(id, nome, morada, idade, this);
+                    entrou = true;
+                }else{
+                    entrou = false;
+                }
             }
         }while (!entrou);
     }
-    return novoUser; // Adicione o usuário ao casino
+    return novoUser; //Returna user
 }
 
 //contar linhas de um ficheiro
 int Casino::ContarLinhas(const string& nomeArquivo) {
-    ifstream arquivo(nomeArquivo);
-    if (!arquivo.is_open()) {
-        cerr << "Erro ao abrir o arquivo." << endl;
-        return -1; // Indicativo de erro
-    }
     int numeroLinhas = 0;
     string linha;
-    while (getline(arquivo, linha)) {
-        numeroLinhas++;
+    ifstream F(nomeArquivo); //Abre ficheiro fornecido
+    if (!F.is_open()){ //Se ficheiro foi aberto com sucesso
+        cout << "Erro ao abrir o ficheiro." << endl;
+        return -1; // Indicativo de erro
+    }else{
+        while (getline(F, linha)){ //Loop para ler linhas do ficheiro
+            numeroLinhas++;
+        }
+        //cout << "numero de linahs " << numeroLinhas << endl;
+        F.close(); //Fecha ficheiro
     }
-    cout << "numero de linahs    " << numeroLinhas << endl;
-    arquivo.close();
     return numeroLinhas;
 }
 
 //jogador entra no casino
 bool Casino::entrarJogador(){
     bool entrada = false;
-    srand (time(NULL));
-    int nRandom1 = rand() % 100 + 1;
+    srand (time(NULL)); //Inicia o gerador de numeros aleatorios com o tempo atual
+    int nRandom1 = rand() % 100 + 1; //Gera numero aleatorio entre 1 e 100
     cout << "nRandom1: " << nRandom1 << endl;
-    if(nRandom1 < 50){
+    if(nRandom1 < 50){ //Se numero gerado menor que 50
         entrada = true;
     }
     return entrada;

@@ -28,15 +28,7 @@ Maquina::Maquina(int _idM, string _nome, int _x, int _y, float _premio, float _p
 Maquina::~Maquina()
 {
     //dtor
-    //destui Maquinas
-    for (list<Maquina *>::iterator it = vizinhos.begin(); it != vizinhos.end(); ++it){
-        delete (*it);
-    }
     vizinhos.clear();  // Limpar a lista de vizinhos
-    // Destruir os usuários na fila de espera
-    for (list<User*>::iterator it = filaEspera.begin(); it != filaEspera.end(); ++it) {
-        delete (*it);
-    }
     filaEspera.clear();  // Limpar a lista de usuários na fila de espera
 }
 
