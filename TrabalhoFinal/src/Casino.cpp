@@ -386,8 +386,13 @@ void Casino::ListarMaquinasProbabilidade() {
     cout << "Probabilidade: ";
     cin >> xProbabilidade; //guardar probabilidade
     ofstream F("ListaProbX.txt"); //Abrir ficheiro
-    Listar(xProbabilidade, F); //Chama função Listar() que irá escrever no ficheiro as maquinas com probabilidade superior a X
-    F.close(); //Fechar ficheiro
+    if (!F.is_open()) { //Se ficheiro não foi aberto corretamente
+        cout << "Erro ao abrir o arquivo MaquinasTipo.txt" << endl;
+    }else{
+        Listar(xProbabilidade, F); //Chama função Listar() que irá escrever no ficheiro as maquinas com probabilidade superior a X
+        F.close(); //Fechar ficheiro
+    }
+
 }
 
 //Listar maquinas com probabilidade de ganhar maior que X
@@ -562,7 +567,7 @@ void Casino::Menu(){
 void Casino::dadosCasino() {
     int slot = 0, roleta = 0, poker = 0, blackjack = 0;
 
-    for (auto it = LM.begin(); it != LM.end(); ++it) { //percorre todas as maquinas do casino
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) { //percorre todas as maquinas do casino
 
         if ((*it)->getTipo() == "slot" || (*it)->getTipo() == "Slot") {
             slot ++;
@@ -1074,7 +1079,7 @@ void Casino::ligarTodasMaquinas() {
 bool Casino::adicionarVizinho(Maquina *m) { //recebe por parametro um ponteiro para um objecto do tipo Maquina
     bool estado = false; //iguala o estado a falso
     int distanciaMaxima = 3;  //Defina a distância máxima desejada
-    for (auto it = LM.begin(); it != LM.end(); ++it) { //percorre todas as maquinas do casino
+    for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) { //percorre todas as maquinas do casino
         if ((*it)->getID() != m->getID() && (*it)->getX() == m->getX()) {
             /*
             verifica se o id da maquina que esta a ser verificada não é igual ao id da maquina que chega por parametro e
@@ -1187,7 +1192,7 @@ bool Casino::entrarJogador(){
     bool entrada = false;
     srand (time(NULL)); //Inicia o gerador de numeros aleatorios com o tempo atual
     int nRandom1 = rand() % 100 + 1; //Gera numero aleatorio entre 1 e 100
-    cout << "nRandom1: " << nRandom1 << endl;
+    //cout << "nRandom1: " << nRandom1 << endl;
     if(nRandom1 < 50){ //Se numero gerado menor que 50
         entrada = true;
     }
