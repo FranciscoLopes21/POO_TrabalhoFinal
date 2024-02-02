@@ -233,7 +233,7 @@
 	"Casino.h"
 	"XMLReader.h"
 
-1706792324 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\casino.h
+1706870184 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\casino.h
 	<iostream>
 	<string>
 	<list>
@@ -269,27 +269,27 @@
 	"pugixml.hpp"
 	"Casino.h"
 
-1706839659 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\maquina.cpp
+1706870643 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\maquina.cpp
 	"Maquina.h"
 	<stdlib.h>
 	<time.h>
 	"Casino.h"
 
-1706539717 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\mblackjack.cpp
+1706870643 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\mblackjack.cpp
 	"MBlackJack.h"
 	"Casino.h"
 
 1706529549 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\mblackjack.h
 	<Maquina.h>
 
-1706539717 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\mpoker.cpp
+1706870643 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\mpoker.cpp
 	"MPoker.h"
 	"Casino.h"
 
 1706529549 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\mpoker.h
 	<Maquina.h>
 
-1706539642 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\mroleta.cpp
+1706870643 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\mroleta.cpp
 	"MRoleta.h"
 	"Casino.h"
 
@@ -305,7 +305,7 @@
 1706529037 c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\include\mslot.h
 	<Maquina.h>
 
-1706839659 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\user.cpp
+1706840261 source:c:\users\franc\onedrive\ambiente de trabalho\uni\2023-2024\2º ano\poo\novo\trabalhofinal\src\user.cpp
 	"User.h"
 	<random>
 	<ctime>

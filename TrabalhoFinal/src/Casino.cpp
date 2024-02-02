@@ -879,7 +879,7 @@ void Casino::addMaquina(){
                 cout << "Probabilidade máquina: ";
                 cin >> prob;
                 if(prob <= 100){ //Se a probabilidade for menor ao igual a 100
-                    probMaior = true //Probabilidade OK
+                    probMaior = true; //Probabilidade OK
                 }else{ //Caso seja maior
                     cout << "Probabilidade tem de ser menor que 100" << endl;
                     probMaior = false; //Probabilidade NOTOK
