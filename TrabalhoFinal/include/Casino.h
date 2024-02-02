@@ -32,7 +32,7 @@ class Casino
         bool LoadMaquina(const string& xmlFile);
         bool Add(User *ut);
         bool Add(Maquina *M);
-        void Listar(ostream &f);//compor função
+        void Listar(ostream &f);
         void Desligar(int id_maq);
         estadoMaquina Get_Estado(int id_maq);
         int Memoria_Total();

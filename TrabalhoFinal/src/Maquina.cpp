@@ -28,8 +28,8 @@ Maquina::Maquina(int _idM, string _nome, int _x, int _y, float _premio, float _p
 Maquina::~Maquina()
 {
     //dtor
-    vizinhos.clear();  // Limpar a lista de vizinhos
-    filaEspera.clear();  // Limpar a lista de usuários na fila de espera
+    vizinhos.clear();  //Limpa a lista de vizinhos
+    filaEspera.clear();  //Limpa a lista de usuários na fila de espera
 }
 
 //Metodo de mostrar estado da maquina
@@ -49,14 +49,14 @@ void Maquina::informacaoMaquina() {
             estadoString = "Unknown";
             break;
     }
-    if(estado== ON){ //verifica se o estado é ON para ajustar a cor do estado quando printa
-        //printa dados
+    if(estado== ON){ //Verifica se o estado é ON para ajustar a cor do estado quando printa
+        //Printa dados
         cout << "| ID: " << getID() << " | Nome: " << getNome() << " | Tipo: " << getTipo() << " | Probabilidade: " << getProb() << " | Estado: \033[1;32m"<<estadoString<<"\033[0m" << " | Temperatura: " << getTemperaturaSensor() << endl;
-    }else if (estado== OFF){ //verifica se o estado é OFF para ajustar a cor do estado quando printa
-        //printa dados
+    }else if (estado== OFF){ //Verifica se o estado é OFF para ajustar a cor do estado quando printa
+        //Printa dados
         cout << "| ID: " << getID() << " | Nome: " << getNome() << " | Tipo: " << getTipo() << " | Probabilidade: " << getProb() << " | Estado: \033[1;33m"<<estadoString<<"\033[0m" << " | Temperatura: " << getTemperaturaSensor() << endl;
-    }else if (estado== AVARIADA){ //verifica se o estado é AVARIADA para ajustar a cor do estado quando printa
-        //printa dados
+    }else if (estado== AVARIADA){ //Verifica se o estado é AVARIADA para ajustar a cor do estado quando printa
+        //Printa dados
         cout << "| ID: " << getID() << " | Nome: " << getNome() << " | Tipo: " << getTipo() << " | Probabilidade: " << getProb() << " | Estado: \033[1;31m"<<estadoString<<"\033[0m" << " | Temperatura: " << getTemperaturaSensor() << endl;
     }
 }
@@ -68,7 +68,7 @@ void Maquina::Run(){
     cout << "Máquina: " << idMaquina << endl;
     cout << "Numero de vizinhos: " << vizinhos.size() << endl;
     verificaEstado(); //Verifica estado da maquina
-    //verificar probabilidade e printa mensagem com a cor de fundo consoante o nivel de probabilidade
+    //Verificar probabilidade e printa mensagem com a cor de fundo consoante o nivel de probabilidade
     if(prob >= 35.0){
         cout << "\033[3;41;30m Probabilidade da maquina: " << prob << "\033[0m\t\t" << endl;//VERMELHO
     }
@@ -99,11 +99,11 @@ bool Maquina::Desligar(){
     bool desligado = false;
     if(estado == AVARIADA){ //Se estado AVARIADA
         cout << "Esta maquina encontra-se avariada!" << endl;
-        cout << "Deseja reparar (S/N): " << endl; //printa se deseja repara alguam das maquinas que apareceu
-        char repar; //variavel do tipo char para guardar resposta
-        cin >> repar; //guarda resposta
-        if(repar == 'S' || repar == 's'){ //verifica se escolheram reparar
-            repararMaquina(); //chama função complementar para reparar maquina
+        cout << "Deseja reparar (S/N): " << endl; //Printa se deseja repara alguam das maquinas que apareceu
+        char repar; //Variavel do tipo char para guardar resposta
+        cin >> repar; //Guarda resposta
+        if(repar == 'S' || repar == 's'){ //Verifica se escolheram reparar
+            repararMaquina(); //Chama função complementar para reparar maquina
             estado = OFF; // Altera o estado da máquina para OFF
             desligado = true;
             saemTodos(); //Retirar todos os jogadores da maquina
@@ -113,7 +113,7 @@ bool Maquina::Desligar(){
             estado = AVARIADA; //Estado continua como AVARIADA
         }
     }else if(estado == ON){ //Se estado ON
-        estado = OFF; // Altera o estado da máquina para OFF
+        estado = OFF; //Altera o estado da máquina para OFF
         desligado = true;
         saemTodos(); //Retirar todos os jogadores da maquina
     }
@@ -210,11 +210,11 @@ void Maquina::userSaiu() {
 //Processo de raparação da maquina
 bool Maquina::repararMaquina(){
     bool reparado= false;
-    // Verifica se a máquina não está quente e a temperatura é inferior a 35.0
+    //Verifica se a máquina não está quente e a temperatura é inferior a 35.0
     if(getQuente() == false && getTemperaturaSensor() < 35.0){
         estado = ON; //Trocar estado para ON
         reparado = true;
-    // Se a máquina estiver quente printa mensagem
+    //Se a máquina estiver quente printa mensagem
     }else if(getQuente() == true ){
         reparado = false;
         cout << "Maquina esta a arrefecer - " << getTemperaturaSensor() << "º" << endl;
