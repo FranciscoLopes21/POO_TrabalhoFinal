@@ -97,8 +97,8 @@ void User::userSaiCasino(){
 //Calcular memoria User
 int User::Memoria() {
     int mem = sizeof(*this); //Tamanho atual do objeto User
-    mem += sizeof(Casino*); //Tamanho do ponteiro Casino
-    mem += sizeof(Maquina*); //Tamanho do ponteiro User
+    mem += sizeof(casino); //Tamanho do ponteiro Casino
+    mem += sizeof(maquinaAssociada); //Tamanho do ponteiro User
     mem += nome.size() + morada.size(); //Tamanho da string "nome" e "morada"
     return mem; //Retorna memoria total
 }

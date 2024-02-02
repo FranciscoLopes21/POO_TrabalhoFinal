@@ -17,11 +17,11 @@ XMLReader::~XMLReader()
     //dtor
 }
 
-bool XMLReader::LoadCasinoData(const string& filename, int& maxJogadores, int& probabilidadeUser,
-                               int& horaAbertura,int& minutoAbertura,int& segundoAbertura,
+bool XMLReader::LoadCasinoData(const string& nomeFicheiro, int& maxJogadores, int& horaAbertura,
+                               int& minutoAbertura,int& segundoAbertura,
                                int& horaFecho, int& minutoFecho, int& segundoFecho) {
     pugi::xml_document doc;
-    pugi::xml_parse_result result = doc.load_file(filename.c_str());
+    pugi::xml_parse_result result = doc.load_file(nomeFicheiro.c_str());
 
     if (!result) {
         cout << "Erro ao carregar o arquivo XML: " << result.description() << endl;
@@ -32,7 +32,6 @@ bool XMLReader::LoadCasinoData(const string& filename, int& maxJogadores, int& p
 
     //nome = definicoes.child("NOME").text().get();
     maxJogadores = definicoes.child("MAX_JOG").text().as_int();
-    probabilidadeUser = definicoes.child("PROB_USER").text().as_int();
     //horaAbertura = definicoes.child("HORA_INICIO").text().as_int();
     // Extrair horas, minutos e segundos da string no formato "hh:mm:ss"
     string horaAberturaStr = definicoes.child("HORA_INICIO").text().as_string();

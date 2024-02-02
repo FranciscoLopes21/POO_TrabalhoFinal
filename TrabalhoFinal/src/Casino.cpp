@@ -48,23 +48,22 @@ Casino::~Casino()
 
 //Processo de carregar dados do casino através do XML
 bool Casino::Load(const string& ficheiro) {
-    int maxJogadores, probabilidadeUser, horaAbertura, minutosAbertura, segundosAbertura, horaFecho, minutosFecho, segundosFecho;
+    int maxJogadores, horaAbertura, minutosAbertura, segundosAbertura, horaFecho, minutosFecho, segundosFecho;
     //Chama XMLReader::LoadCasinoData para obter os dados do XML
-    bool result = XMLReader::LoadCasinoData("XML_Projecto.xml", maxJogadores, probabilidadeUser, horaAbertura,minutosAbertura, segundosAbertura, horaFecho, minutosFecho, segundosFecho);
+    bool result = XMLReader::LoadCasinoData("XML_Projecto.xml", maxJogadores, horaAbertura,minutosAbertura, segundosAbertura, horaFecho, minutosFecho, segundosFecho);
     if (result) { //Se a operação de leitura do XML for bem sucedida
         //Chama CarregarDados passando por parametros os dados obtidos
-        CarregarDados(maxJogadores,probabilidadeUser,horaAbertura,minutosAbertura, segundosAbertura, horaFecho, minutosFecho, segundosFecho);
+        CarregarDados(maxJogadores,horaAbertura,minutosAbertura, segundosAbertura, horaFecho, minutosFecho, segundosFecho);
     } else {
         cout << "Falha ao carregar as configurações do Casino a partir do XML." << endl;
     }
     return true;
 }
 
-void Casino::CarregarDados(int _maxJogadores, int _probabilidadeUser, int _horaAbertura, int _minutosAbertura, int _segundosAbertura,
+void Casino::CarregarDados(int _maxJogadores, int _horaAbertura, int _minutosAbertura, int _segundosAbertura,
                             int _horaFecho, int _minutosFecho, int _segundosFecho)
 {
     maxJogadores = _maxJogadores;
-    probabilidadeUser = _probabilidadeUser;
     horaAbertura = _horaAbertura;
     minutosAbertura = _minutosAbertura;
     segundosAbertura = _segundosAbertura;
@@ -415,17 +414,14 @@ void Casino::Run(){
         cout<< "Menu" <<endl;
         time_t now = time(nullptr);
             tm* current_time = localtime(&now);
-
         int currentHour = current_time->tm_hour;//Hora atual
         int currentMinute = current_time->tm_min;//Minuto atual
         int currentSecond = current_time->tm_sec;//Segundo atual
-
         int openingTimeInSeconds = horaAbertura * 3600 + minutosAbertura * 60 + segundosAbertura;// Converte o horário de abertura para segundos
         int closingTimeInSeconds = horaFecho * 3600 + minutosFecho * 60 + segundosFecho;// Converte o horário de fechamento para segundos
         int currentTimeInSeconds = currentHour * 3600 + currentMinute * 60 + currentSecond;// Converte o horário atual para segundos
 
         if (currentTimeInSeconds >= openingTimeInSeconds && currentTimeInSeconds <= closingTimeInSeconds) {
-
                     // O casino está aberto!
                     cout << "O casino está aberto!" << endl;
                     casinoEncerrado = false;
@@ -433,13 +429,11 @@ void Casino::Run(){
                         ligarTodasMaquinas(); //Liga todas as maquinas
                         maquinasJaLigadas = true; //Guarda estado como já as ligou
                     }
-
                     // Todas as maquinas existentes passam pela função avariar e corre maquina
                     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it){
                         avariar((*it)->getID()); //Função avariar
                         (*it)->Run(); //Corre maquina
                     }
-
                     // Verifica se o Casino está cheio  ou se podem entrar jogadores
                     if(jogadoresNoCasino < maxJogadores){
                             if(entrarJogador()){ //Verifica se entrou algum jogador
@@ -463,7 +457,6 @@ void Casino::Run(){
                                 }
                             }
                     }
-
                     //Se existirem mais do que 1 user percorre a lista de useres
                     if(LU.size()>=1){
                         for (list<User *>::iterator it = LU.begin(); it != LU.end(); ++it){
@@ -472,7 +465,6 @@ void Casino::Run(){
                                 cout << endl;
                         }
                     }
-
                     // Verifica se saiu algum user
                     for (list<Maquina *>::iterator it = LM.begin(); it != LM.end(); ++it) {
                         if ((*it)->getUserAtual()==nullptr) { //verifica se a maqina atual não possui nenhum jogador
@@ -480,18 +472,14 @@ void Casino::Run(){
                                 User *useruser = (*it)->getFilaEspera().front(); //Vai buscar o user a frente na lista de espera da maquina
                                 useruser->associarMaquina(*it); //user associa-se a maquina
                                 (*it)->removerUsersFilaEspera(useruser); //e é retirado da lista de espera
-
                                 cout << "User: " <<  useruser->getNome() << " saiu da fila de espera e sentou-se na maquina" << endl;
-
                             }else{
                                 (*it)->setUserAtual(nullptr); //se não houver ninguem na lisat de espera o useratual da maquinafica a null
                             }
                         }
                     }
-
             } else {
                 cout << "O casino está fechado. Aguardando o horário de abertura." << endl;
-
                 if (!casinoEncerrado){
                     string nome = devolveData();
                     Relatorio(nome);
@@ -500,11 +488,8 @@ void Casino::Run(){
                         desligarTodasMaquinas(); //Desliga todas as maquina
                         maquinasJaLigadas = false; //Guarda estado como já desligou
                     }
-
                 }
-
             }
-
             if (_kbhit()) { //Função de c++ que verifica se foi pressionada alguma tecla
                 key = _getch(); //guarda tecka pressionada
                 if (key == 'm' || key == 'M') { //verifica se é m ou M
@@ -512,7 +497,6 @@ void Casino::Run(){
                 }
             }
     }
-
 }
 
 

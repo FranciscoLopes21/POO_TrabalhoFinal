@@ -13,7 +13,7 @@ using namespace std;
 class Casino
 {
 
-    int maxJogadores, jogadoresNoCasino, probabilidadeUser, totalCaixa, totalDinheiroDado;
+    int maxJogadores, jogadoresNoCasino, totalCaixa, totalDinheiroDado;
     int horaAbertura, minutosAbertura, segundosAbertura;
     int horaFecho, minutosFecho, segundosFecho;
     string nome;
@@ -26,7 +26,7 @@ class Casino
         void Run();
 
         //Carregar dados atarvés de ficheiros
-        void CarregarDados(int _maxJogadores, int _probabilidadeUser,int _horaAbertura, int _minutosAbertura, int _segundosAbertura,
+        void CarregarDados(int _maxJogadores, int _horaAbertura, int _minutosAbertura, int _segundosAbertura,
                            int _horaFecho, int _minutosFecho, int _segundosFecho);
         bool Load(const string& xmlFile);
         bool LoadMaquina(const string& xmlFile);

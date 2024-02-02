@@ -259,9 +259,11 @@ int Maquina::Memoria() {
     int mem = sizeof(*this); //Tamanho atual do objeto Maquina
     mem += sizeof(User*) * filaEspera.size(); //Tamanho da lista de ponteiros User na fila de espera
     mem += sizeof(Maquina*) * vizinhos.size(); //Tamanho da lista de ponteiros Maquina vizinhas
-    mem += sizeof(Casino*); //Tamanho do ponteiro para Casino
-    mem += sizeof(User*); //Tamanho do ponteiro para User
+    mem += sizeof(casino); //Tamanho do ponteiro para Casino
+    mem += sizeof(userAtual); //Tamanho do ponteiro para User
     mem += nome.size() + tipo.size(); //Tamanho da string "nome" e "tipo"
     return mem; //Retorna memoria total
 }
+
+
 
